@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="telefonoservizi">
+            <h2><span jhiTranslate="telefoniApp.telefonoservizi.detail.title">Telefonoservizi</span> {{telefonoservizi.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="telefoniApp.telefonoservizi.altro">Altro</span></dt>
+                <dd>
+                    <span>{{telefonoservizi.altro}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniApp.telefonoservizi.telefono_telser">Telefono Telser</span></dt>
+                <dd>
+                    <div *ngIf="telefonoservizi.telefono_telser">
+                        <a [routerLink]="['/telefono', telefonoservizi.telefono_telser?.id, 'view']">{{telefonoservizi.telefono_telser?.numero}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="telefoniApp.telefonoservizi.servizi_telser">Servizi Telser</span></dt>
+                <dd>
+                    <div *ngIf="telefonoservizi.servizi_telser">
+                        <a [routerLink]="['/servizi', telefonoservizi.servizi_telser?.id, 'view']">{{telefonoservizi.servizi_telser?.nome}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/telefonoservizi', telefonoservizi.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
