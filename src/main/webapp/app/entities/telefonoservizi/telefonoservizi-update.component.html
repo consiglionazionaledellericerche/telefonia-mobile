@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-telefonoservizi-heading" jhiTranslate="telefoniApp.telefonoservizi.home.createOrEditLabel">Create or edit a Telefonoservizi</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!telefonoservizi.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="telefonoservizi.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefonoservizi.altro" for="field_altro">Altro</label>
+                    <input type="text" class="form-control" name="altro" id="field_altro"
+                        [(ngModel)]="telefonoservizi.altro" required/>
+                    <div [hidden]="!(editForm.controls.altro?.dirty && editForm.controls.altro?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.altro?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefonoservizi.telefono_telser" for="field_telefono_telser">Telefono Telser</label>
+                    <select class="form-control" id="field_telefono_telser" name="telefono_telser" [(ngModel)]="telefonoservizi.telefono_telser"  required>
+                        <option *ngIf="!editForm.value.telefono_telser" [ngValue]="null" selected></option>
+                        <option [ngValue]="telefonoOption.id === telefonoservizi.telefono_telser?.id ? telefonoservizi.telefono_telser : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.telefono_telser?.dirty && editForm.controls.telefono_telser?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.telefono_telser?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefonoservizi.servizi_telser" for="field_servizi_telser">Servizi Telser</label>
+                    <select class="form-control" id="field_servizi_telser" name="servizi_telser" [(ngModel)]="telefonoservizi.servizi_telser"  required>
+                        <option *ngIf="!editForm.value.servizi_telser" [ngValue]="null" selected></option>
+                        <option [ngValue]="serviziOption.id === telefonoservizi.servizi_telser?.id ? telefonoservizi.servizi_telser : serviziOption" *ngFor="let serviziOption of servizis; trackBy: trackServiziById">{{serviziOption.nome}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.servizi_telser?.dirty && editForm.controls.servizi_telser?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.servizi_telser?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="utenza">
+            <h2><span jhiTranslate="telefoniApp.utenza.detail.title">Utenza</span> {{utenza.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="telefoniApp.utenza.matricola">Matricola</span></dt>
+                <dd>
+                    <span>{{utenza.matricola}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniApp.utenza.user_utenza">User Utenza</span></dt>
+                <dd>
+                    {{utenza.user_utenza?.login}}
+                </dd>
+                <dt><span jhiTranslate="telefoniApp.utenza.istituto_user">Istituto User</span></dt>
+                <dd>
+                    <div *ngIf="utenza.istituto_user">
+                        <a [routerLink]="['/istituto', utenza.istituto_user?.id, 'view']">{{utenza.istituto_user?.cds}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/utenza', utenza.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

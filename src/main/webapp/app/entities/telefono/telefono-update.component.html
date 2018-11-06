@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-telefono-heading" jhiTranslate="telefoniApp.telefono.home.createOrEditLabel">Create or edit a Telefono</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!telefono.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="telefono.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.numero" for="field_numero">Numero</label>
+                    <input type="text" class="form-control" name="numero" id="field_numero"
+                        [(ngModel)]="telefono.numero" required/>
+                    <div [hidden]="!(editForm.controls.numero?.dirty && editForm.controls.numero?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numero?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.dataattivazione" for="field_dataattivazione">Dataattivazione</label>
+                    <div class="input-group">
+                        <input id="field_dataattivazione" type="text" class="form-control" name="dataattivazione" ngbDatepicker  #dataattivazioneDp="ngbDatepicker" [(ngModel)]="telefono.dataattivazione"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dataattivazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dataattivazione?.dirty && editForm.controls.dataattivazione?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dataattivazione?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.datacessazione" for="field_datacessazione">Datacessazione</label>
+                    <div class="input-group">
+                        <input id="field_datacessazione" type="text" class="form-control" name="datacessazione" ngbDatepicker  #datacessazioneDp="ngbDatepicker" [(ngModel)]="telefono.datacessazione"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="datacessazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.intestatariocontratto" for="field_intestatariocontratto">Intestatariocontratto</label>
+                    <input type="text" class="form-control" name="intestatariocontratto" id="field_intestatariocontratto"
+                        [(ngModel)]="telefono.intestatariocontratto" required/>
+                    <div [hidden]="!(editForm.controls.intestatariocontratto?.dirty && editForm.controls.intestatariocontratto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.intestatariocontratto?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.numerocontratto" for="field_numerocontratto">Numerocontratto</label>
+                    <input type="text" class="form-control" name="numerocontratto" id="field_numerocontratto"
+                        [(ngModel)]="telefono.numerocontratto" required/>
+                    <div [hidden]="!(editForm.controls.numerocontratto?.dirty && editForm.controls.numerocontratto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numerocontratto?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.utenza_telefono" for="field_utenza_telefono">Utenza Telefono</label>
+                    <select class="form-control" id="field_utenza_telefono" name="utenza_telefono" [(ngModel)]="telefono.utenza_telefono"  required>
+                        <option *ngIf="!editForm.value.utenza_telefono" [ngValue]="null" selected></option>
+                        <option [ngValue]="utenzaOption.id === telefono.utenza_telefono?.id ? telefono.utenza_telefono : utenzaOption" *ngFor="let utenzaOption of utenzas; trackBy: trackUtenzaById">{{utenzaOption.matricola}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.utenza_telefono?.dirty && editForm.controls.utenza_telefono?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.utenza_telefono?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.telefono.istituto_telefono" for="field_istituto_telefono">Istituto Telefono</label>
+                    <select class="form-control" id="field_istituto_telefono" name="istituto_telefono" [(ngModel)]="telefono.istituto_telefono"  required>
+                        <option *ngIf="!editForm.value.istituto_telefono" [ngValue]="null" selected></option>
+                        <option [ngValue]="istitutoOption.id === telefono.istituto_telefono?.id ? telefono.istituto_telefono : istitutoOption" *ngFor="let istitutoOption of istitutos; trackBy: trackIstitutoById">{{istitutoOption.cds}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.istituto_telefono?.dirty && editForm.controls.istituto_telefono?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.istituto_telefono?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

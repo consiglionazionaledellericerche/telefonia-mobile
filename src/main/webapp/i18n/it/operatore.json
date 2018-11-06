@@ -1,0 +1,23 @@
+
+{
+    "telefoniApp": {
+        "operatore" : {
+            "home": {
+                "title": "Operatores",
+                "createLabel": "Genera un nuovo Operatore",
+                "createOrEditLabel": "Genera o modifica un Operatore"
+            },
+            "created": "&Egrave; stato generato un nuovo Operatore con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Operatore identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Operatore con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Operatore {{ id }}?"
+            },
+            "detail": {
+                "title": "Operatore"
+            },
+            "nome": "Nome",
+            "telefono_operatore": "Telefono Operatore"
+        }
+    }
+}

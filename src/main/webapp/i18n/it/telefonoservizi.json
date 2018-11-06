@@ -1,0 +1,24 @@
+
+{
+    "telefoniApp": {
+        "telefonoservizi" : {
+            "home": {
+                "title": "Telefonoservizis",
+                "createLabel": "Genera un nuovo Telefonoservizi",
+                "createOrEditLabel": "Genera o modifica un Telefonoservizi"
+            },
+            "created": "&Egrave; stato generato un nuovo Telefonoservizi con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Telefonoservizi identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Telefonoservizi con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Telefonoservizi {{ id }}?"
+            },
+            "detail": {
+                "title": "Telefonoservizi"
+            },
+            "altro": "Altro",
+            "telefono_telser": "Telefono Telser",
+            "servizi_telser": "Servizi Telser"
+        }
+    }
+}
