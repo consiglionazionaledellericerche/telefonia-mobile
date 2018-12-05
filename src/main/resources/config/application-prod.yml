@@ -29,7 +29,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/telefoni
         username: telefoni
-        password:
+        password: telefonipw
         hikari:
             auto-commit: false
     jpa:
@@ -132,3 +132,7 @@ jhipster:
 # ===================================================================
 
 # application:
+ace:
+    url: "http://acebuntudock.si.cnr.it:5555/api"
+    username: app.scrivaniadigitale
+    password: bubbazza
