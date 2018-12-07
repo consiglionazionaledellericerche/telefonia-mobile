@@ -1,100 +1,150 @@
-2018-11-13 13:57:32.569  INFO 2034 --- [restartedMain] si.cnr.it.TelefoniApp                    : Starting TelefoniApp on iMac-di-Valerio.local with PID 2034 (/Users/valeriodiego/Documents/git/telefonia-mobile/target/classes started by valeriodiego in /Users/valeriodiego/Documents/git/telefonia-mobile)
-2018-11-13 13:57:32.754 DEBUG 2034 --- [restartedMain] si.cnr.it.TelefoniApp                    : Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2018-11-13 13:57:32.837  INFO 2034 --- [restartedMain] si.cnr.it.TelefoniApp                    : The following profiles are active: dev,swagger
-2018-11-13 13:57:56.318 DEBUG 2034 --- [restartedMain] si.cnr.it.config.AsyncConfiguration      : Creating Async Task Executor
-2018-11-13 13:58:02.291 DEBUG 2034 --- [restartedMain] c.ehcache.core.Ehcache-usersByLogin      : Initialize successful.
-2018-11-13 13:58:02.481 DEBUG 2034 --- [restartedMain] c.ehcache.core.Ehcache-usersByEmail      : Initialize successful.
-2018-11-13 13:58:02.487 DEBUG 2034 --- [restartedMain] c.e.core.Ehcache-si.cnr.it.domain.User   : Initialize successful.
-2018-11-13 13:58:02.490 DEBUG 2034 --- [restartedMain] c.e.c.E.cnr.it.domain.Authority          : Initialize successful.
-2018-11-13 13:58:02.494 DEBUG 2034 --- [restartedMain] c.e.c.E.cnr.it.domain.User.authorities   : Initialize successful.
-2018-11-13 13:58:02.498 DEBUG 2034 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Istituto  : Initialize successful.
-2018-11-13 13:58:02.501 DEBUG 2034 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Servizi   : Initialize successful.
-2018-11-13 13:58:02.506 DEBUG 2034 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Utenza    : Initialize successful.
-2018-11-13 13:58:02.517 DEBUG 2034 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Telefono  : Initialize successful.
-2018-11-13 13:58:02.521 DEBUG 2034 --- [restartedMain] c.e.c.E.cnr.it.domain.Operatore          : Initialize successful.
-2018-11-13 13:58:02.535 DEBUG 2034 --- [restartedMain] c.e.c.E.cnr.it.domain.Telefonoservizi    : Initialize successful.
-2018-11-13 13:58:03.491 DEBUG 2034 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Registering JVM gauges
-2018-11-13 13:58:03.878 DEBUG 2034 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Monitoring the datasource
-2018-11-13 13:58:03.879 DEBUG 2034 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Initializing Metrics JMX reporting
-2018-11-13 13:58:09.040 DEBUG 2034 --- [restartedMain] si.cnr.it.config.LiquibaseConfiguration  : Configuring Liquibase
-2018-11-13 13:58:11.433  WARN 2034 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Starting Liquibase asynchronously, your database might not be ready at startup!
-2018-11-13 13:58:17.063 DEBUG 2034 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Liquibase has updated your database in 5627 ms
-2018-11-13 13:58:17.064  WARN 2034 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Warning, Liquibase took more than 5 seconds to start up!
-2018-11-13 13:58:20.765 DEBUG 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering CORS filter
-2018-11-13 13:58:20.891  INFO 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Web application configuration, using profiles: dev
-2018-11-13 13:58:20.892 DEBUG 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Initializing Metrics registries
-2018-11-13 13:58:20.902 DEBUG 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering Metrics Filter
-2018-11-13 13:58:20.904 DEBUG 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering Metrics Servlet
-2018-11-13 13:58:20.909 DEBUG 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Initialize H2 console
-2018-11-13 13:58:20.914  INFO 2034 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Web application fully configured
-2018-11-13 13:58:21.249 DEBUG 2034 --- [restartedMain] si.cnr.it.security.jwt.TokenProvider     : Using a Base64-encoded JWT secret key
-2018-11-13 13:58:23.991 DEBUG 2034 --- [restartedMain] si.cnr.it.config.DatabaseConfiguration   : Starting H2 database
-2018-11-13 13:58:35.027 DEBUG 2034 --- [restartedMain] i.g.j.c.apidoc.SwaggerAutoConfiguration  : Starting Swagger
-2018-11-13 13:58:35.069 DEBUG 2034 --- [restartedMain] i.g.j.c.apidoc.SwaggerAutoConfiguration  : Started Swagger in 42 ms
-2018-11-13 13:58:42.036  INFO 2034 --- [restartedMain] si.cnr.it.TelefoniApp                    : Started TelefoniApp in 106.052 seconds (JVM running for 109.973)
-2018-11-13 13:58:47.053  INFO 2034 --- [restartedMain] si.cnr.it.TelefoniApp                    : 
+2018-12-07 11:07:57.522  INFO 4136 --- [restartedMain] si.cnr.it.TelefoniApp                    : Starting TelefoniApp on iMac-di-Valerio.local with PID 4136 (/Users/valeriodiego/Documents/git/telefoni_new/target/classes started by valeriodiego in /Users/valeriodiego/Documents/git/telefoni_new)
+2018-12-07 11:07:57.523 DEBUG 4136 --- [restartedMain] si.cnr.it.TelefoniApp                    : Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2018-12-07 11:07:57.533  INFO 4136 --- [restartedMain] si.cnr.it.TelefoniApp                    : The following profiles are active: dev,swagger
+2018-12-07 11:08:01.715 DEBUG 4136 --- [restartedMain] si.cnr.it.config.AsyncConfiguration      : Creating Async Task Executor
+2018-12-07 11:08:02.903 DEBUG 4136 --- [restartedMain] c.ehcache.core.Ehcache-usersByLogin      : Initialize successful.
+2018-12-07 11:08:02.946 DEBUG 4136 --- [restartedMain] c.ehcache.core.Ehcache-usersByEmail      : Initialize successful.
+2018-12-07 11:08:02.950 DEBUG 4136 --- [restartedMain] c.e.core.Ehcache-si.cnr.it.domain.User   : Initialize successful.
+2018-12-07 11:08:02.953 DEBUG 4136 --- [restartedMain] c.e.c.E.cnr.it.domain.Authority          : Initialize successful.
+2018-12-07 11:08:02.957 DEBUG 4136 --- [restartedMain] c.e.c.E.cnr.it.domain.User.authorities   : Initialize successful.
+2018-12-07 11:08:02.961 DEBUG 4136 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Istituto  : Initialize successful.
+2018-12-07 11:08:02.964 DEBUG 4136 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Servizi   : Initialize successful.
+2018-12-07 11:08:02.968 DEBUG 4136 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Utenza    : Initialize successful.
+2018-12-07 11:08:02.972 DEBUG 4136 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Telefono  : Initialize successful.
+2018-12-07 11:08:02.974 DEBUG 4136 --- [restartedMain] c.e.c.E.cnr.it.domain.Operatore          : Initialize successful.
+2018-12-07 11:08:02.977 DEBUG 4136 --- [restartedMain] c.e.c.E.cnr.it.domain.Telefonoservizi    : Initialize successful.
+2018-12-07 11:08:03.420 DEBUG 4136 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Registering JVM gauges
+2018-12-07 11:08:03.513 DEBUG 4136 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Monitoring the datasource
+2018-12-07 11:08:03.514 DEBUG 4136 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Initializing Metrics JMX reporting
+2018-12-07 11:08:05.169 DEBUG 4136 --- [restartedMain] si.cnr.it.config.LiquibaseConfiguration  : Configuring Liquibase
+2018-12-07 11:08:05.558  WARN 4136 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Starting Liquibase asynchronously, your database might not be ready at startup!
+2018-12-07 11:08:07.429 DEBUG 4136 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Liquibase has updated your database in 1868 ms
+2018-12-07 11:08:09.297 DEBUG 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering CORS filter
+2018-12-07 11:08:09.404  INFO 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Web application configuration, using profiles: dev
+2018-12-07 11:08:09.405 DEBUG 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Initializing Metrics registries
+2018-12-07 11:08:09.409 DEBUG 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering Metrics Filter
+2018-12-07 11:08:09.409 DEBUG 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering Metrics Servlet
+2018-12-07 11:08:09.413 DEBUG 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Initialize H2 console
+2018-12-07 11:08:09.415  INFO 4136 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Web application fully configured
+2018-12-07 11:08:09.719 DEBUG 4136 --- [restartedMain] si.cnr.it.security.jwt.TokenProvider     : Using a Base64-encoded JWT secret key
+2018-12-07 11:08:12.601 DEBUG 4136 --- [restartedMain] si.cnr.it.config.DatabaseConfiguration   : Starting H2 database
+2018-12-07 11:08:23.553 DEBUG 4136 --- [restartedMain] i.g.j.c.apidoc.SwaggerAutoConfiguration  : Starting Swagger
+2018-12-07 11:08:23.583 DEBUG 4136 --- [restartedMain] i.g.j.c.apidoc.SwaggerAutoConfiguration  : Started Swagger in 29 ms
+2018-12-07 11:08:30.349  INFO 4136 --- [restartedMain] si.cnr.it.TelefoniApp                    : Started TelefoniApp in 55.652 seconds (JVM running for 56.652)
+2018-12-07 11:08:35.364  INFO 4136 --- [restartedMain] si.cnr.it.TelefoniApp                    : 
 ----------------------------------------------------------
 	Application 'telefoni' is running! Access URLs:
 	Local: 		http://localhost:8080/
 	External: 	http://150.146.62.44:8080/
 	Profile(s): 	[dev, swagger]
 ----------------------------------------------------------
-2018-11-13 13:59:26.721 DEBUG 2034 --- [XNIO-2 task-10] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-11-13T12:59:26.710Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
-2018-11-13 13:59:26.785 DEBUG 2034 --- [XNIO-2 task-10] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
-2018-11-13 13:59:26.940  WARN 2034 --- [XNIO-2 task-10] o.z.problem.spring.common.AdviceTrait    : Unauthorized: Full authentication is required to access this resource
-2018-11-13 13:59:27.510  WARN 2034 --- [XNIO-2 task-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved exception caused by handler execution: org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource
-2018-11-13 13:59:38.120 DEBUG 2034 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UserJWTController.authorize() with argument[s] = [LoginVM{username='admin', rememberMe=null}]
-2018-11-13 13:59:38.291 DEBUG 2034 --- [XNIO-2 task-11] s.c.i.security.DomainUserDetailsService  : Authenticating admin
-2018-11-13 13:59:38.675 DEBUG 2034 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-11-13T12:59:38.675Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
-2018-11-13 13:59:38.695 DEBUG 2034 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
-2018-11-13 13:59:39.221 DEBUG 2034 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UserJWTController.authorize() with result = <200 OK,si.cnr.it.web.rest.UserJWTController$JWTToken@672e91f7,{Authorization=[Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MjIwMDM3OH0.Q7gXOAXPKYBIYjVwwdyBk8EN4RG2u1LOIMbvMcGFL5jt7n-x5oP59AhTB0OE_-6XUuUpirwdBcVnus0GWdOslA]}>
-2018-11-13 13:59:39.276 DEBUG 2034 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.AccountResource.getAccount() with argument[s] = []
-2018-11-13 13:59:39.292 DEBUG 2034 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.service.UserService.getUserWithAuthorities() with argument[s] = []
-2018-11-13 13:59:39.326 DEBUG 2034 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.service.UserService.getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='it', activationKey='null'}]
-2018-11-13 13:59:39.328 DEBUG 2034 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.AccountResource.getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='it', createdBy=system, createdDate=2018-10-31T11:29:57.525Z, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
-2018-11-13 13:59:44.150 DEBUG 2034 --- [XNIO-2 task-13] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.IstitutoResource.getAllIstitutos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 13:59:44.158 DEBUG 2034 --- [XNIO-2 task-13] si.cnr.it.web.rest.IstitutoResource      : REST request to get a page of Istitutos
-2018-11-13 13:59:44.183 DEBUG 2034 --- [XNIO-2 task-13] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.IstitutoResource.getAllIstitutos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/istitutos?page=0&size=20>; rel="last",</api/istitutos?page=0&size=20>; rel="first"]}>
-2018-11-13 13:59:45.526 DEBUG 2034 --- [XNIO-2 task-14] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.ServiziResource.getAllServizis() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 13:59:45.532 DEBUG 2034 --- [XNIO-2 task-14] si.cnr.it.web.rest.ServiziResource       : REST request to get a page of Servizis
-2018-11-13 13:59:45.539 DEBUG 2034 --- [XNIO-2 task-14] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.ServiziResource.getAllServizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/servizis?page=0&size=20>; rel="last",</api/servizis?page=0&size=20>; rel="first"]}>
-2018-11-13 13:59:47.861 DEBUG 2034 --- [XNIO-2 task-15] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UtenzaResource.getAllUtenzas() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 13:59:47.868 DEBUG 2034 --- [XNIO-2 task-15] si.cnr.it.web.rest.UtenzaResource        : REST request to get a page of Utenzas
-2018-11-13 13:59:47.873 DEBUG 2034 --- [XNIO-2 task-15] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UtenzaResource.getAllUtenzas() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/utenzas?page=0&size=20>; rel="last",</api/utenzas?page=0&size=20>; rel="first"]}>
-2018-11-13 13:59:51.597 DEBUG 2034 --- [XNIO-2 task-16] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 13:59:51.605 DEBUG 2034 --- [XNIO-2 task-16] si.cnr.it.web.rest.TelefonoResource      : REST request to get a page of Telefonos
-2018-11-13 13:59:51.610 DEBUG 2034 --- [XNIO-2 task-16] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonos?page=0&size=20>; rel="last",</api/telefonos?page=0&size=20>; rel="first"]}>
-2018-11-13 13:59:53.720 DEBUG 2034 --- [XNIO-2 task-17] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.OperatoreResource.getAllOperatores() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 13:59:53.726 DEBUG 2034 --- [XNIO-2 task-17] si.cnr.it.web.rest.OperatoreResource     : REST request to get a page of Operatores
-2018-11-13 13:59:53.732 DEBUG 2034 --- [XNIO-2 task-17] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.OperatoreResource.getAllOperatores() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/operatores?page=0&size=20>; rel="last",</api/operatores?page=0&size=20>; rel="first"]}>
-2018-11-13 13:59:56.367 DEBUG 2034 --- [XNIO-2 task-18] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoserviziResource.getAllTelefonoservizis() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 13:59:56.394 DEBUG 2034 --- [XNIO-2 task-18] s.c.it.web.rest.TelefonoserviziResource  : REST request to get a page of Telefonoservizis
-2018-11-13 13:59:56.398 DEBUG 2034 --- [XNIO-2 task-18] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoserviziResource.getAllTelefonoservizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonoservizis?page=0&size=20>; rel="last",</api/telefonoservizis?page=0&size=20>; rel="first"]}>
-2018-11-13 14:00:02.658 DEBUG 2034 --- [XNIO-2 task-20] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.ServiziResource.getAllServizis() with argument[s] = [Page request [number: 0, size 20, sort: UNSORTED]]
-2018-11-13 14:00:02.659 DEBUG 2034 --- [XNIO-2 task-20] si.cnr.it.web.rest.ServiziResource       : REST request to get a page of Servizis
-2018-11-13 14:00:02.658 DEBUG 2034 --- [XNIO-2 task-19] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with argument[s] = [Page request [number: 0, size 20, sort: UNSORTED]]
-2018-11-13 14:00:02.661 DEBUG 2034 --- [XNIO-2 task-19] si.cnr.it.web.rest.TelefonoResource      : REST request to get a page of Telefonos
-2018-11-13 14:00:02.669 DEBUG 2034 --- [XNIO-2 task-20] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.ServiziResource.getAllServizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/servizis?page=0&size=20>; rel="last",</api/servizis?page=0&size=20>; rel="first"]}>
-2018-11-13 14:00:02.678 DEBUG 2034 --- [XNIO-2 task-19] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonos?page=0&size=20>; rel="last",</api/telefonos?page=0&size=20>; rel="first"]}>
-2018-11-13 14:04:47.105 DEBUG 2034 --- [XNIO-2 task-27] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-11-13T13:04:47.104Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
-2018-11-13 14:04:47.105 DEBUG 2034 --- [XNIO-2 task-27] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
-2018-11-13 14:04:47.106  WARN 2034 --- [XNIO-2 task-27] o.z.problem.spring.common.AdviceTrait    : Unauthorized: Full authentication is required to access this resource
-2018-11-13 14:04:47.109  WARN 2034 --- [XNIO-2 task-27] .m.m.a.ExceptionHandlerExceptionResolver : Resolved exception caused by handler execution: org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource
-2018-11-13 15:22:18.543 DEBUG 2034 --- [XNIO-2 task-28] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UserJWTController.authorize() with argument[s] = [LoginVM{username='admin', rememberMe=null}]
-2018-11-13 15:22:18.568 DEBUG 2034 --- [XNIO-2 task-28] s.c.i.security.DomainUserDetailsService  : Authenticating admin
-2018-11-13 15:22:18.681 DEBUG 2034 --- [XNIO-2 task-28] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-11-13T14:22:18.679Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
-2018-11-13 15:22:18.683 DEBUG 2034 --- [XNIO-2 task-28] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
-2018-11-13 15:22:18.688 DEBUG 2034 --- [XNIO-2 task-28] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UserJWTController.authorize() with result = <200 OK,si.cnr.it.web.rest.UserJWTController$JWTToken@67e06b0d,{Authorization=[Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MjIwNTMzOH0.bi2xVdn7zQe7b-jiiQjz8CRiqASL7UrY4uEq9PWYrjGgyIjDHBm_QU48c_H0WEQxbQQCc5s5FQksBEFDcECMog]}>
-2018-11-13 15:22:18.733 DEBUG 2034 --- [XNIO-2 task-29] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.AccountResource.getAccount() with argument[s] = []
-2018-11-13 15:22:18.735 DEBUG 2034 --- [XNIO-2 task-29] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.service.UserService.getUserWithAuthorities() with argument[s] = []
-2018-11-13 15:22:18.735 DEBUG 2034 --- [XNIO-2 task-29] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.service.UserService.getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='it', activationKey='null'}]
-2018-11-13 15:22:18.740 DEBUG 2034 --- [XNIO-2 task-29] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.AccountResource.getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='it', createdBy=system, createdDate=2018-10-31T11:29:57.525Z, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
-2018-11-13 15:22:35.684 DEBUG 2034 --- [XNIO-2 task-30] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoserviziResource.getAllTelefonoservizis() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 15:22:35.685 DEBUG 2034 --- [XNIO-2 task-30] s.c.it.web.rest.TelefonoserviziResource  : REST request to get a page of Telefonoservizis
-2018-11-13 15:22:35.688 DEBUG 2034 --- [XNIO-2 task-30] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoserviziResource.getAllTelefonoservizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonoservizis?page=0&size=20>; rel="last",</api/telefonoservizis?page=0&size=20>; rel="first"]}>
-2018-11-13 15:22:52.976 DEBUG 2034 --- [XNIO-2 task-31] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 15:22:52.976 DEBUG 2034 --- [XNIO-2 task-31] si.cnr.it.web.rest.TelefonoResource      : REST request to get a page of Telefonos
-2018-11-13 15:22:52.979 DEBUG 2034 --- [XNIO-2 task-31] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonos?page=0&size=20>; rel="last",</api/telefonos?page=0&size=20>; rel="first"]}>
-2018-11-13 15:22:56.128 DEBUG 2034 --- [XNIO-2 task-32] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.ServiziResource.getAllServizis() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
-2018-11-13 15:22:56.128 DEBUG 2034 --- [XNIO-2 task-32] si.cnr.it.web.rest.ServiziResource       : REST request to get a page of Servizis
-2018-11-13 15:22:56.130 DEBUG 2034 --- [XNIO-2 task-32] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.ServiziResource.getAllServizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/servizis?page=0&size=20>; rel="last",</api/servizis?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:43.432 DEBUG 4136 --- [XNIO-2 task-1] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UserJWTController.authorize() with argument[s] = [LoginVM{username='admin', rememberMe=null}]
+2018-12-07 11:08:43.558 DEBUG 4136 --- [XNIO-2 task-1] s.c.i.security.DomainUserDetailsService  : Authenticating admin
+2018-12-07 11:08:44.028 DEBUG 4136 --- [XNIO-2 task-1] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-12-07T10:08:44.026Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2018-12-07 11:08:44.052 DEBUG 4136 --- [XNIO-2 task-1] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
+2018-12-07 11:08:44.675 DEBUG 4136 --- [XNIO-2 task-1] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UserJWTController.authorize() with result = <200 OK,si.cnr.it.web.rest.UserJWTController$JWTToken@30ed1bbb,{Authorization=[Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NDI2MzcyNH0.DfQEDfdIa1W7nMjRe4GHcoRBJe539WaTLXW-LvSTQUiVQRz_eUL2fRGdbEDjxVZzILh8hu09hF9f-ddgD1zl-A]}>
+2018-12-07 11:08:44.916 DEBUG 4136 --- [XNIO-2 task-2] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.AccountResource.getAccount() with argument[s] = []
+2018-12-07 11:08:44.931 DEBUG 4136 --- [XNIO-2 task-2] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.service.UserService.getUserWithAuthorities() with argument[s] = []
+2018-12-07 11:08:44.956 DEBUG 4136 --- [XNIO-2 task-2] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.service.UserService.getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='it', activationKey='null'}]
+2018-12-07 11:08:44.958 DEBUG 4136 --- [XNIO-2 task-2] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.AccountResource.getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='it', createdBy=system, createdDate=2018-12-07T10:08:07.388Z, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2018-12-07 11:08:47.555 DEBUG 4136 --- [XNIO-2 task-3] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.IstitutoResource.getAllIstitutos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:08:47.561 DEBUG 4136 --- [XNIO-2 task-3] si.cnr.it.web.rest.IstitutoResource      : REST request to get a page of Istitutos
+2018-12-07 11:08:47.606 DEBUG 4136 --- [XNIO-2 task-3] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.IstitutoResource.getAllIstitutos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/istitutos?page=0&size=20>; rel="last",</api/istitutos?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:48.463 DEBUG 4136 --- [XNIO-2 task-4] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.ServiziResource.getAllServizis() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:08:48.472 DEBUG 4136 --- [XNIO-2 task-4] si.cnr.it.web.rest.ServiziResource       : REST request to get a page of Servizis
+2018-12-07 11:08:48.477 DEBUG 4136 --- [XNIO-2 task-4] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.ServiziResource.getAllServizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/servizis?page=0&size=20>; rel="last",</api/servizis?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:49.453 DEBUG 4136 --- [XNIO-2 task-5] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UtenzaResource.getAllUtenzas() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:08:49.459 DEBUG 4136 --- [XNIO-2 task-5] si.cnr.it.web.rest.UtenzaResource        : REST request to get a page of Utenzas
+2018-12-07 11:08:49.463 DEBUG 4136 --- [XNIO-2 task-5] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UtenzaResource.getAllUtenzas() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/utenzas?page=0&size=20>; rel="last",</api/utenzas?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:50.810 DEBUG 4136 --- [XNIO-2 task-6] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:08:50.817 DEBUG 4136 --- [XNIO-2 task-6] si.cnr.it.web.rest.TelefonoResource      : REST request to get a page of Telefonos
+2018-12-07 11:08:50.824 DEBUG 4136 --- [XNIO-2 task-6] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonos?page=0&size=20>; rel="last",</api/telefonos?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:53.152 DEBUG 4136 --- [XNIO-2 task-7] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.OperatoreResource.getAllOperatores() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:08:53.158 DEBUG 4136 --- [XNIO-2 task-7] si.cnr.it.web.rest.OperatoreResource     : REST request to get a page of Operatores
+2018-12-07 11:08:53.163 DEBUG 4136 --- [XNIO-2 task-7] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.OperatoreResource.getAllOperatores() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/operatores?page=0&size=20>; rel="last",</api/operatores?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:54.018 DEBUG 4136 --- [XNIO-2 task-8] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with argument[s] = [Page request [number: 0, size 20, sort: UNSORTED]]
+2018-12-07 11:08:54.019 DEBUG 4136 --- [XNIO-2 task-8] si.cnr.it.web.rest.TelefonoResource      : REST request to get a page of Telefonos
+2018-12-07 11:08:54.022 DEBUG 4136 --- [XNIO-2 task-8] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonos?page=0&size=20>; rel="last",</api/telefonos?page=0&size=20>; rel="first"]}>
+2018-12-07 11:08:59.494 DEBUG 4136 --- [XNIO-2 task-9] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoserviziResource.getAllTelefonoservizis() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:08:59.514 DEBUG 4136 --- [XNIO-2 task-9] s.c.it.web.rest.TelefonoserviziResource  : REST request to get a page of Telefonoservizis
+2018-12-07 11:08:59.518 DEBUG 4136 --- [XNIO-2 task-9] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoserviziResource.getAllTelefonoservizis() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonoservizis?page=0&size=20>; rel="last",</api/telefonoservizis?page=0&size=20>; rel="first"]}>
+2018-12-07 11:09:04.420 DEBUG 4136 --- [XNIO-2 task-10] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.OperatoreResource.getAllOperatores() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:09:04.420 DEBUG 4136 --- [XNIO-2 task-10] si.cnr.it.web.rest.OperatoreResource     : REST request to get a page of Operatores
+2018-12-07 11:09:04.422 DEBUG 4136 --- [XNIO-2 task-10] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.OperatoreResource.getAllOperatores() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/operatores?page=0&size=20>; rel="last",</api/operatores?page=0&size=20>; rel="first"]}>
+2018-12-07 11:09:08.231 DEBUG 4136 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:09:08.244 DEBUG 4136 --- [XNIO-2 task-11] si.cnr.it.web.rest.TelefonoResource      : REST request to get a page of Telefonos
+2018-12-07 11:09:08.246 DEBUG 4136 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.TelefonoResource.getAllTelefonos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/telefonos?page=0&size=20>; rel="last",</api/telefonos?page=0&size=20>; rel="first"]}>
+2018-12-07 11:09:16.811 DEBUG 4136 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-12-07T10:09:16.810Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@957e: RemoteIpAddress: 127.0.0.1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2018-12-07 11:09:16.821 DEBUG 4136 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
+2018-12-07 11:09:16.853  WARN 4136 --- [XNIO-2 task-12] o.z.problem.spring.common.AdviceTrait    : Unauthorized: Full authentication is required to access this resource
+2018-12-07 11:09:16.940  WARN 4136 --- [XNIO-2 task-12] .m.m.a.ExceptionHandlerExceptionResolver : Resolved exception caused by handler execution: org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource
+2018-12-07 11:36:03.112  INFO 5427 --- [restartedMain] si.cnr.it.TelefoniApp                    : Starting TelefoniApp on iMac-di-Valerio.local with PID 5427 (/Users/valeriodiego/Documents/git/telefonia-mobile/target/classes started by valeriodiego in /Users/valeriodiego/Documents/git/telefonia-mobile)
+2018-12-07 11:36:03.127 DEBUG 5427 --- [restartedMain] si.cnr.it.TelefoniApp                    : Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2018-12-07 11:36:03.163  INFO 5427 --- [restartedMain] si.cnr.it.TelefoniApp                    : The following profiles are active: dev,swagger
+2018-12-07 11:36:19.973 DEBUG 5427 --- [restartedMain] si.cnr.it.config.AsyncConfiguration      : Creating Async Task Executor
+2018-12-07 11:36:25.063 DEBUG 5427 --- [restartedMain] c.ehcache.core.Ehcache-usersByLogin      : Initialize successful.
+2018-12-07 11:36:25.135 DEBUG 5427 --- [restartedMain] c.ehcache.core.Ehcache-usersByEmail      : Initialize successful.
+2018-12-07 11:36:25.139 DEBUG 5427 --- [restartedMain] c.e.core.Ehcache-si.cnr.it.domain.User   : Initialize successful.
+2018-12-07 11:36:25.143 DEBUG 5427 --- [restartedMain] c.e.c.E.cnr.it.domain.Authority          : Initialize successful.
+2018-12-07 11:36:25.146 DEBUG 5427 --- [restartedMain] c.e.c.E.cnr.it.domain.User.authorities   : Initialize successful.
+2018-12-07 11:36:25.150 DEBUG 5427 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Istituto  : Initialize successful.
+2018-12-07 11:36:25.153 DEBUG 5427 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Servizi   : Initialize successful.
+2018-12-07 11:36:25.157 DEBUG 5427 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Utenza    : Initialize successful.
+2018-12-07 11:36:25.160 DEBUG 5427 --- [restartedMain] c.e.c.Ehcache-si.cnr.it.domain.Telefono  : Initialize successful.
+2018-12-07 11:36:25.164 DEBUG 5427 --- [restartedMain] c.e.c.E.cnr.it.domain.Operatore          : Initialize successful.
+2018-12-07 11:36:25.168 DEBUG 5427 --- [restartedMain] c.e.c.E.cnr.it.domain.Telefonoservizi    : Initialize successful.
+2018-12-07 11:36:26.325 DEBUG 5427 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Registering JVM gauges
+2018-12-07 11:36:26.491 DEBUG 5427 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Monitoring the datasource
+2018-12-07 11:36:26.492 DEBUG 5427 --- [restartedMain] si.cnr.it.config.MetricsConfiguration    : Initializing Metrics JMX reporting
+2018-12-07 11:36:30.848 DEBUG 5427 --- [restartedMain] si.cnr.it.config.LiquibaseConfiguration  : Configuring Liquibase
+2018-12-07 11:36:32.961  WARN 5427 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Starting Liquibase asynchronously, your database might not be ready at startup!
+2018-12-07 11:36:38.193 DEBUG 5427 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Liquibase has updated your database in 5229 ms
+2018-12-07 11:36:38.212  WARN 5427 --- [telefoni-Executor-1] i.g.j.c.liquibase.AsyncSpringLiquibase   : Warning, Liquibase took more than 5 seconds to start up!
+2018-12-07 11:36:47.614 DEBUG 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering CORS filter
+2018-12-07 11:36:47.781  INFO 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Web application configuration, using profiles: dev
+2018-12-07 11:36:47.781 DEBUG 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Initializing Metrics registries
+2018-12-07 11:36:47.784 DEBUG 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering Metrics Filter
+2018-12-07 11:36:47.785 DEBUG 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Registering Metrics Servlet
+2018-12-07 11:36:47.799 DEBUG 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Initialize H2 console
+2018-12-07 11:36:47.801  INFO 5427 --- [restartedMain] si.cnr.it.config.WebConfigurer           : Web application fully configured
+2018-12-07 11:36:48.764 DEBUG 5427 --- [restartedMain] si.cnr.it.security.jwt.TokenProvider     : Using a Base64-encoded JWT secret key
+2018-12-07 11:36:54.075 DEBUG 5427 --- [restartedMain] si.cnr.it.config.DatabaseConfiguration   : Starting H2 database
+2018-12-07 11:37:06.564 DEBUG 5427 --- [restartedMain] i.g.j.c.apidoc.SwaggerAutoConfiguration  : Starting Swagger
+2018-12-07 11:37:06.712 DEBUG 5427 --- [restartedMain] i.g.j.c.apidoc.SwaggerAutoConfiguration  : Started Swagger in 147 ms
+2018-12-07 11:37:15.962  INFO 5427 --- [restartedMain] si.cnr.it.TelefoniApp                    : Started TelefoniApp in 102.513 seconds (JVM running for 105.853)
+2018-12-07 11:37:20.976  INFO 5427 --- [restartedMain] si.cnr.it.TelefoniApp                    : 
+----------------------------------------------------------
+	Application 'telefoni' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://150.146.62.44:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2018-12-07 11:37:38.085 DEBUG 5427 --- [XNIO-2 task-10] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-12-07T10:37:38.073Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2018-12-07 11:37:38.121 DEBUG 5427 --- [XNIO-2 task-10] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
+2018-12-07 11:37:38.291  WARN 5427 --- [XNIO-2 task-10] o.z.problem.spring.common.AdviceTrait    : Unauthorized: Full authentication is required to access this resource
+2018-12-07 11:37:38.968  WARN 5427 --- [XNIO-2 task-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved exception caused by handler execution: org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource
+2018-12-07 11:37:44.477 DEBUG 5427 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UserJWTController.authorize() with argument[s] = [LoginVM{username='admin', rememberMe=null}]
+2018-12-07 11:37:44.750 DEBUG 5427 --- [XNIO-2 task-11] s.c.i.security.DomainUserDetailsService  : Authenticating admin
+2018-12-07 11:37:46.307 DEBUG 5427 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-12-07T10:37:46.307Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2018-12-07 11:37:46.324 DEBUG 5427 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
+2018-12-07 11:37:48.239 DEBUG 5427 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.UserJWTController.authorize() with argument[s] = [LoginVM{username='admin', rememberMe=null}]
+2018-12-07 11:37:48.241 DEBUG 5427 --- [XNIO-2 task-12] s.c.i.security.DomainUserDetailsService  : Authenticating admin
+2018-12-07 11:37:48.330 DEBUG 5427 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-12-07T10:37:48.330Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2018-12-07 11:37:48.331 DEBUG 5427 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
+2018-12-07 11:37:48.549 DEBUG 5427 --- [XNIO-2 task-11] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UserJWTController.authorize() with result = <200 OK,si.cnr.it.web.rest.UserJWTController$JWTToken@5c3c22f,{Authorization=[Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NDI2NTQ2Nn0.8n1V6IIG7DyRp13fcQmCj585GUUGu-jCcMFhjyqd83WaCiuzuIS_drejbwc1amhx_WfUZ8i9SrUKjRvmVwLITQ]}>
+2018-12-07 11:37:48.549 DEBUG 5427 --- [XNIO-2 task-12] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.UserJWTController.authorize() with result = <200 OK,si.cnr.it.web.rest.UserJWTController$JWTToken@26fb6bf4,{Authorization=[Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NDI2NTQ2OH0.LMRw4kRbekhCx_18Bd0-10OTTEQtkzeItuVQx4Qk0UhTqqNZ4etvkaeCmmlRQakeYyPK326VpkvVexxw2okg3Q]}>
+2018-12-07 11:37:48.605 DEBUG 5427 --- [XNIO-2 task-14] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.AccountResource.getAccount() with argument[s] = []
+2018-12-07 11:37:48.641 DEBUG 5427 --- [XNIO-2 task-13] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.AccountResource.getAccount() with argument[s] = []
+2018-12-07 11:37:48.672 DEBUG 5427 --- [XNIO-2 task-14] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.service.UserService.getUserWithAuthorities() with argument[s] = []
+2018-12-07 11:37:48.672 DEBUG 5427 --- [XNIO-2 task-13] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.service.UserService.getUserWithAuthorities() with argument[s] = []
+2018-12-07 11:37:48.706 DEBUG 5427 --- [XNIO-2 task-13] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.service.UserService.getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='it', activationKey='null'}]
+2018-12-07 11:37:48.706 DEBUG 5427 --- [XNIO-2 task-14] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.service.UserService.getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='it', activationKey='null'}]
+2018-12-07 11:37:48.708 DEBUG 5427 --- [XNIO-2 task-13] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.AccountResource.getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='it', createdBy=system, createdDate=2018-12-07T10:08:07.388Z, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2018-12-07 11:37:48.708 DEBUG 5427 --- [XNIO-2 task-14] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.AccountResource.getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='it', createdBy=system, createdDate=2018-12-07T10:08:07.388Z, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2018-12-07 11:37:50.763 DEBUG 5427 --- [XNIO-2 task-15] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.web.rest.IstitutoResource.getAllIstitutos() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2018-12-07 11:37:50.768 DEBUG 5427 --- [XNIO-2 task-15] si.cnr.it.web.rest.IstitutoResource      : REST request to get a page of Istitutos
+2018-12-07 11:37:50.835 DEBUG 5427 --- [XNIO-2 task-15] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.web.rest.IstitutoResource.getAllIstitutos() with result = <200 OK,[],{X-Total-Count=[0], Link=[</api/istitutos?page=0&size=20>; rel="last",</api/istitutos?page=0&size=20>; rel="first"]}>
+2018-12-07 11:37:53.559 DEBUG 5427 --- [XNIO-2 task-16] si.cnr.it.aop.logging.LoggingAspect      : Enter: si.cnr.it.repository.CustomAuditEventRepository.add() with argument[s] = [AuditEvent [timestamp=2018-12-07T10:37:53.559Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2018-12-07 11:37:53.560 DEBUG 5427 --- [XNIO-2 task-16] si.cnr.it.aop.logging.LoggingAspect      : Exit: si.cnr.it.repository.CustomAuditEventRepository.add() with result = null
+2018-12-07 11:37:53.562  WARN 5427 --- [XNIO-2 task-16] o.z.problem.spring.common.AdviceTrait    : Unauthorized: Full authentication is required to access this resource
+2018-12-07 11:37:53.564  WARN 5427 --- [XNIO-2 task-16] .m.m.a.ExceptionHandlerExceptionResolver : Resolved exception caused by handler execution: org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource

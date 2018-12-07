@@ -17,6 +17,7 @@
                 "title": "Operatore"
             },
             "nome": "Nome",
+            "data": "Data",
             "telefono_operatore": "Telefono Operatore"
         }
     }

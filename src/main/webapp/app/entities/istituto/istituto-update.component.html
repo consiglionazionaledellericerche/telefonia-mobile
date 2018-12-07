@@ -31,28 +31,6 @@
                         </small>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniApp.istituto.citta" for="field_citta">Citta</label>
-                    <input type="text" class="form-control" name="citta" id="field_citta"
-                        [(ngModel)]="istituto.citta" required/>
-                    <div [hidden]="!(editForm.controls.citta?.dirty && editForm.controls.citta?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.citta?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniApp.istituto.indirizzo" for="field_indirizzo">Indirizzo</label>
-                    <input type="text" class="form-control" name="indirizzo" id="field_indirizzo"
-                        [(ngModel)]="istituto.indirizzo" required/>
-                    <div [hidden]="!(editForm.controls.indirizzo?.dirty && editForm.controls.indirizzo?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.indirizzo?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
 
             </div>
             <div>

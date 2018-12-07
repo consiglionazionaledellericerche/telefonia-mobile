@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -28,6 +29,9 @@ public class Operatore implements Serializable {
     @NotNull
     @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "data")
+    private LocalDate data;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -54,6 +58,19 @@ public class Operatore implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public Operatore data(LocalDate data) {
+        this.data = data;
+        return this;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public Telefono getTelefono_operatore() {
@@ -95,6 +112,7 @@ public class Operatore implements Serializable {
         return "Operatore{" +
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
+            ", data='" + getData() + "'" +
             "}";
     }
 }

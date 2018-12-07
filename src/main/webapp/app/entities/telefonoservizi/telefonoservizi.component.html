@@ -16,8 +16,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="altro"><span jhiTranslate="telefoniApp.telefonoservizi.altro">Altro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="telefono_telser.numero"><span jhiTranslate="telefoniApp.telefonoservizi.telefono_telser">Telefono Telser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="servizi_telser.nome"><span jhiTranslate="telefoniApp.telefonoservizi.servizi_telser">Servizi Telser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="telefono.numero"><span jhiTranslate="telefoniApp.telefonoservizi.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="servizi.nome"><span jhiTranslate="telefoniApp.telefonoservizi.servizi">Servizi</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -26,13 +26,13 @@
                 <td><a [routerLink]="['/telefonoservizi', telefonoservizi.id, 'view' ]">{{telefonoservizi.id}}</a></td>
                 <td>{{telefonoservizi.altro}}</td>
                 <td>
-                    <div *ngIf="telefonoservizi.telefono_telser">
-                        <a [routerLink]="['../telefono', telefonoservizi.telefono_telser?.id, 'view' ]" >{{telefonoservizi.telefono_telser?.numero}}</a>
+                    <div *ngIf="telefonoservizi.telefono">
+                        <a [routerLink]="['../telefono', telefonoservizi.telefono?.id, 'view' ]" >{{telefonoservizi.telefono?.numero}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="telefonoservizi.servizi_telser">
-                        <a [routerLink]="['../servizi', telefonoservizi.servizi_telser?.id, 'view' ]" >{{telefonoservizi.servizi_telser?.nome}}</a>
+                    <div *ngIf="telefonoservizi.servizi">
+                        <a [routerLink]="['../servizi', telefonoservizi.servizi?.id, 'view' ]" >{{telefonoservizi.servizi?.nome}}</a>
                     </div>
                 </td>
                 <td class="text-right">

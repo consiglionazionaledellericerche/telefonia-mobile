@@ -1,6 +1,5 @@
 package si.cnr.it.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -29,15 +28,9 @@ public class Utenza implements Serializable {
     @Column(name = "matricola", nullable = false)
     private String matricola;
 
-    @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
-    private User user_utenza;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("")
-    private Istituto istituto_user;
+    @Column(name = "jhi_uid", nullable = false)
+    private String uid;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -61,30 +54,17 @@ public class Utenza implements Serializable {
         this.matricola = matricola;
     }
 
-    public User getUser_utenza() {
-        return user_utenza;
+    public String getUid() {
+        return uid;
     }
 
-    public Utenza user_utenza(User user) {
-        this.user_utenza = user;
+    public Utenza uid(String uid) {
+        this.uid = uid;
         return this;
     }
 
-    public void setUser_utenza(User user) {
-        this.user_utenza = user;
-    }
-
-    public Istituto getIstituto_user() {
-        return istituto_user;
-    }
-
-    public Utenza istituto_user(Istituto istituto) {
-        this.istituto_user = istituto;
-        return this;
-    }
-
-    public void setIstituto_user(Istituto istituto) {
-        this.istituto_user = istituto;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -113,6 +93,7 @@ public class Utenza implements Serializable {
         return "Utenza{" +
             "id=" + getId() +
             ", matricola='" + getMatricola() + "'" +
+            ", uid='" + getUid() + "'" +
             "}";
     }
 }

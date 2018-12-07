@@ -87,12 +87,12 @@ public class TelefonoserviziResourceIntTest {
         Telefono telefono = TelefonoResourceIntTest.createEntity(em);
         em.persist(telefono);
         em.flush();
-        telefonoservizi.setTelefono_telser(telefono);
+        telefonoservizi.setTelefono(telefono);
         // Add required entity
         Servizi servizi = ServiziResourceIntTest.createEntity(em);
         em.persist(servizi);
         em.flush();
-        telefonoservizi.setServizi_telser(servizi);
+        telefonoservizi.setServizi(servizi);
         return telefonoservizi;
     }
 
@@ -136,24 +136,6 @@ public class TelefonoserviziResourceIntTest {
         // Validate the Telefonoservizi in the database
         List<Telefonoservizi> telefonoserviziList = telefonoserviziRepository.findAll();
         assertThat(telefonoserviziList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkAltroIsRequired() throws Exception {
-        int databaseSizeBeforeTest = telefonoserviziRepository.findAll().size();
-        // set the field null
-        telefonoservizi.setAltro(null);
-
-        // Create the Telefonoservizi, which fails.
-
-        restTelefonoserviziMockMvc.perform(post("/api/telefonoservizis")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(telefonoservizi)))
-            .andExpect(status().isBadRequest());
-
-        List<Telefonoservizi> telefonoserviziList = telefonoserviziRepository.findAll();
-        assertThat(telefonoserviziList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

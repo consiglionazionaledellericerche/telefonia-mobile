@@ -23,9 +23,9 @@ spring:
     profiles:
         active: dev
         include:
-            - swagger
-            # Uncomment to activate TLS for the dev profile
-            #- tls
+        - swagger
+        # Uncomment to activate TLS for the dev profile
+        #- tls
     devtools:
         restart:
             enabled: true
@@ -128,3 +128,4 @@ ace:
     url: "http://acebuntudock.si.cnr.it:5555/api"
     username: app.scrivaniadigitale
     password: bubbazza
+

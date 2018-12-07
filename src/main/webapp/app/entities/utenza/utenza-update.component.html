@@ -20,33 +20,18 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniApp.utenza.uid" for="field_uid">Uid</label>
+                    <input type="text" class="form-control" name="uid" id="field_uid"
+                        [(ngModel)]="utenza.uid" required/>
+                    <div [hidden]="!(editForm.controls.uid?.dirty && editForm.controls.uid?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.uid?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniApp.utenza.user_utenza" for="field_user_utenza">User Utenza</label>
-                    <select class="form-control" id="field_user_utenza" name="user_utenza" [(ngModel)]="utenza.user_utenza"  required>
-                        <option *ngIf="!editForm.value.user_utenza" [ngValue]="null" selected></option>
-                        <option [ngValue]="userOption.id === utenza.user_utenza?.id ? utenza.user_utenza : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
-                    </select>
-                </div>
-                <div [hidden]="!(editForm.controls.user_utenza?.dirty && editForm.controls.user_utenza?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.user_utenza?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniApp.utenza.istituto_user" for="field_istituto_user">Istituto User</label>
-                    <select class="form-control" id="field_istituto_user" name="istituto_user" [(ngModel)]="utenza.istituto_user"  required>
-                        <option *ngIf="!editForm.value.istituto_user" [ngValue]="null" selected></option>
-                        <option [ngValue]="istitutoOption.id === utenza.istituto_user?.id ? utenza.istituto_user : istitutoOption" *ngFor="let istitutoOption of istitutos; trackBy: trackIstitutoById">{{istitutoOption.cds}}</option>
-                    </select>
-                </div>
-                <div [hidden]="!(editForm.controls.istituto_user?.dirty && editForm.controls.istituto_user?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.istituto_user?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

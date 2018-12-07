@@ -16,6 +16,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nome"><span jhiTranslate="telefoniApp.operatore.nome">Nome</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="data"><span jhiTranslate="telefoniApp.operatore.data">Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="telefono_operatore.numero"><span jhiTranslate="telefoniApp.operatore.telefono_operatore">Telefono Operatore</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -24,6 +25,7 @@
             <tr *ngFor="let operatore of operatores ;trackBy: trackId">
                 <td><a [routerLink]="['/operatore', operatore.id, 'view' ]">{{operatore.id}}</a></td>
                 <td>{{operatore.nome}}</td>
+                <td>{{operatore.data | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="operatore.telefono_operatore">
                         <a [routerLink]="['../telefono', operatore.telefono_operatore?.id, 'view' ]" >{{operatore.telefono_operatore?.numero}}</a>

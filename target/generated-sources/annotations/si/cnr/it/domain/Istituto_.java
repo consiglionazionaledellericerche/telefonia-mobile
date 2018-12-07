@@ -9,10 +9,8 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Istituto_ {
 
 	public static volatile SingularAttribute<Istituto, String> cds;
-	public static volatile SingularAttribute<Istituto, String> indirizzo;
 	public static volatile SingularAttribute<Istituto, String> nome;
 	public static volatile SingularAttribute<Istituto, Long> id;
-	public static volatile SingularAttribute<Istituto, String> citta;
 
 }
 

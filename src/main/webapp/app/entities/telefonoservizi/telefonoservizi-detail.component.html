@@ -9,16 +9,16 @@
                 <dd>
                     <span>{{telefonoservizi.altro}}</span>
                 </dd>
-                <dt><span jhiTranslate="telefoniApp.telefonoservizi.telefono_telser">Telefono Telser</span></dt>
+                <dt><span jhiTranslate="telefoniApp.telefonoservizi.telefono">Telefono</span></dt>
                 <dd>
-                    <div *ngIf="telefonoservizi.telefono_telser">
-                        <a [routerLink]="['/telefono', telefonoservizi.telefono_telser?.id, 'view']">{{telefonoservizi.telefono_telser?.numero}}</a>
+                    <div *ngIf="telefonoservizi.telefono">
+                        <a [routerLink]="['/telefono', telefonoservizi.telefono?.id, 'view']">{{telefonoservizi.telefono?.numero}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="telefoniApp.telefonoservizi.servizi_telser">Servizi Telser</span></dt>
+                <dt><span jhiTranslate="telefoniApp.telefonoservizi.servizi">Servizi</span></dt>
                 <dd>
-                    <div *ngIf="telefonoservizi.servizi_telser">
-                        <a [routerLink]="['/servizi', telefonoservizi.servizi_telser?.id, 'view']">{{telefonoservizi.servizi_telser?.nome}}</a>
+                    <div *ngIf="telefonoservizi.servizi">
+                        <a [routerLink]="['/servizi', telefonoservizi.servizi?.id, 'view']">{{telefonoservizi.servizi?.nome}}</a>
                     </div>
                 </dd>
             </dl>

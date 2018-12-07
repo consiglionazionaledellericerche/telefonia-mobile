@@ -45,12 +45,6 @@ public class IstitutoResourceIntTest {
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_CITTA = "AAAAAAAAAA";
-    private static final String UPDATED_CITTA = "BBBBBBBBBB";
-
-    private static final String DEFAULT_INDIRIZZO = "AAAAAAAAAA";
-    private static final String UPDATED_INDIRIZZO = "BBBBBBBBBB";
-
     @Autowired
     private IstitutoRepository istitutoRepository;
 
@@ -90,9 +84,7 @@ public class IstitutoResourceIntTest {
     public static Istituto createEntity(EntityManager em) {
         Istituto istituto = new Istituto()
             .cds(DEFAULT_CDS)
-            .nome(DEFAULT_NOME)
-            .citta(DEFAULT_CITTA)
-            .indirizzo(DEFAULT_INDIRIZZO);
+            .nome(DEFAULT_NOME);
         return istituto;
     }
 
@@ -118,8 +110,6 @@ public class IstitutoResourceIntTest {
         Istituto testIstituto = istitutoList.get(istitutoList.size() - 1);
         assertThat(testIstituto.getCds()).isEqualTo(DEFAULT_CDS);
         assertThat(testIstituto.getNome()).isEqualTo(DEFAULT_NOME);
-        assertThat(testIstituto.getCitta()).isEqualTo(DEFAULT_CITTA);
-        assertThat(testIstituto.getIndirizzo()).isEqualTo(DEFAULT_INDIRIZZO);
     }
 
     @Test
@@ -179,42 +169,6 @@ public class IstitutoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCittaIsRequired() throws Exception {
-        int databaseSizeBeforeTest = istitutoRepository.findAll().size();
-        // set the field null
-        istituto.setCitta(null);
-
-        // Create the Istituto, which fails.
-
-        restIstitutoMockMvc.perform(post("/api/istitutos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(istituto)))
-            .andExpect(status().isBadRequest());
-
-        List<Istituto> istitutoList = istitutoRepository.findAll();
-        assertThat(istitutoList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkIndirizzoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = istitutoRepository.findAll().size();
-        // set the field null
-        istituto.setIndirizzo(null);
-
-        // Create the Istituto, which fails.
-
-        restIstitutoMockMvc.perform(post("/api/istitutos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(istituto)))
-            .andExpect(status().isBadRequest());
-
-        List<Istituto> istitutoList = istitutoRepository.findAll();
-        assertThat(istitutoList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllIstitutos() throws Exception {
         // Initialize the database
         istitutoRepository.saveAndFlush(istituto);
@@ -225,9 +179,7 @@ public class IstitutoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(istituto.getId().intValue())))
             .andExpect(jsonPath("$.[*].cds").value(hasItem(DEFAULT_CDS.toString())))
-            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
-            .andExpect(jsonPath("$.[*].citta").value(hasItem(DEFAULT_CITTA.toString())))
-            .andExpect(jsonPath("$.[*].indirizzo").value(hasItem(DEFAULT_INDIRIZZO.toString())));
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())));
     }
     
     @Test
@@ -242,9 +194,7 @@ public class IstitutoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(istituto.getId().intValue()))
             .andExpect(jsonPath("$.cds").value(DEFAULT_CDS.toString()))
-            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
-            .andExpect(jsonPath("$.citta").value(DEFAULT_CITTA.toString()))
-            .andExpect(jsonPath("$.indirizzo").value(DEFAULT_INDIRIZZO.toString()));
+            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()));
     }
 
     @Test
@@ -269,9 +219,7 @@ public class IstitutoResourceIntTest {
         em.detach(updatedIstituto);
         updatedIstituto
             .cds(UPDATED_CDS)
-            .nome(UPDATED_NOME)
-            .citta(UPDATED_CITTA)
-            .indirizzo(UPDATED_INDIRIZZO);
+            .nome(UPDATED_NOME);
 
         restIstitutoMockMvc.perform(put("/api/istitutos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -284,8 +232,6 @@ public class IstitutoResourceIntTest {
         Istituto testIstituto = istitutoList.get(istitutoList.size() - 1);
         assertThat(testIstituto.getCds()).isEqualTo(UPDATED_CDS);
         assertThat(testIstituto.getNome()).isEqualTo(UPDATED_NOME);
-        assertThat(testIstituto.getCitta()).isEqualTo(UPDATED_CITTA);
-        assertThat(testIstituto.getIndirizzo()).isEqualTo(UPDATED_INDIRIZZO);
     }
 
     @Test

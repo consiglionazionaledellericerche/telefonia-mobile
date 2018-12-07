@@ -3,8 +3,6 @@ package si.cnr.it.web.rest;
 import si.cnr.it.TelefoniApp;
 
 import si.cnr.it.domain.Utenza;
-import si.cnr.it.domain.User;
-import si.cnr.it.domain.Istituto;
 import si.cnr.it.repository.UtenzaRepository;
 import si.cnr.it.web.rest.errors.ExceptionTranslator;
 
@@ -44,6 +42,9 @@ public class UtenzaResourceIntTest {
     private static final String DEFAULT_MATRICOLA = "AAAAAAAAAA";
     private static final String UPDATED_MATRICOLA = "BBBBBBBBBB";
 
+    private static final String DEFAULT_UID = "AAAAAAAAAA";
+    private static final String UPDATED_UID = "BBBBBBBBBB";
+
     @Autowired
     private UtenzaRepository utenzaRepository;
 
@@ -82,17 +83,8 @@ public class UtenzaResourceIntTest {
      */
     public static Utenza createEntity(EntityManager em) {
         Utenza utenza = new Utenza()
-            .matricola(DEFAULT_MATRICOLA);
-        // Add required entity
-        User user = UserResourceIntTest.createEntity(em);
-        em.persist(user);
-        em.flush();
-        utenza.setUser_utenza(user);
-        // Add required entity
-        Istituto istituto = IstitutoResourceIntTest.createEntity(em);
-        em.persist(istituto);
-        em.flush();
-        utenza.setIstituto_user(istituto);
+            .matricola(DEFAULT_MATRICOLA)
+            .uid(DEFAULT_UID);
         return utenza;
     }
 
@@ -117,6 +109,7 @@ public class UtenzaResourceIntTest {
         assertThat(utenzaList).hasSize(databaseSizeBeforeCreate + 1);
         Utenza testUtenza = utenzaList.get(utenzaList.size() - 1);
         assertThat(testUtenza.getMatricola()).isEqualTo(DEFAULT_MATRICOLA);
+        assertThat(testUtenza.getUid()).isEqualTo(DEFAULT_UID);
     }
 
     @Test
@@ -158,6 +151,24 @@ public class UtenzaResourceIntTest {
 
     @Test
     @Transactional
+    public void checkUidIsRequired() throws Exception {
+        int databaseSizeBeforeTest = utenzaRepository.findAll().size();
+        // set the field null
+        utenza.setUid(null);
+
+        // Create the Utenza, which fails.
+
+        restUtenzaMockMvc.perform(post("/api/utenzas")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(utenza)))
+            .andExpect(status().isBadRequest());
+
+        List<Utenza> utenzaList = utenzaRepository.findAll();
+        assertThat(utenzaList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllUtenzas() throws Exception {
         // Initialize the database
         utenzaRepository.saveAndFlush(utenza);
@@ -167,7 +178,8 @@ public class UtenzaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(utenza.getId().intValue())))
-            .andExpect(jsonPath("$.[*].matricola").value(hasItem(DEFAULT_MATRICOLA.toString())));
+            .andExpect(jsonPath("$.[*].matricola").value(hasItem(DEFAULT_MATRICOLA.toString())))
+            .andExpect(jsonPath("$.[*].uid").value(hasItem(DEFAULT_UID.toString())));
     }
     
     @Test
@@ -181,7 +193,8 @@ public class UtenzaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(utenza.getId().intValue()))
-            .andExpect(jsonPath("$.matricola").value(DEFAULT_MATRICOLA.toString()));
+            .andExpect(jsonPath("$.matricola").value(DEFAULT_MATRICOLA.toString()))
+            .andExpect(jsonPath("$.uid").value(DEFAULT_UID.toString()));
     }
 
     @Test
@@ -205,7 +218,8 @@ public class UtenzaResourceIntTest {
         // Disconnect from session so that the updates on updatedUtenza are not directly saved in db
         em.detach(updatedUtenza);
         updatedUtenza
-            .matricola(UPDATED_MATRICOLA);
+            .matricola(UPDATED_MATRICOLA)
+            .uid(UPDATED_UID);
 
         restUtenzaMockMvc.perform(put("/api/utenzas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -217,6 +231,7 @@ public class UtenzaResourceIntTest {
         assertThat(utenzaList).hasSize(databaseSizeBeforeUpdate);
         Utenza testUtenza = utenzaList.get(utenzaList.size() - 1);
         assertThat(testUtenza.getMatricola()).isEqualTo(UPDATED_MATRICOLA);
+        assertThat(testUtenza.getUid()).isEqualTo(UPDATED_UID);
     }
 
     @Test

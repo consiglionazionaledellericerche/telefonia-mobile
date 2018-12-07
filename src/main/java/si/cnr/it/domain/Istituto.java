@@ -32,14 +32,6 @@ public class Istituto implements Serializable {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @NotNull
-    @Column(name = "citta", nullable = false)
-    private String citta;
-
-    @NotNull
-    @Column(name = "indirizzo", nullable = false)
-    private String indirizzo;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -74,32 +66,6 @@ public class Istituto implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getCitta() {
-        return citta;
-    }
-
-    public Istituto citta(String citta) {
-        this.citta = citta;
-        return this;
-    }
-
-    public void setCitta(String citta) {
-        this.citta = citta;
-    }
-
-    public String getIndirizzo() {
-        return indirizzo;
-    }
-
-    public Istituto indirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
-        return this;
-    }
-
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -128,8 +94,6 @@ public class Istituto implements Serializable {
             "id=" + getId() +
             ", cds='" + getCds() + "'" +
             ", nome='" + getNome() + "'" +
-            ", citta='" + getCitta() + "'" +
-            ", indirizzo='" + getIndirizzo() + "'" +
             "}";
     }
 }
