@@ -73,6 +73,7 @@ si/cnr/it/config/DatabaseConfiguration.class
 si/cnr/it/config/MetricsConfiguration.class
 si/cnr/it/web/rest/TelefonoserviziResource.class
 si/cnr/it/web/rest/UserJWTController$JWTToken.class
+si/cnr/it/security/JWTAuthenticationManager.class
 si/cnr/it/aop/logging/LoggingAspect.class
 si/cnr/it/security/jwt/TokenProvider.class
 si/cnr/it/web/rest/vm/LoginVM.class
