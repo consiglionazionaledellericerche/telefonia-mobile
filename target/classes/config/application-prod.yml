@@ -29,7 +29,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/telefoni
         username: telefoni
-        password:
+        password: telefonipw
         hikari:
             auto-commit: false
     jpa:
@@ -102,7 +102,7 @@ jhipster:
                 # - In the JHipster Registry (which includes a Spring Cloud Config server)
                 # - In a separate `application-prod.yml` file, in the same folder as your executable WAR file
                 # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_SECRET` environment variable
-                base64-secret: ZjNjNDE1YWI2ZWVmMWRiYmRmNDc1M2FhNmM5ODFkMzk3ZTk3NWI3MTMxNjc0NjdjNmEyY2JiMzJjYTAyMmFlMGRkNmYwZjZhYjA4MzRjNTIyZjFlNDQ3Nzc4MTA3NWY1ZjE2NzliNTk5ZWZjNjViMjI1NjI4NTM2MGE5NGJhZjM=
+                base64-secret: ZTE2ZmRmZDVmNGQ0ZDE1YWFiNDQ0NzVjN2M0ZDNkNmE1Nzg2ODdlNjhkODAwZjU0OGE2ZTg4OTRmNzA0MzBlZmU0MTEzYzY1MzVhMDdhNDEwZTBlZDQ0NjUzZjA4YmU3MGY5MWZkY2RlYWFjMjIwYjEwMTI2NWE2MWYwOTRiMGQ=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
@@ -132,3 +132,8 @@ jhipster:
 # ===================================================================
 
 # application:
+ace:
+    url: "http://acebuntudock.si.cnr.it:5555/api"
+    username: app.scrivaniadigitale
+    password: bubbazza
+
