@@ -13,22 +13,18 @@
     <div class="table-responsive" *ngIf="istitutos">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cds"><span jhiTranslate="telefoniApp.istituto.cds">Cds</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nome"><span jhiTranslate="telefoniApp.istituto.nome">Nome</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="citta"><span jhiTranslate="telefoniApp.istituto.citta">Citta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="indirizzo"><span jhiTranslate="telefoniApp.istituto.indirizzo">Indirizzo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let istituto of istitutos ;trackBy: trackId">
                 <td><a [routerLink]="['/istituto', istituto.id, 'view' ]">{{istituto.id}}</a></td>
                 <td>{{istituto.cds}}</td>
                 <td>{{istituto.nome}}</td>
-                <td>{{istituto.citta}}</td>
-                <td>{{istituto.indirizzo}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
@@ -56,5 +52,13 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="istitutos && istitutos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

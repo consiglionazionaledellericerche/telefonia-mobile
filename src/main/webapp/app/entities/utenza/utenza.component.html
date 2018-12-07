@@ -16,8 +16,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="matricola"><span jhiTranslate="telefoniApp.utenza.matricola">Matricola</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="user_utenza.login"><span jhiTranslate="telefoniApp.utenza.user_utenza">User Utenza</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="istituto_user.cds"><span jhiTranslate="telefoniApp.utenza.istituto_user">Istituto User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="uid"><span jhiTranslate="telefoniApp.utenza.uid">Uid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -25,14 +24,7 @@
             <tr *ngFor="let utenza of utenzas ;trackBy: trackId">
                 <td><a [routerLink]="['/utenza', utenza.id, 'view' ]">{{utenza.id}}</a></td>
                 <td>{{utenza.matricola}}</td>
-                <td>
-                    {{utenza.user_utenza?.login}}
-                </td>
-                <td>
-                    <div *ngIf="utenza.istituto_user">
-                        <a [routerLink]="['../istituto', utenza.istituto_user?.id, 'view' ]" >{{utenza.istituto_user?.cds}}</a>
-                    </div>
-                </td>
+                <td>{{utenza.uid}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

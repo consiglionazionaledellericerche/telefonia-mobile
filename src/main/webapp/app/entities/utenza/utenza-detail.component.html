@@ -9,15 +9,9 @@
                 <dd>
                     <span>{{utenza.matricola}}</span>
                 </dd>
-                <dt><span jhiTranslate="telefoniApp.utenza.user_utenza">User Utenza</span></dt>
+                <dt><span jhiTranslate="telefoniApp.utenza.uid">Uid</span></dt>
                 <dd>
-                    {{utenza.user_utenza?.login}}
-                </dd>
-                <dt><span jhiTranslate="telefoniApp.utenza.istituto_user">Istituto User</span></dt>
-                <dd>
-                    <div *ngIf="utenza.istituto_user">
-                        <a [routerLink]="['/istituto', utenza.istituto_user?.id, 'view']">{{utenza.istituto_user?.cds}}</a>
-                    </div>
+                    <span>{{utenza.uid}}</span>
                 </dd>
             </dl>
 

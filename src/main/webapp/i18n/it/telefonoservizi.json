@@ -17,8 +17,8 @@
                 "title": "Telefonoservizi"
             },
             "altro": "Altro",
-            "telefono_telser": "Telefono Telser",
-            "servizi_telser": "Servizi Telser"
+            "telefono": "Telefono",
+            "servizi": "Servizi"
         }
     }
 }

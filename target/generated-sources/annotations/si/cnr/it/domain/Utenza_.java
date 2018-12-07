@@ -8,8 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Utenza.class)
 public abstract class Utenza_ {
 
-	public static volatile SingularAttribute<Utenza, User> user_utenza;
-	public static volatile SingularAttribute<Utenza, Istituto> istituto_user;
+	public static volatile SingularAttribute<Utenza, String> uid;
 	public static volatile SingularAttribute<Utenza, Long> id;
 	public static volatile SingularAttribute<Utenza, String> matricola;
 

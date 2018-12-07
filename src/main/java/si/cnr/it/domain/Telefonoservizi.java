@@ -25,19 +25,18 @@ public class Telefonoservizi implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "altro", nullable = false)
+    @Column(name = "altro")
     private String altro;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
-    private Telefono telefono_telser;
+    private Telefono telefono;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
-    private Servizi servizi_telser;
+    private Servizi servizi;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -61,30 +60,30 @@ public class Telefonoservizi implements Serializable {
         this.altro = altro;
     }
 
-    public Telefono getTelefono_telser() {
-        return telefono_telser;
+    public Telefono getTelefono() {
+        return telefono;
     }
 
-    public Telefonoservizi telefono_telser(Telefono telefono) {
-        this.telefono_telser = telefono;
+    public Telefonoservizi telefono(Telefono telefono) {
+        this.telefono = telefono;
         return this;
     }
 
-    public void setTelefono_telser(Telefono telefono) {
-        this.telefono_telser = telefono;
+    public void setTelefono(Telefono telefono) {
+        this.telefono = telefono;
     }
 
-    public Servizi getServizi_telser() {
-        return servizi_telser;
+    public Servizi getServizi() {
+        return servizi;
     }
 
-    public Telefonoservizi servizi_telser(Servizi servizi) {
-        this.servizi_telser = servizi;
+    public Telefonoservizi servizi(Servizi servizi) {
+        this.servizi = servizi;
         return this;
     }
 
-    public void setServizi_telser(Servizi servizi) {
-        this.servizi_telser = servizi;
+    public void setServizi(Servizi servizi) {
+        this.servizi = servizi;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

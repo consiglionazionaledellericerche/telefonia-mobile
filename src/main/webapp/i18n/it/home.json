@@ -1,10 +1,9 @@
 {
     "home": {
-        "title": "CNR - Telefonia Mobile",
-        "subtitle": "Sistema di inserimento per l'anagrafica della telefonia mobile del CNR",
+        "title": "Benvenuto, Java Hipster!",
+        "subtitle": "Questa è la tua home page",
         "logged": {
-            "message": "Autenticato come \"{{username}}\".",
-            "messaggio": "Seleziona un entità per cominciare ad inserire o modificare i telefoni mobili nel CNR."
+            "message": "Autenticato come \"{{username}}\"."
         },
         "question": "In caso di domande su JHipster:",
         "link": {

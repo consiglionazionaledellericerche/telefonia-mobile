@@ -73,7 +73,7 @@
                     <label class="form-control-label" jhiTranslate="telefoniApp.telefono.utenza_telefono" for="field_utenza_telefono">Utenza Telefono</label>
                     <select class="form-control" id="field_utenza_telefono" name="utenza_telefono" [(ngModel)]="telefono.utenza_telefono"  required>
                         <option *ngIf="!editForm.value.utenza_telefono" [ngValue]="null" selected></option>
-                        <option [ngValue]="utenzaOption.id === telefono.utenza_telefono?.id ? telefono.utenza_telefono : utenzaOption" *ngFor="let utenzaOption of utenzas; trackBy: trackUtenzaById">{{utenzaOption.matricola}}</option>
+                        <option [ngValue]="utenzaOption.id === telefono.utenza_telefono?.id ? telefono.utenza_telefono : utenzaOption" *ngFor="let utenzaOption of utenzas; trackBy: trackUtenzaById">{{utenzaOption.uid}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.utenza_telefono?.dirty && editForm.controls.utenza_telefono?.invalid)">
@@ -86,7 +86,7 @@
                     <label class="form-control-label" jhiTranslate="telefoniApp.telefono.istituto_telefono" for="field_istituto_telefono">Istituto Telefono</label>
                     <select class="form-control" id="field_istituto_telefono" name="istituto_telefono" [(ngModel)]="telefono.istituto_telefono"  required>
                         <option *ngIf="!editForm.value.istituto_telefono" [ngValue]="null" selected></option>
-                        <option [ngValue]="istitutoOption.id === telefono.istituto_telefono?.id ? telefono.istituto_telefono : istitutoOption" *ngFor="let istitutoOption of istitutos; trackBy: trackIstitutoById">{{istitutoOption.cds}}</option>
+                        <option [ngValue]="istitutoOption.id === telefono.istituto_telefono?.id ? telefono.istituto_telefono : istitutoOption" *ngFor="let istitutoOption of istitutos; trackBy: trackIstitutoById">{{istitutoOption.nome}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.istituto_telefono?.dirty && editForm.controls.istituto_telefono?.invalid)">

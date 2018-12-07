@@ -56,7 +56,6 @@
                 "authenticated": {
                     "prefix": "Se vuoi ",
                     "link": "accedere",
-                    "procedura": "alla procedura.",
                     "suffix": ", puoi provare gli account di default: <br/> - Amministratore (user = \"admin\" e la password = \"admin\") <br/> - utente (user = \"user\" e la password = \"user\")"
                 },
                 "register": {

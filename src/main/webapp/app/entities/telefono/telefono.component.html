@@ -20,8 +20,8 @@
             <th jhiSortBy="datacessazione"><span jhiTranslate="telefoniApp.telefono.datacessazione">Datacessazione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="intestatariocontratto"><span jhiTranslate="telefoniApp.telefono.intestatariocontratto">Intestatariocontratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numerocontratto"><span jhiTranslate="telefoniApp.telefono.numerocontratto">Numerocontratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="utenza_telefono.matricola"><span jhiTranslate="telefoniApp.telefono.utenza_telefono">Utenza Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="istituto_telefono.cds"><span jhiTranslate="telefoniApp.telefono.istituto_telefono">Istituto Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="utenza_telefono.uid"><span jhiTranslate="telefoniApp.telefono.utenza_telefono">Utenza Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="istituto_telefono.nome"><span jhiTranslate="telefoniApp.telefono.istituto_telefono">Istituto Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -35,12 +35,12 @@
                 <td>{{telefono.numerocontratto}}</td>
                 <td>
                     <div *ngIf="telefono.utenza_telefono">
-                        <a [routerLink]="['../utenza', telefono.utenza_telefono?.id, 'view' ]" >{{telefono.utenza_telefono?.matricola}}</a>
+                        <a [routerLink]="['../utenza', telefono.utenza_telefono?.id, 'view' ]" >{{telefono.utenza_telefono?.uid}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="telefono.istituto_telefono">
-                        <a [routerLink]="['../istituto', telefono.istituto_telefono?.id, 'view' ]" >{{telefono.istituto_telefono?.cds}}</a>
+                        <a [routerLink]="['../istituto', telefono.istituto_telefono?.id, 'view' ]" >{{telefono.istituto_telefono?.nome}}</a>
                     </div>
                 </td>
                 <td class="text-right">

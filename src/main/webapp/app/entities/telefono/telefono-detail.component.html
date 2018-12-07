@@ -28,13 +28,13 @@
                 <dt><span jhiTranslate="telefoniApp.telefono.utenza_telefono">Utenza Telefono</span></dt>
                 <dd>
                     <div *ngIf="telefono.utenza_telefono">
-                        <a [routerLink]="['/utenza', telefono.utenza_telefono?.id, 'view']">{{telefono.utenza_telefono?.matricola}}</a>
+                        <a [routerLink]="['/utenza', telefono.utenza_telefono?.id, 'view']">{{telefono.utenza_telefono?.uid}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="telefoniApp.telefono.istituto_telefono">Istituto Telefono</span></dt>
                 <dd>
                     <div *ngIf="telefono.istituto_telefono">
-                        <a [routerLink]="['/istituto', telefono.istituto_telefono?.id, 'view']">{{telefono.istituto_telefono?.cds}}</a>
+                        <a [routerLink]="['/istituto', telefono.istituto_telefono?.id, 'view']">{{telefono.istituto_telefono?.nome}}</a>
                     </div>
                 </dd>
             </dl>

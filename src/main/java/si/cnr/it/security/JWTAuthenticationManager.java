@@ -35,11 +35,11 @@ public class JWTAuthenticationManager implements AuthenticationManager {
             authService.getToken(principal, credentials);
 
             List<GrantedAuthority> authorities =
-                aceService.ruoliAttivi(principal).stream()
-                    .filter(ruolo -> ruolo.getContesti().stream()
-                        .anyMatch(r -> r.getSigla().equals("parcoauto-app")))
-                    .map(a -> new SimpleGrantedAuthority(a.getSigla()))
-                    .collect(Collectors.toList());
+                    aceService.ruoliAttivi(principal).stream()
+                            .filter(ruolo -> ruolo.getContesti().stream()
+                                    .anyMatch(r -> r.getSigla().equals("parcoauto-app")))
+                            .map(a -> new SimpleGrantedAuthority(a.getSigla()))
+                            .collect(Collectors.toList());
 
             authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
             User utente = new User(principal, credentials, authorities);
@@ -51,3 +51,4 @@ public class JWTAuthenticationManager implements AuthenticationManager {
     }
 
 }
+

@@ -17,9 +17,7 @@
                 "title": "Istituto"
             },
             "cds": "Cds",
-            "nome": "Nome",
-            "citta": "Citta",
-            "indirizzo": "Indirizzo"
+            "nome": "Nome"
         }
     }
 }

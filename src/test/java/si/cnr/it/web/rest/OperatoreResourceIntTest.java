@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -42,6 +44,9 @@ public class OperatoreResourceIntTest {
 
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_DATA = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private OperatoreRepository operatoreRepository;
@@ -81,7 +86,8 @@ public class OperatoreResourceIntTest {
      */
     public static Operatore createEntity(EntityManager em) {
         Operatore operatore = new Operatore()
-            .nome(DEFAULT_NOME);
+            .nome(DEFAULT_NOME)
+            .data(DEFAULT_DATA);
         // Add required entity
         Telefono telefono = TelefonoResourceIntTest.createEntity(em);
         em.persist(telefono);
@@ -111,6 +117,7 @@ public class OperatoreResourceIntTest {
         assertThat(operatoreList).hasSize(databaseSizeBeforeCreate + 1);
         Operatore testOperatore = operatoreList.get(operatoreList.size() - 1);
         assertThat(testOperatore.getNome()).isEqualTo(DEFAULT_NOME);
+        assertThat(testOperatore.getData()).isEqualTo(DEFAULT_DATA);
     }
 
     @Test
@@ -161,7 +168,8 @@ public class OperatoreResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(operatore.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())));
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
+            .andExpect(jsonPath("$.[*].data").value(hasItem(DEFAULT_DATA.toString())));
     }
     
     @Test
@@ -175,7 +183,8 @@ public class OperatoreResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(operatore.getId().intValue()))
-            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()));
+            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
+            .andExpect(jsonPath("$.data").value(DEFAULT_DATA.toString()));
     }
 
     @Test
@@ -199,7 +208,8 @@ public class OperatoreResourceIntTest {
         // Disconnect from session so that the updates on updatedOperatore are not directly saved in db
         em.detach(updatedOperatore);
         updatedOperatore
-            .nome(UPDATED_NOME);
+            .nome(UPDATED_NOME)
+            .data(UPDATED_DATA);
 
         restOperatoreMockMvc.perform(put("/api/operatores")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -211,6 +221,7 @@ public class OperatoreResourceIntTest {
         assertThat(operatoreList).hasSize(databaseSizeBeforeUpdate);
         Operatore testOperatore = operatoreList.get(operatoreList.size() - 1);
         assertThat(testOperatore.getNome()).isEqualTo(UPDATED_NOME);
+        assertThat(testOperatore.getData()).isEqualTo(UPDATED_DATA);
     }
 
     @Test

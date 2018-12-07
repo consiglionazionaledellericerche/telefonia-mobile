@@ -17,8 +17,7 @@
                 "title": "Utenza"
             },
             "matricola": "Matricola",
-            "user_utenza": "User Utenza",
-            "istituto_user": "Istituto User"
+            "uid": "Uid"
         }
     }
 }

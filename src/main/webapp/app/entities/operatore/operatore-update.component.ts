@@ -18,6 +18,7 @@ export class OperatoreUpdateComponent implements OnInit {
     isSaving: boolean;
 
     telefonos: ITelefono[];
+    dataDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
