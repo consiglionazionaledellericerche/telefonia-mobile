@@ -23,46 +23,46 @@
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon [icon]="'th-list'"></fa-icon>
-                        <span jhiTranslate="global.menu.entities.main">
-                            Entities
-                        </span>
+                       <!-- <span jhiTranslate="global.menu.entities.main">-->
+                            Entità
+                        <!--</span>-->
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a class="dropdown-item" routerLink="istituto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.istituto">Istituto</span>
+                            <!--<span jhiTranslate="global.menu.entities.istituto">-->Istituto<!--</span>-->
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="servizi" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.servizi">Servizi</span>
+                            <!--<span jhiTranslate="global.menu.entities.servizi">-->Servizi<!--</span>-->
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="utenza" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.utenza">Utenza</span>
+                            <!--<span jhiTranslate="global.menu.entities.utenza">-->Utenza<!--</span>-->
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="telefono" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.telefono">Telefono</span>
+                            <!--<span jhiTranslate="global.menu.entities.telefono">-->Telefono<!--</span>-->
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="operatore" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.operatore">Operatore</span>
+                            <!--<span jhiTranslate="global.menu.entities.operatore">-->Operatore<!--</span>-->
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="telefonoservizi" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.telefonoservizi">Telefonoservizi</span>
+                            <!--<span jhiTranslate="global.menu.entities.telefonoservizi">-->Telefonoservizi<!--</span>-->
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
@@ -156,19 +156,19 @@
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.account.settings">Settings</span>
+                            <!--<span jhiTranslate="global.menu.account.settings">-->Impostazioni<!--</span>-->
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'clock'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.account.password">Password</span>
+                            <!--<span jhiTranslate="global.menu.account.password">-->Password<!--</span>-->
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.account.logout">Sign out</span>
+                            <!--<span jhiTranslate="global.menu.account.logout">-->Esci<!--</span>-->
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
