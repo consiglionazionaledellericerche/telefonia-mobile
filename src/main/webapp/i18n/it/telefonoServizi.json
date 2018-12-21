@@ -1,0 +1,24 @@
+
+{
+    "telefoniaApp": {
+        "telefonoServizi" : {
+            "home": {
+                "title": "TelefonoServizis",
+                "createLabel": "Genera un nuovo Telefono Servizi",
+                "createOrEditLabel": "Genera o modifica un Telefono Servizi"
+            },
+            "created": "&Egrave; stato generato un nuovo Telefono Servizi con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Telefono Servizi identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Telefono Servizi con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Telefono Servizi {{ id }}?"
+            },
+            "detail": {
+                "title": "Telefono Servizi"
+            },
+            "altro": "Altro",
+            "servizi": "Servizi",
+            "telefono": "Telefono"
+        }
+    }
+}

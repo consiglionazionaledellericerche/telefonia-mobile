@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="telefono">
+            <h2><span jhiTranslate="telefoniaApp.telefono.detail.title">Telefono</span> {{telefono.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="telefoniaApp.telefono.numero">Numero</span></dt>
+                <dd>
+                    <span>{{telefono.numero}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.dataAttivazione">Data Attivazione</span></dt>
+                <dd>
+                    <span>{{telefono.dataAttivazione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.dataCessazione">Data Cessazione</span></dt>
+                <dd>
+                    <span>{{telefono.dataCessazione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.intestatarioContratto">Intestatario Contratto</span></dt>
+                <dd>
+                    <span>{{telefono.intestatarioContratto}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.numeroContratto">Numero Contratto</span></dt>
+                <dd>
+                    <span>{{telefono.numeroContratto}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.utenzaTelefono">Utenza Telefono</span></dt>
+                <dd>
+                    <span>{{telefono.utenzaTelefono}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.istitutoTelefono">Istituto Telefono</span></dt>
+                <dd>
+                    <span>{{telefono.istitutoTelefono}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/telefono', telefono.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
