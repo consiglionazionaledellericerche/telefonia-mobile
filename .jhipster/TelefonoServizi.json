@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "servizi",
+            "otherEntityName": "servizi",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nome"
+        },
+        {
+            "relationshipName": "telefono",
+            "otherEntityName": "telefono",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "numero"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "altro",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20181220074906",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "telefono_servizi",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

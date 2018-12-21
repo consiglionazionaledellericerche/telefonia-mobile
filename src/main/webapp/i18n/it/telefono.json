@@ -1,0 +1,28 @@
+
+{
+    "telefoniaApp": {
+        "telefono" : {
+            "home": {
+                "title": "Telefonos",
+                "createLabel": "Genera un nuovo Telefono",
+                "createOrEditLabel": "Genera o modifica un Telefono"
+            },
+            "created": "&Egrave; stato generato un nuovo Telefono con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Telefono identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Telefono con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Telefono {{ id }}?"
+            },
+            "detail": {
+                "title": "Telefono"
+            },
+            "numero": "Numero",
+            "dataAttivazione": "Data Attivazione",
+            "dataCessazione": "Data Cessazione",
+            "intestatarioContratto": "Intestatario Contratto",
+            "numeroContratto": "Numero Contratto",
+            "utenzaTelefono": "Utenza Telefono",
+            "istitutoTelefono": "Istituto Telefono"
+        }
+    }
+}
