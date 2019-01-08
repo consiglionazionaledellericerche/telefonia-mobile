@@ -737,6 +737,12 @@
                                 </configuration>
                             </execution>
                             <execution>
+                                <id>npm install</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                            </execution>
+                            <execution>
                                 <id>webpack build dev</id>
                                 <goals>
                                     <goal>npm</goal>
