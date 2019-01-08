@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
@@ -11,6 +11,14 @@ import { ITelefono } from 'app/shared/model/telefono.model';
 
 type EntityResponseType = HttpResponse<ITelefono>;
 type EntityArrayResponseType = HttpResponse<ITelefono[]>;
+
+const PARAMS = new HttpParams({
+    fromObject: {
+        action: 'opensearch',
+        format: 'json',
+        origin: '*'
+    }
+});
 
 @Injectable({ providedIn: 'root' })
 export class TelefonoService {
@@ -75,9 +83,15 @@ export class TelefonoService {
         return res;
     }
 
-#    per utenza ACE
-    findPersona(term: string): Observable<HttpResponse<any>> {
-        return this.http.get<any>(`${this.resourceUrl}/findUtenza/${term}`, { observe: 'response' });
-    }
+    //#    per utenza ACE
+    //    findPersona(term: string): Observable<HttpResponse<any>> {
+    //        return this.http.get<any>(`${this.resourceUrl}/findUtenza/${term}`, { observe: 'response' });
+    //    }
 
+    findPersona(term: string) {
+        return this.http.get<any>(`${this.resourceUrl}/findUtenza/${term}`);
+        //        .pipe(
+        //        map(response => response[1].username)
+        //        );
+    }
 }

@@ -24,10 +24,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Telefono.
@@ -139,14 +137,33 @@ public class TelefonoResource {
     //Per richiamare utenze ACE
     @GetMapping("/telefonos/findUtenza/{term}")
     @Timed
-    public ResponseEntity<List<PersonaWebDto>> findPersona(@PathVariable String term) {
+    public ResponseEntity<List<String>> findPersona(@PathVariable String term) {
+
+        List<String> result = new ArrayList<>();
 
         Map<String, String> query = new HashMap<>();
         query.put("term", term);
         PageDto<PersonaWebDto> persone = ace.getPersone(query);
         List<PersonaWebDto> listaPersone = persone.getItems();
 
-        return ResponseEntity.ok(listaPersone);
+        for (PersonaWebDto persona : listaPersone ) {
+            if ( persona.getUsername() != null)
+                result.add(  persona.getUsername()  );
+        }
+//
+//        listaPersone.stream()
+//            .forEach(persona -> result.add(  persona.getUsername()  )  );
+//
+//
+//
+//        result = listaPersone.stream()
+//            .filter( persona -> persona.getUsername() != null )
+//            .map(persona -> persona.getUsername())
+//            .collect(Collectors.toList()    );
+
+
+
+        return ResponseEntity.ok(result);
     }
 
 }

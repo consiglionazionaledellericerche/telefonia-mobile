@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.utenzaTelefono" for="field_utenzaTelefono">Utenza Telefono</label>
                     <input type="text" class="form-control" name="utenzaTelefono" id="field_utenzaTelefono" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
-                           [(ngModel)]="telefono.utenzaTelefono" required/>
+                           [(ngModel)]="model" placeholder="search"  required/>
                     <div [hidden]="!(editForm.controls.utenzaTelefono?.dirty && editForm.controls.utenzaTelefono?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.utenzaTelefono?.errors?.required" jhiTranslate="entity.validation.required">
@@ -94,7 +94,8 @@
                     <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
                 </div>
                 <hr>
-                <pre>Model: {{ telefono.utenzaTelefono | json }}</pre>
+                <pre>Model: {{ model | json }}</pre>
+                <!--<pre>Model: {{ telefono.utenzaTelefono | json }}</pre>-->
 
 
                 <div class="form-group">
