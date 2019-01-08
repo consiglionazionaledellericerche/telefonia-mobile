@@ -15,7 +15,7 @@ services:
             - telefoni-postgresql-data:/var/lib/postgresql/data
         environment:
             - POSTGRES_USER=telefonia
-            - POSTGRES_PASSWORD=telefonipaw
+            - POSTGRES_PASSWORD=telefoniapw
         ports:
             - 5485:5432
 volumes:
