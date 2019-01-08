@@ -1,15 +1,22 @@
 version: '2'
 services:
-    telefonia-app:
-        image: telefonia
+    telefoni-app:
+        image: docker.si.cnr.it/telefonia-mobile
         environment:
             # - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - SPRING_PROFILES_ACTIVE=prod,swagger
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://telefonia-postgresql:5432/telefonia
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://telefoni-postgresql:5432/telefoni
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
         ports:
-            - 8080:8080
-    telefonia-postgresql:
-        extends:
-            file: postgresql.yml
-            service: telefonia-postgresql
+            - 8085:8080
+    telefoni-postgresql:
+        image: postgres:10.4
+        volumes:
+            - telefoni-postgresql-data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=telefoni
+            - POSTGRES_PASSWORD=telefonipw
+        ports:
+            - 5485:5432
+volumes:
+    abil-postgresql-data:
