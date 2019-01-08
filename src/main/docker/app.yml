@@ -5,7 +5,7 @@ services:
         environment:
             # - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - SPRING_PROFILES_ACTIVE=prod,swagger
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://telefoni-postgresql:5432/telefoni
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://telefoni-postgresql:5432/telefonia
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
         ports:
             - 8085:8080
@@ -14,8 +14,8 @@ services:
         volumes:
             - telefoni-postgresql-data:/var/lib/postgresql/data
         environment:
-            - POSTGRES_USER=telefoni
-            - POSTGRES_PASSWORD=telefonipw
+            - POSTGRES_USER=telefonia
+            - POSTGRES_PASSWORD=telefonipaw
         ports:
             - 5485:5432
 volumes:
