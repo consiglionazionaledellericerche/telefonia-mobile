@@ -29,7 +29,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/telefonia
         username: telefonia
-        password: telefonipw
+        password: telefoniapw
         hikari:
             auto-commit: false
     jpa:
