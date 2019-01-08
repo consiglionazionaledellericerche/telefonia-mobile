@@ -1,12 +1,8 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-//import { Observable } from 'rxjs';
-
 import { ITelefono } from 'app/shared/model/telefono.model';
 import { TelefonoService } from './telefono.service';
-
-//import {Component, Injectable} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
@@ -44,6 +40,8 @@ export class TelefonoUpdateComponent implements OnInit {
     isSaving: boolean;
     dataAttivazioneDp: any;
     dataCessazioneDp: any;
+    searching = false;
+    searchFailed = false;
 
     constructor(private _service: WikipediaService, private telefonoService: TelefonoService, private activatedRoute: ActivatedRoute) {}
 
@@ -57,9 +55,6 @@ export class TelefonoUpdateComponent implements OnInit {
     previousState() {
         window.history.back();
     }
-
-    searching = false;
-    searchFailed = false;
 
     save() {
         this.isSaving = true;
