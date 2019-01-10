@@ -3,6 +3,7 @@ package si.cnr.it.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.service.AceService;
 import it.cnr.si.service.dto.anagrafica.base.PageDto;
+import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import si.cnr.it.domain.Telefono;
@@ -25,7 +26,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Telefono.
@@ -36,6 +36,8 @@ public class TelefonoResource {
 
     @Autowired
     private AceService ace;
+
+//    private EntitaLocale entitaLocale;
 
     private final Logger log = LoggerFactory.getLogger(TelefonoResource.class);
 
@@ -150,6 +152,40 @@ public class TelefonoResource {
             if ( persona.getUsername() != null)
                 result.add(  persona.getUsername()  );
         }
+//
+//        listaPersone.stream()
+//            .forEach(persona -> result.add(  persona.getUsername()  )  );
+//
+//
+//
+//        result = listaPersone.stream()
+//            .filter( persona -> persona.getUsername() != null )
+//            .map(persona -> persona.getUsername())
+//            .collect(Collectors.toList()    );
+
+
+
+        return ResponseEntity.ok(result);
+    }
+
+
+    //Per richiamare istituti ACE
+    @GetMapping("/telefonos/findIstituto/{term}")
+    @Timed
+    public ResponseEntity<List<String>> findIstituto(@PathVariable String term) {
+
+        List<String> result = new ArrayList<>();
+
+        Map<String, String> query = new HashMap<>();
+        query.put("term", term);
+
+        List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
+
+        for (EntitaOrganizzativaWebDto istituto : istituti ) {
+            if ( istituto.getDenominazione() != null)
+                result.add(  istituto.getDenominazione()  );
+        }
+
 //
 //        listaPersone.stream()
 //            .forEach(persona -> result.add(  persona.getUsername()  )  );

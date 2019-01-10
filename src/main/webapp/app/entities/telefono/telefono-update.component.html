@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.utenzaTelefono" for="field_utenzaTelefono">Utenza Telefono</label>
                     <input type="text" class="form-control" name="utenzaTelefono" id="field_utenzaTelefono" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
-                           [(ngModel)]="model" placeholder="search"  required/>
+                           [(ngModel)]="telefono.utenzaTelefono" placeholder="search"  required/>
                     <div [hidden]="!(editForm.controls.utenzaTelefono?.dirty && editForm.controls.utenzaTelefono?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.utenzaTelefono?.errors?.required" jhiTranslate="entity.validation.required">
@@ -100,8 +100,8 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.istitutoTelefono" for="field_istitutoTelefono">Istituto Telefono</label>
-                    <input type="text" class="form-control" name="istitutoTelefono" id="field_istitutoTelefono"
-                        [(ngModel)]="telefono.istitutoTelefono" required/>
+                    <input type="text" class="form-control" name="istitutoTelefono" id="field_istitutoTelefono" [ngbTypeahead]="search2" [class.is-invalid]="searchFailed"
+                           [(ngModel)]="telefono.istitutoTelefono" placeholder="search" required/>
                     <div [hidden]="!(editForm.controls.istitutoTelefono?.dirty && editForm.controls.istitutoTelefono?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.istitutoTelefono?.errors?.required" jhiTranslate="entity.validation.required">

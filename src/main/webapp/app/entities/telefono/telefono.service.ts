@@ -94,4 +94,11 @@ export class TelefonoService {
         //        map(response => response[1].username)
         //        );
     }
+
+    findIstituto(term: string) {
+        return this.http.get<any>(`${this.resourceUrl}/findIstituto/${term}`);
+        //        .pipe(
+        //        map(response => response[1].username)
+        //        );
+    }
 }
