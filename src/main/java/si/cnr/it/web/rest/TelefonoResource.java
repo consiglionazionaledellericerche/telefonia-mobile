@@ -172,7 +172,7 @@ public class TelefonoResource {
     //Per richiamare istituti ACE
     @GetMapping("/telefonos/findIstituto/{term}")
     @Timed
-    public ResponseEntity<List<String>> findIstituto(@PathVariable String term) {
+    public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto(@PathVariable String term) {
 
         List<String> result = new ArrayList<>();
 
@@ -201,7 +201,7 @@ public class TelefonoResource {
 
 
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(istituti);
     }
 
 
