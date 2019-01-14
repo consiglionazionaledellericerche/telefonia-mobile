@@ -107,7 +107,7 @@ export class TelefonoUpdateComponent implements OnInit {
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            tap(() => (this.searching = true)),
+            tap(() => (this.searching2 = true)),
             switchMap(term =>
                 this.telefonoService.findIstituto(term).pipe(
                     //            this._service.search(term).pipe(
@@ -122,4 +122,12 @@ export class TelefonoUpdateComponent implements OnInit {
         );
 
     // formatter = (x: {username: string}) => x.username
+
+    resultFormatter = (result: string) => result.denominazione;
+    valueFormatter = (result: string) => result.denominazione;
+
+    selectedItem(item) {
+        console.log(this);
+        this._telefono.istitutoTelefono = item.item.id;
+    }
 }
