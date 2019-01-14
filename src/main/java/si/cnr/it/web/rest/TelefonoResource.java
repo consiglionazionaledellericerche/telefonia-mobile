@@ -176,13 +176,15 @@ public class TelefonoResource {
 
         List<String> result = new ArrayList<>();
 
+        String valore = term.toUpperCase(); // tutto maiuscolo
+
         Map<String, String> query = new HashMap<>();
         query.put("term", term);
 
         List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
 
         for (EntitaOrganizzativaWebDto istituto : istituti ) {
-            if ( istituto.getDenominazione() != null)
+            if ( istituto.getDenominazione() != null && istituto.getDenominazione().indexOf(valore) != -1)
                 result.add(  istituto.getDenominazione()  );
         }
 
@@ -201,5 +203,6 @@ public class TelefonoResource {
 
         return ResponseEntity.ok(result);
     }
+
 
 }
