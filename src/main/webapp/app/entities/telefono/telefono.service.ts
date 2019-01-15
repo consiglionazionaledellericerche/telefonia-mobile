@@ -95,10 +95,7 @@ export class TelefonoService {
         //        );
     }
 
-    findIstituto(term: string) {
-        return this.http.get<any>(`${this.resourceUrl}/findIstituto/${term}`);
-        //        .pipe(
-        //        map(response => response[1].username)
-        //        );
+    getIstituti() {
+        return this.http.get<any>(`${this.resourceUrl}/getIstituti`);
     }
 }
