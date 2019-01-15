@@ -97,19 +97,15 @@
                 <!--<pre>Model: {{ model | json }}</pre>-->
                 <!--<pre>Model: {{ telefono.utenzaTelefono | json }}</pre>-->
 
-
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.istitutoTelefono" for="field_istitutoTelefono">Istituto Telefono</label>
-                    <input type="text" class="form-control" name="istitutoTelefono" id="field_istitutoTelefono" [ngbTypeahead]="search2" [resultFormatter]="resultFormatter" [inputFormatter]="valueFormatter" [class.is-invalid]="searchFailed"
-                           (selectItem)="selectedItem($event)" placeholder="search" required/>
-                    <div [hidden]="!(editForm.controls.istitutoTelefono?.dirty && editForm.controls.istitutoTelefono?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.istitutoTelefono?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                    <span *ngIf="searching2">searching...</span>
+
+                    <label>Istituto</label>
+
+                    <select [(ngModel)]="telefono.istitutoTelefono" name="istitutoTelefono">
+                        <option *ngFor="let i of istituti" [ngValue]="i.id">{{i.denominazione}}</option>
+                    </select>
                     <pre>Model: {{ telefono.istitutoTelefono | json }}</pre>
+
                 </div>
 
             </div>

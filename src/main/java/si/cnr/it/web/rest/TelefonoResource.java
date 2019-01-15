@@ -26,6 +26,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Telefono.
@@ -170,49 +171,19 @@ public class TelefonoResource {
 
 
     //Per richiamare istituti ACE
-    @GetMapping("/telefonos/findIstituto/{term}")
+    @GetMapping("/telefonos/getIstituti")
     @Timed
-    public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto(@PathVariable String term) {
-
-        List<String> result = new ArrayList<>();
-        List<Integer> resultInt = new ArrayList<>();
-
-        String valore = term.toUpperCase(); // tutto maiuscolo
-
-        Map<String, String> query = new HashMap<>();
-        query.put("term", term);
+    public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto() {
 
         List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
 
-        Iterator i = istituti.listIterator();
-
-        while(i.hasNext()){
-            EntitaOrganizzativaWebDto EOWD = (EntitaOrganizzativaWebDto) i.next();
-            if(EOWD.getDenominazione().indexOf(valore) == -1)
-               i.remove();
-        }
-/**
-        for (EntitaOrganizzativaWebDto istituto : istituti ) {
-            if (istituto.getDenominazione().indexOf(valore) == -1)
-                result.add(  istituto.getDenominazione()  );
-                resultInt.add(  istituto.getId()  );
-        }
-*/
-
-
-
-//
-//        listaPersone.stream()
-//            .forEach(persona -> result.add(  persona.getUsername()  )  );
-//
-//
-//
-//        result = listaPersone.stream()
-//            .filter( persona -> persona.getUsername() != null )
-//            .map(persona -> persona.getUsername())
-//            .collect(Collectors.toList()    );
-
-
+        istituti = istituti.stream()
+            .sorted((i1, i2) -> i1.getDenominazione().compareTo(i2.getDenominazione()))
+            .map(i -> {
+                i.setDenominazione(i.getDenominazione().toUpperCase());
+                return i;
+            })
+            .collect(Collectors.toList());
 
         return ResponseEntity.ok(istituti);
     }
