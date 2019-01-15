@@ -175,6 +175,7 @@ public class TelefonoResource {
     public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto(@PathVariable String term) {
 
         List<String> result = new ArrayList<>();
+        List<Integer> resultInt = new ArrayList<>();
 
         String valore = term.toUpperCase(); // tutto maiuscolo
 
@@ -183,10 +184,22 @@ public class TelefonoResource {
 
         List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
 
-        for (EntitaOrganizzativaWebDto istituto : istituti ) {
-            if ( istituto.getDenominazione() != null && istituto.getDenominazione().indexOf(valore) != -1)
-                result.add(  istituto.getDenominazione()  );
+        Iterator i = istituti.listIterator();
+
+        while(i.hasNext()){
+            EntitaOrganizzativaWebDto EOWD = (EntitaOrganizzativaWebDto) i.next();
+            if(EOWD.getDenominazione().indexOf(valore) == -1)
+               i.remove();
         }
+/**
+        for (EntitaOrganizzativaWebDto istituto : istituti ) {
+            if (istituto.getDenominazione().indexOf(valore) == -1)
+                result.add(  istituto.getDenominazione()  );
+                resultInt.add(  istituto.getId()  );
+        }
+*/
+
+
 
 //
 //        listaPersone.stream()
