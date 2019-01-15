@@ -101,8 +101,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.istitutoTelefono" for="field_istitutoTelefono">Istituto Telefono</label>
                     <input type="text" class="form-control" name="istitutoTelefono" id="field_istitutoTelefono" [ngbTypeahead]="search2" [resultFormatter]="resultFormatter" [inputFormatter]="valueFormatter" [class.is-invalid]="searchFailed"
-                           (selectItem)="selectedItem($event)"
-                           placeholder="search" required />
+                           (selectItem)="selectedItem($event)" placeholder="search" required/>
                     <div [hidden]="!(editForm.controls.istitutoTelefono?.dirty && editForm.controls.istitutoTelefono?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.istitutoTelefono?.errors?.required" jhiTranslate="entity.validation.required">
