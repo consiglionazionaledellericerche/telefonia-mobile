@@ -42,6 +42,7 @@ export class TelefonoUpdateComponent implements OnInit {
     dataCessazioneDp: any;
     searching = false;
     searchFailed = false;
+    istituti = [];
 
     constructor(private _service: WikipediaService, private telefonoService: TelefonoService, private activatedRoute: ActivatedRoute) {}
 
@@ -49,6 +50,10 @@ export class TelefonoUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ telefono }) => {
             this.telefono = telefono;
+        });
+
+        this.telefonoService.getIstituti().subscribe(istitutiRestituiti => {
+            this.istituti = istitutiRestituiti;
         });
     }
 
@@ -102,32 +107,4 @@ export class TelefonoUpdateComponent implements OnInit {
             ),
             tap(() => (this.searching = false))
         );
-
-    search2 = (text$: Observable<string>) =>
-        text$.pipe(
-            debounceTime(300),
-            distinctUntilChanged(),
-            tap(() => (this.searching2 = true)),
-            switchMap(term =>
-                this.telefonoService.findIstituto(term).pipe(
-                    //            this._service.search(term).pipe(
-                    tap(() => (this.searchFailed = false)),
-                    catchError(() => {
-                        this.searchFailed = true;
-                        return of([]);
-                    })
-                )
-            ),
-            tap(() => (this.searching = false))
-        );
-
-    // formatter = (x: {username: string}) => x.username
-
-    resultFormatter = (result: string) => result.denominazione;
-    valueFormatter = (result: string) => result.denominazione;
-
-    selectedItem(item) {
-        console.log(this);
-        this._telefono.istitutoTelefono = item.item.id;
-    }
 }
