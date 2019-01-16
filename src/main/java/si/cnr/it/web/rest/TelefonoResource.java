@@ -8,6 +8,7 @@ import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import si.cnr.it.domain.Telefono;
 import si.cnr.it.repository.TelefonoRepository;
+import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
 import si.cnr.it.web.rest.util.PaginationUtil;
@@ -37,6 +38,8 @@ public class TelefonoResource {
 
     @Autowired
     private AceService ace;
+
+    private SecurityUtils securityUtils;
 
 //    private EntitaLocale entitaLocale;
 
@@ -103,6 +106,29 @@ public class TelefonoResource {
     public ResponseEntity<List<Telefono>> getAllTelefonos(Pageable pageable) {
         log.debug("REST request to get a page of Telefonos");
         Page<Telefono> page = telefonoRepository.findAll(pageable);
+       // System.out.println("TI TROVO = "+securityUtils.getCurrentUserLogin().get()); username
+
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        System.out.println(sede_cdsuoUser+" - "+sede_user);
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+        System.out.println(cds);
+        String vedetutto = "0";
+        Iterator i = page.iterator();
+
+        while(i.hasNext()){
+            Telefono telefono = (Telefono) i.next();
+
+            if(cds.equals("000")){
+                vedetutto = "1";
+            }
+            else if(!telefono.getIstitutoTelefono().equals(sede_user) && vedetutto.equals("0")){
+                i.remove();
+            }
+
+        }
+
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefonos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -118,6 +144,17 @@ public class TelefonoResource {
     public ResponseEntity<Telefono> getTelefono(@PathVariable Long id) {
         log.debug("REST request to get Telefono : {}", id);
         Optional<Telefono> telefono = telefonoRepository.findById(id);
+       /** Prova Valerio per cdsuo  */
+//            String cdsuo = telefono.get().getIstitutoTelefono();
+//            String denominazione;
+//            List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
+//
+//            for (EntitaOrganizzativaWebDto istituto : istituti ) {
+//                if(istituto.getCdsuo().equals(cdsuo))
+//                    telefono.get().setIst(istituto.getCdsuo()+ " - " +istituto.getDenominazione());
+//            }
+
+       /** Fine Prova Valerio */
         return ResponseUtil.wrapOrNotFound(telefono);
     }
 
