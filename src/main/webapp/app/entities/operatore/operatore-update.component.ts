@@ -8,6 +8,7 @@ import { IOperatore } from 'app/shared/model/operatore.model';
 import { OperatoreService } from './operatore.service';
 import { ITelefono } from 'app/shared/model/telefono.model';
 import { TelefonoService } from 'app/entities/telefono';
+import { TelefonoServiziService } from 'app/entities/telefono-servizi/telefono-servizi.service';
 
 @Component({
     selector: 'jhi-operatore-update',
@@ -16,6 +17,7 @@ import { TelefonoService } from 'app/entities/telefono';
 export class OperatoreUpdateComponent implements OnInit {
     private _operatore: IOperatore;
     isSaving: boolean;
+    telefono = [];
 
     telefonos: ITelefono[];
     dataDp: any;
@@ -24,6 +26,7 @@ export class OperatoreUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private operatoreService: OperatoreService,
         private telefonoService: TelefonoService,
+        private telefonoServiziService: TelefonoServiziService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,6 +41,9 @@ export class OperatoreUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.telefonoServiziService.findTelefono().subscribe(telefonoRestituiti => {
+            this.telefono = telefonoRestituiti;
+        });
     }
 
     previousState() {
