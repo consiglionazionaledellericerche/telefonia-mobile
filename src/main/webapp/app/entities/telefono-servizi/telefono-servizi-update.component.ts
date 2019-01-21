@@ -18,6 +18,7 @@ import { TelefonoService } from 'app/entities/telefono';
 export class TelefonoServiziUpdateComponent implements OnInit {
     private _telefonoServizi: ITelefonoServizi;
     isSaving: boolean;
+    telefono = [];
 
     servizis: IServizi[];
 
@@ -48,6 +49,10 @@ export class TelefonoServiziUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        this.telefonoServiziService.findTelefono().subscribe(telefonoRestituiti => {
+            this.telefono = telefonoRestituiti;
+        });
     }
 
     previousState() {

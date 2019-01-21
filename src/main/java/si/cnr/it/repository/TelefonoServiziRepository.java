@@ -1,8 +1,14 @@
 package si.cnr.it.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import si.cnr.it.domain.Telefono;
 import si.cnr.it.domain.TelefonoServizi;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -11,5 +17,9 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface TelefonoServiziRepository extends JpaRepository<TelefonoServizi, Long> {
+
+    // @Query("select form from Form form where form.processDefinitionKey =:processDefinitionKey and form.version = :version and form.taskId =:taskId")
+    @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.istitutoTelefono =:istitutoTelefono ")
+    public Page<TelefonoServizi> findByIstitutoTelefono(@Param("istitutoTelefono") String istitutoTelefono, Pageable pageable);
 
 }

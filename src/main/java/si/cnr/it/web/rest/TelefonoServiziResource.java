@@ -1,8 +1,14 @@
 package si.cnr.it.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import it.cnr.si.service.AceService;
+import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import si.cnr.it.domain.Telefono;
 import si.cnr.it.domain.TelefonoServizi;
+import si.cnr.it.repository.TelefonoRepository;
 import si.cnr.it.repository.TelefonoServiziRepository;
+import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
 import si.cnr.it.web.rest.util.PaginationUtil;
@@ -20,8 +26,10 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing TelefonoServizi.
@@ -29,6 +37,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class TelefonoServiziResource {
+
+    @Autowired
+    private AceService ace;
+
+    @Autowired
+    private TelefonoRepository telefonoRepository;
+
+    private SecurityUtils securityUtils;
 
     private final Logger log = LoggerFactory.getLogger(TelefonoServiziResource.class);
 
@@ -76,10 +92,37 @@ public class TelefonoServiziResource {
         if (telefonoServizi.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefonoServizi.getId().toString()))
-            .body(result);
+//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
+//        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+/**
+ * Codice che permette di salvare solo se sei
+ * la persona corretta
+ *
+ */
+        boolean hasPermission = false;
+
+        if (cds.equals("000"))
+            hasPermission = true;
+        else {
+           // TelefonoServizi t = telefonoServiziRepository.getOne(telefonoServizi.getId());
+            String t = telefonoServizi.getTelefono().getIstitutoTelefono();
+            hasPermission = sede_user.equals(t);
+        }
+     //   System.out.print("Che valore hai true o false? "+hasPermission);
+        if (hasPermission) {
+            TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefonoServizi.getId().toString()))
+                .body(result);
+        } else
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+//        TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
+//        return ResponseEntity.ok()
+//            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefonoServizi.getId().toString()))
+//            .body(result);
     }
 
     /**
@@ -92,7 +135,49 @@ public class TelefonoServiziResource {
     @Timed
     public ResponseEntity<List<TelefonoServizi>> getAllTelefonoServizis(Pageable pageable) {
         log.debug("REST request to get a page of TelefonoServizis");
-        Page<TelefonoServizi> page = telefonoServiziRepository.findAll(pageable);
+
+
+
+//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
+//        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+
+        Page<TelefonoServizi> page;
+        if (cds.equals("000"))
+            page = telefonoServiziRepository.findAll(pageable);
+        else
+            page = telefonoServiziRepository.findByIstitutoTelefono(sede_user, pageable);
+
+        /**Prova Valerio
+        // System.out.println("TI TROVO = "+securityUtils.getCurrentUserLogin().get()); username
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        // System.out.println(sede_cdsuoUser+" - "+sede_user);
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+        // System.out.println(cds);
+        String vedetutto = "0";
+        Iterator i = page.iterator();
+
+
+         //cds = "002"; //forzo cds
+         //sede_user = "ISTITUTO AMBIENTE MARINO E COSTIERO"; //forzo denominazione
+
+        while(i.hasNext()){
+            Telefono telefono = (Telefono) i.next();
+
+            if(cds.equals("000")){
+                vedetutto = "1";
+            }
+            else if(!telefono.getIstitutoTelefono().equals(sede_user) && vedetutto.equals("0")){
+                i.remove();
+            }
+
+        }
+        Fine Prova Valerio */
+
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefono-servizis");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -125,4 +210,28 @@ public class TelefonoServiziResource {
         telefonoServiziRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+
+    //Per richiamare Telefoni
+    @GetMapping("/telefono-servizis/findTelefono")
+    @Timed
+    public ResponseEntity<List<Telefono>> findTelefono() {
+
+        List<Telefono> telefoni;
+
+//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
+//        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+
+        if (cds.equals("000"))
+            telefoni = telefonoRepository.findAll();
+        else
+            telefoni = telefonoRepository.findByIstitutoTelefono(sede_user);
+
+
+        return ResponseEntity.ok(telefoni);
+    }
+
 }

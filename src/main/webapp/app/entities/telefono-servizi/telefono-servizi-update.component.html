@@ -28,12 +28,21 @@
                         This field is required.
                     </small>
                 </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.telefono" for="field_telefono">Telefono</label>-->
+                    <!--<select class="form-control" id="field_telefono" name="telefono" [(ngModel)]="telefonoServizi.telefono"  required>-->
+                        <!--<option *ngIf="!editForm.value.telefono" [ngValue]="null" selected></option>-->
+                        <!--<option [ngValue]="telefonoOption.id === telefonoServizi.telefono?.id ? telefonoServizi.telefono : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
                 <div class="form-group">
+
                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.telefono" for="field_telefono">Telefono</label>
-                    <select class="form-control" id="field_telefono" name="telefono" [(ngModel)]="telefonoServizi.telefono"  required>
-                        <option *ngIf="!editForm.value.telefono" [ngValue]="null" selected></option>
-                        <option [ngValue]="telefonoOption.id === telefonoServizi.telefono?.id ? telefonoServizi.telefono : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>
+
+                    <select [(ngModel)]="telefonoServizi.telefono" class="form-control" name="telefono" required>
+                        <option *ngFor="let i of telefono; trackBy: trackTelefonoById" [ngValue]="i.id === telefonoServizi.telefono?.id ? telefonoServizi.telefono : i">{{i.numero}}</option>
                     </select>
+
                 </div>
                 <div [hidden]="!(editForm.controls.telefono?.dirty && editForm.controls.telefono?.invalid)">
                     <small class="form-text text-danger"
