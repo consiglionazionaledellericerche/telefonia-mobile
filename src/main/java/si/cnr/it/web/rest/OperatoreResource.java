@@ -3,9 +3,11 @@ package si.cnr.it.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.service.AceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import si.cnr.it.domain.Operatore;
 import si.cnr.it.domain.TelefonoServizi;
 import si.cnr.it.repository.OperatoreRepository;
+import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
@@ -57,6 +59,7 @@ public class OperatoreResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/operatores")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Operatore> createOperatore(@Valid @RequestBody Operatore operatore) throws URISyntaxException {
         log.debug("REST request to save Operatore : {}", operatore);
@@ -79,6 +82,7 @@ public class OperatoreResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/operatores")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Operatore> updateOperatore(@Valid @RequestBody Operatore operatore) throws URISyntaxException {
         log.debug("REST request to update Operatore : {}", operatore);
@@ -170,6 +174,7 @@ public class OperatoreResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/operatores/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Void> deleteOperatore(@PathVariable Long id) {
         log.debug("REST request to delete Operatore : {}", id);

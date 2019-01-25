@@ -6,8 +6,10 @@ import it.cnr.si.service.dto.anagrafica.base.PageDto;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import si.cnr.it.domain.Telefono;
 import si.cnr.it.repository.TelefonoRepository;
+import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
@@ -67,6 +69,12 @@ public class TelefonoResource {
         if (telefono.getId() != null) {
             throw new BadRequestAlertException("A new telefono cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if(telefono.getUtenzaTelefono().contains(".")){
+
+        }
+        else{
+            return (ResponseEntity<Telefono>) ResponseEntity.unprocessableEntity();
+        }
         Telefono result = telefonoRepository.save(telefono);
         return ResponseEntity.created(new URI("/api/telefonos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -83,6 +91,7 @@ public class TelefonoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/telefonos")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Telefono> updateTelefono(@Valid @RequestBody Telefono telefono) throws URISyntaxException {
         log.debug("REST request to update Telefono : {}", telefono);
@@ -174,6 +183,7 @@ public class TelefonoResource {
      * @return the ResponseEntity with status 200 (OK) and with body the telefono, or with status 404 (Not Found)
      */
     @GetMapping("/telefonos/{id}")
+
     @Timed
     public ResponseEntity<Telefono> getTelefono(@PathVariable Long id) {
         log.debug("REST request to get Telefono : {}", id);
@@ -199,6 +209,7 @@ public class TelefonoResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/telefonos/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Void> deleteTelefono(@PathVariable Long id) {
         log.debug("REST request to delete Telefono : {}", id);

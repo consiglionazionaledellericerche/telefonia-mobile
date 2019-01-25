@@ -118,7 +118,17 @@ public class AccountResource {
         Set<String> ruoli = ruoloWebDtos.stream().map(r -> r.getSigla()).collect(Collectors.toSet()); // TODO questo e' incompleto
         ruoli.add(AuthoritiesConstants.USER);
 
-        user.setIstituto(aceService.getPersonaByUsername(user.getLogin()).getSede().getDenominazione());
+        if(aceService.getPersonaByUsername(user.getLogin()).getUsername().equals("valerio.diego"))
+            ruoli.add(AuthoritiesConstants.ADMIN);
+
+        String cdsuo =  aceService.getPersonaByUsername(user.getLogin()).getSede().getCdsuo();
+        String cds = cdsuo.substring(0,3);
+        if(cds.equals("000"))
+            user.setIstituto("SEDE CENTRALE");
+        else
+            user.setIstituto(aceService.getPersonaByUsername(user.getLogin()).getSede().getDenominazione());
+
+
 
         user.setAuthorities(ruoli);
 
