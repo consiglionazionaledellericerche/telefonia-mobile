@@ -4,10 +4,12 @@ import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.service.AceService;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import si.cnr.it.domain.Telefono;
 import si.cnr.it.domain.TelefonoServizi;
 import si.cnr.it.repository.TelefonoRepository;
 import si.cnr.it.repository.TelefonoServiziRepository;
+import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
@@ -86,6 +88,7 @@ public class TelefonoServiziResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/telefono-servizis")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<TelefonoServizi> updateTelefonoServizi(@Valid @RequestBody TelefonoServizi telefonoServizi) throws URISyntaxException {
         log.debug("REST request to update TelefonoServizi : {}", telefonoServizi);
@@ -203,6 +206,7 @@ public class TelefonoServiziResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/telefono-servizis/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Void> deleteTelefonoServizi(@PathVariable Long id) {
         log.debug("REST request to delete TelefonoServizi : {}", id);
