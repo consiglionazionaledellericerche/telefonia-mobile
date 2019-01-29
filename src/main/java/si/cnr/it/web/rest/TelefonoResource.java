@@ -121,6 +121,12 @@ public class TelefonoResource {
         }
 //        System.out.print("Che valore hai true o false? "+hasPermission);
         if (hasPermission) {
+            if(telefono.getUtenzaTelefono().contains(".")){
+
+            }
+            else{
+                return (ResponseEntity<Telefono>) ResponseEntity.unprocessableEntity();
+            }
             Telefono result = telefonoRepository.save(telefono);
             return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefono.getId().toString()))
