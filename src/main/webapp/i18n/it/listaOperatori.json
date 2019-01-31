@@ -1,0 +1,22 @@
+
+{
+    "telefoniaApp": {
+        "listaOperatori" : {
+            "home": {
+                "title": "ListaOperatoris",
+                "createLabel": "Genera un nuovo Lista Operatori",
+                "createOrEditLabel": "Genera o modifica un Lista Operatori"
+            },
+            "created": "&Egrave; stato generato un nuovo Lista Operatori con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Lista Operatori identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Lista Operatori con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Lista Operatori {{ id }}?"
+            },
+            "detail": {
+                "title": "Lista Operatori"
+            },
+            "nome": "Nome"
+        }
+    }
+}
