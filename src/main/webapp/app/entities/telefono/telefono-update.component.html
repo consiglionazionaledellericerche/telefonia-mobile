@@ -102,6 +102,7 @@
                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.istitutoTelefono" for="field_istitutoTelefono">Istituto</label>
 
                     <select [(ngModel)]="telefono.istitutoTelefono" name="istitutoTelefono" class="form-control" required>
+                        <option value=""></option>
                         <option value="SEDE CENTRALE">SEDE CENTRALE</option>
                         <option *ngFor="let i of istituti" [ngValue]="i.denominazione">{{i.denominazione}}</option>
                     </select>

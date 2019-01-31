@@ -263,11 +263,13 @@ public class TelefonoResource {
     @Timed
     public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto() {
 
-        List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
+       List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
+//         List<EntitaOrganizzativaWebDto> istituti = ace.entitaOrganizzativaFindByTerm("122000");
 
         istituti = istituti.stream()
             .sorted((i1, i2) -> i1.getDenominazione().compareTo(i2.getDenominazione()))
             .map(i -> {
+//                i.setDenominazione(i.getCdsuo()+" - "+i.getDenominazione().toUpperCase());
                 i.setDenominazione(i.getDenominazione().toUpperCase());
                 return i;
             })
@@ -275,6 +277,7 @@ public class TelefonoResource {
 
         return ResponseEntity.ok(istituti);
     }
+
 
 
 }

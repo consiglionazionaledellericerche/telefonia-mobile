@@ -5,10 +5,6 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="telefoniaApp.operatore.nome">Nome</span></dt>
-                <dd>
-                    <span>{{operatore.nome}}</span>
-                </dd>
                 <dt><span jhiTranslate="telefoniaApp.operatore.data">Data</span></dt>
                 <dd>
                     <span>{{operatore.data}}</span>
@@ -17,6 +13,12 @@
                 <dd>
                     <div *ngIf="operatore.telefonoOperatore">
                         <a [routerLink]="['/telefono', operatore.telefonoOperatore?.id, 'view']">{{operatore.telefonoOperatore?.numero}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.operatore.listaOperatori">Lista Operatori</span></dt>
+                <dd>
+                    <div *ngIf="operatore.listaOperatori">
+                        <a [routerLink]="['/lista-operatori', operatore.listaOperatori?.id, 'view']">{{operatore.listaOperatori?.nome}}</a>
                     </div>
                 </dd>
             </dl>
