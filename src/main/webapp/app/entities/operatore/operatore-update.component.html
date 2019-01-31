@@ -10,17 +10,6 @@
                         [(ngModel)]="operatore.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.nome" for="field_nome">Nome</label>
-                    <input type="text" class="form-control" name="nome" id="field_nome"
-                        [(ngModel)]="operatore.nome" required/>
-                    <div [hidden]="!(editForm.controls.nome?.dirty && editForm.controls.nome?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nome?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.data" for="field_data">Data</label>
                     <div class="input-group">
                         <input id="field_data" type="text" class="form-control" name="data" ngbDatepicker  #dataDp="ngbDatepicker" [(ngModel)]="operatore.data"
@@ -34,13 +23,26 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.telefonoOperatore" for="field_telefonoOperatore">Telefono Operatore</label>
                     <select class="form-control" id="field_telefonoOperatore" name="telefonoOperatore" [(ngModel)]="operatore.telefonoOperatore"  required>
-                        <!--<option *ngIf="!editForm.value.telefonoOperatore" [ngValue]="null" selected></option>-->
-                        <option [ngValue]="telefonoOption.id === operatore.telefonoOperatore?.id ? operatore.telefonoOperatore : telefonoOption" *ngFor="let telefonoOption of telefono; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>
+                        <option *ngIf="!editForm.value.telefonoOperatore" [ngValue]="null" selected></option>
+                        <option [ngValue]="telefonoOption.id === operatore.telefonoOperatore?.id ? operatore.telefonoOperatore : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.telefonoOperatore?.dirty && editForm.controls.telefonoOperatore?.invalid)">
                     <small class="form-text text-danger"
                         [hidden]="!editForm.controls.telefonoOperatore?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.listaOperatori" for="field_listaOperatori">Lista Operatori</label>
+                    <select class="form-control" id="field_listaOperatori" name="listaOperatori" [(ngModel)]="operatore.listaOperatori"  required>
+                        <option *ngIf="!editForm.value.listaOperatori" [ngValue]="null" selected></option>
+                        <option [ngValue]="listaOperatoriOption.id === operatore.listaOperatori?.id ? operatore.listaOperatori : listaOperatoriOption" *ngFor="let listaOperatoriOption of listaoperatoris; trackBy: trackListaOperatoriById">{{listaOperatoriOption.nome}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.listaOperatori?.dirty && editForm.controls.listaOperatori?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.listaOperatori?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

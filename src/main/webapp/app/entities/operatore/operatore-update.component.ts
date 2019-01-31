@@ -8,7 +8,8 @@ import { IOperatore } from 'app/shared/model/operatore.model';
 import { OperatoreService } from './operatore.service';
 import { ITelefono } from 'app/shared/model/telefono.model';
 import { TelefonoService } from 'app/entities/telefono';
-import { TelefonoServiziService } from 'app/entities/telefono-servizi/telefono-servizi.service';
+import { IListaOperatori } from 'app/shared/model/lista-operatori.model';
+import { ListaOperatoriService } from 'app/entities/lista-operatori';
 
 @Component({
     selector: 'jhi-operatore-update',
@@ -17,16 +18,17 @@ import { TelefonoServiziService } from 'app/entities/telefono-servizi/telefono-s
 export class OperatoreUpdateComponent implements OnInit {
     private _operatore: IOperatore;
     isSaving: boolean;
-    telefono = [];
 
     telefonos: ITelefono[];
+
+    listaoperatoris: IListaOperatori[];
     dataDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private operatoreService: OperatoreService,
         private telefonoService: TelefonoService,
-        private telefonoServiziService: TelefonoServiziService,
+        private listaOperatoriService: ListaOperatoriService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -41,9 +43,12 @@ export class OperatoreUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.telefonoServiziService.findTelefono().subscribe(telefonoRestituiti => {
-            this.telefono = telefonoRestituiti;
-        });
+        this.listaOperatoriService.query().subscribe(
+            (res: HttpResponse<IListaOperatori[]>) => {
+                this.listaoperatoris = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -77,6 +82,10 @@ export class OperatoreUpdateComponent implements OnInit {
     }
 
     trackTelefonoById(index: number, item: ITelefono) {
+        return item.id;
+    }
+
+    trackListaOperatoriById(index: number, item: IListaOperatori) {
         return item.id;
     }
     get operatore() {

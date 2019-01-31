@@ -16,9 +16,9 @@
             "detail": {
                 "title": "Operatore"
             },
-            "nome": "Nome",
             "data": "Data",
-            "telefonoOperatore": "Telefono Operatore"
+            "telefonoOperatore": "Telefono Operatore",
+            "listaOperatori": "Lista Operatori"
         }
     }
 }

@@ -100,6 +100,8 @@ public class TelefonoServiziResource {
         String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
         String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
         String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+
+        String valoreCdsUoSede = sede_cdsuoUser+" - "+sede_user;
 /**
  * Codice che permette di salvare solo se sei
  * la persona corretta

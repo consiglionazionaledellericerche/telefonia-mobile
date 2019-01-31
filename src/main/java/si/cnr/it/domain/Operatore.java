@@ -26,10 +26,6 @@ public class Operatore implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "nome", nullable = false)
-    private String nome;
-
     @Column(name = "data")
     private LocalDate data;
 
@@ -38,6 +34,11 @@ public class Operatore implements Serializable {
     @JsonIgnoreProperties("")
     private Telefono telefonoOperatore;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private ListaOperatori listaOperatori;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -45,19 +46,6 @@ public class Operatore implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Operatore nome(String nome) {
-        this.nome = nome;
-        return this;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public LocalDate getData() {
@@ -85,6 +73,19 @@ public class Operatore implements Serializable {
     public void setTelefonoOperatore(Telefono telefono) {
         this.telefonoOperatore = telefono;
     }
+
+    public ListaOperatori getListaOperatori() {
+        return listaOperatori;
+    }
+
+    public Operatore listaOperatori(ListaOperatori listaOperatori) {
+        this.listaOperatori = listaOperatori;
+        return this;
+    }
+
+    public void setListaOperatori(ListaOperatori listaOperatori) {
+        this.listaOperatori = listaOperatori;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -111,7 +112,6 @@ public class Operatore implements Serializable {
     public String toString() {
         return "Operatore{" +
             "id=" + getId() +
-            ", nome='" + getNome() + "'" +
             ", data='" + getData() + "'" +
             "}";
     }
