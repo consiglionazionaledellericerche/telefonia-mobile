@@ -7,7 +7,7 @@
         Added the constraints for entity ListaOperatori.
     -->
     <changeSet id="20190130092957-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="operatore_id"
                                  baseTableName="lista_operatori"
                                  constraintName="fk_lista_operatori_operatore_id"
