@@ -35,4 +35,8 @@ export class TelefonoServiziService {
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
+    findTelefono() {
+        return this.http.get<any>(`${this.resourceUrl}/findTelefono`);
+    }
 }

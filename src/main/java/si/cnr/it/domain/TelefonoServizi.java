@@ -36,7 +36,7 @@ public class TelefonoServizi implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
-    private Telefono telefono;
+            private Telefono telefono;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

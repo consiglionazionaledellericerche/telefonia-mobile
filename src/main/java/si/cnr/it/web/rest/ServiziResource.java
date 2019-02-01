@@ -1,8 +1,10 @@
 package si.cnr.it.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.springframework.security.access.annotation.Secured;
 import si.cnr.it.domain.Servizi;
 import si.cnr.it.repository.ServiziRepository;
+import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
 import si.cnr.it.web.rest.util.PaginationUtil;
@@ -48,6 +50,7 @@ public class ServiziResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/servizis")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Servizi> createServizi(@Valid @RequestBody Servizi servizi) throws URISyntaxException {
         log.debug("REST request to save Servizi : {}", servizi);
@@ -70,6 +73,7 @@ public class ServiziResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/servizis")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Servizi> updateServizi(@Valid @RequestBody Servizi servizi) throws URISyntaxException {
         log.debug("REST request to update Servizi : {}", servizi);
@@ -118,6 +122,7 @@ public class ServiziResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/servizis/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Void> deleteServizi(@PathVariable Long id) {
         log.debug("REST request to delete Servizi : {}", id);

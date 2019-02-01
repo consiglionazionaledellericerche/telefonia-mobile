@@ -1,5 +1,6 @@
 package si.cnr.it.web.rest;
 
+import org.junit.Ignore;
 import si.cnr.it.TelefoniaApp;
 
 import si.cnr.it.domain.Telefono;
@@ -267,6 +268,7 @@ public class TelefonoResourceIntTest {
     }
 
     @Test
+    @Ignore
     @Transactional
     public void getAllTelefonos() throws Exception {
         // Initialize the database

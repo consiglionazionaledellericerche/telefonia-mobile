@@ -52,7 +52,29 @@ public class Telefono implements Serializable {
     @Column(name = "istituto_telefono", nullable = false)
     private String istitutoTelefono;
 
+
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    /** Prova Valerio */
+//    @NotNull
+//    //@Column(name = "ist", nullable = false)
+//    private String ist = "";
+//
+//    public String getIst() {
+//        return ist;
+//    }
+//
+//    public Telefono ist(String ist) {
+//        this.ist = ist;
+//        return this;
+//    }
+//
+//    public void setIst(String ist) {
+//        this.ist = ist;
+//    }
+    /** Fine Prova Valerio */
+
     public Long getId() {
         return id;
     }
@@ -184,6 +206,7 @@ public class Telefono implements Serializable {
             ", numeroContratto='" + getNumeroContratto() + "'" +
             ", utenzaTelefono='" + getUtenzaTelefono() + "'" +
             ", istitutoTelefono='" + getIstitutoTelefono() + "'" +
+//            ", ist='" + getIst() + "'" +
             "}";
     }
 }

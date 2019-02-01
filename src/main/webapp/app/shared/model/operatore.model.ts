@@ -1,13 +1,14 @@
 import { Moment } from 'moment';
 import { ITelefono } from 'app/shared/model//telefono.model';
+import { IListaOperatori } from 'app/shared/model//lista-operatori.model';
 
 export interface IOperatore {
     id?: number;
-    nome?: string;
     data?: Moment;
     telefonoOperatore?: ITelefono;
+    listaOperatori?: IListaOperatori;
 }
 
 export class Operatore implements IOperatore {
-    constructor(public id?: number, public nome?: string, public data?: Moment, public telefonoOperatore?: ITelefono) {}
+    constructor(public id?: number, public data?: Moment, public telefonoOperatore?: ITelefono, public listaOperatori?: IListaOperatori) {}
 }

@@ -42,6 +42,7 @@ public class CacheConfiguration {
             cm.createCache(si.cnr.it.domain.Telefono.class.getName(), jcacheConfiguration);
             cm.createCache(si.cnr.it.domain.Operatore.class.getName(), jcacheConfiguration);
             cm.createCache(si.cnr.it.domain.TelefonoServizi.class.getName(), jcacheConfiguration);
+            cm.createCache(si.cnr.it.domain.ListaOperatori.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
