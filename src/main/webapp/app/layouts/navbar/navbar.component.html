@@ -29,7 +29,7 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
-                    <li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
                         <a class="dropdown-item" routerLink="servizi" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.servizi">-->
@@ -58,6 +58,14 @@
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.telefonoServizi">-->
                                 Telefono Servizi
+                            <!--</span>-->
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="lista-operatori" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <!--<span jhiTranslate="global.menu.entities.listaOperatori">-->
+                                Lista Operatori
                             <!--</span>-->
                         </a>
                     </li>

@@ -42,6 +42,23 @@ public class JWTAuthenticationManager implements AuthenticationManager {
                             .collect(Collectors.toList());
 
             authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+
+            // TODO creare ruoli amministrativi in ACE
+            if(principal.equals("valerio.diego"))
+                authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
+
+            /**Da controllare bene*/
+//            String sede_user = aceService.getPersonaByUsername(principal).getSede().getDenominazione(); //sede di username
+//            String sede_cdsuoUser = aceService.getPersonaByUsername(principal).getSede().getCdsuo(); //sede_cds di username
+//            String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+//
+//            if (cds.equals("000"))
+//                sede_user = "SEDE CENTRALE";
+//
+//            authorities.add(new SimpleGrantedAuthority(sede_user));
+            /**  Fine    */
+
+
             User utente = new User(principal, credentials, authorities);
 
             return new UsernamePasswordAuthenticationToken(utente, authentication, authorities);

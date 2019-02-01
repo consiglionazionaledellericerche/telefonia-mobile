@@ -8,6 +8,8 @@ import { IOperatore } from 'app/shared/model/operatore.model';
 import { OperatoreService } from './operatore.service';
 import { ITelefono } from 'app/shared/model/telefono.model';
 import { TelefonoService } from 'app/entities/telefono';
+import { IListaOperatori } from 'app/shared/model/lista-operatori.model';
+import { ListaOperatoriService } from 'app/entities/lista-operatori';
 
 @Component({
     selector: 'jhi-operatore-update',
@@ -18,12 +20,15 @@ export class OperatoreUpdateComponent implements OnInit {
     isSaving: boolean;
 
     telefonos: ITelefono[];
+
+    listaoperatoris: IListaOperatori[];
     dataDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private operatoreService: OperatoreService,
         private telefonoService: TelefonoService,
+        private listaOperatoriService: ListaOperatoriService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -35,6 +40,12 @@ export class OperatoreUpdateComponent implements OnInit {
         this.telefonoService.query().subscribe(
             (res: HttpResponse<ITelefono[]>) => {
                 this.telefonos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.listaOperatoriService.query().subscribe(
+            (res: HttpResponse<IListaOperatori[]>) => {
+                this.listaoperatoris = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -71,6 +82,10 @@ export class OperatoreUpdateComponent implements OnInit {
     }
 
     trackTelefonoById(index: number, item: ITelefono) {
+        return item.id;
+    }
+
+    trackListaOperatoriById(index: number, item: IListaOperatori) {
         return item.id;
     }
     get operatore() {

@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="telefono"/>
 
+        <addForeignKeyConstraint baseColumnNames="lista_operatori_id"
+                                 baseTableName="operatore"
+                                 constraintName="fk_operatore_lista_operatori_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lista_operatori"/>
+
     </changeSet>
 </databaseChangeLog>

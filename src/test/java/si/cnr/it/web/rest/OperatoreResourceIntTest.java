@@ -4,6 +4,7 @@ import si.cnr.it.TelefoniaApp;
 
 import si.cnr.it.domain.Operatore;
 import si.cnr.it.domain.Telefono;
+import si.cnr.it.domain.ListaOperatori;
 import si.cnr.it.repository.OperatoreRepository;
 import si.cnr.it.web.rest.errors.ExceptionTranslator;
 
@@ -41,9 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TelefoniaApp.class)
 public class OperatoreResourceIntTest {
-
-    private static final String DEFAULT_NOME = "AAAAAAAAAA";
-    private static final String UPDATED_NOME = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_DATA = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATA = LocalDate.now(ZoneId.systemDefault());
@@ -86,13 +84,17 @@ public class OperatoreResourceIntTest {
      */
     public static Operatore createEntity(EntityManager em) {
         Operatore operatore = new Operatore()
-            .nome(DEFAULT_NOME)
             .data(DEFAULT_DATA);
         // Add required entity
         Telefono telefono = TelefonoResourceIntTest.createEntity(em);
         em.persist(telefono);
         em.flush();
         operatore.setTelefonoOperatore(telefono);
+        // Add required entity
+        ListaOperatori listaOperatori = ListaOperatoriResourceIntTest.createEntity(em);
+        em.persist(listaOperatori);
+        em.flush();
+        operatore.setListaOperatori(listaOperatori);
         return operatore;
     }
 
@@ -116,7 +118,6 @@ public class OperatoreResourceIntTest {
         List<Operatore> operatoreList = operatoreRepository.findAll();
         assertThat(operatoreList).hasSize(databaseSizeBeforeCreate + 1);
         Operatore testOperatore = operatoreList.get(operatoreList.size() - 1);
-        assertThat(testOperatore.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testOperatore.getData()).isEqualTo(DEFAULT_DATA);
     }
 
@@ -141,24 +142,6 @@ public class OperatoreResourceIntTest {
 
     @Test
     @Transactional
-    public void checkNomeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = operatoreRepository.findAll().size();
-        // set the field null
-        operatore.setNome(null);
-
-        // Create the Operatore, which fails.
-
-        restOperatoreMockMvc.perform(post("/api/operatores")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(operatore)))
-            .andExpect(status().isBadRequest());
-
-        List<Operatore> operatoreList = operatoreRepository.findAll();
-        assertThat(operatoreList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllOperatores() throws Exception {
         // Initialize the database
         operatoreRepository.saveAndFlush(operatore);
@@ -168,7 +151,6 @@ public class OperatoreResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(operatore.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
             .andExpect(jsonPath("$.[*].data").value(hasItem(DEFAULT_DATA.toString())));
     }
     
@@ -183,7 +165,6 @@ public class OperatoreResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(operatore.getId().intValue()))
-            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
             .andExpect(jsonPath("$.data").value(DEFAULT_DATA.toString()));
     }
 
@@ -208,7 +189,6 @@ public class OperatoreResourceIntTest {
         // Disconnect from session so that the updates on updatedOperatore are not directly saved in db
         em.detach(updatedOperatore);
         updatedOperatore
-            .nome(UPDATED_NOME)
             .data(UPDATED_DATA);
 
         restOperatoreMockMvc.perform(put("/api/operatores")
@@ -220,7 +200,6 @@ public class OperatoreResourceIntTest {
         List<Operatore> operatoreList = operatoreRepository.findAll();
         assertThat(operatoreList).hasSize(databaseSizeBeforeUpdate);
         Operatore testOperatore = operatoreList.get(operatoreList.size() - 1);
-        assertThat(testOperatore.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testOperatore.getData()).isEqualTo(UPDATED_DATA);
     }
 

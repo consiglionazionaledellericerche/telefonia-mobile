@@ -10,16 +10,18 @@
                 "required"
             ],
             "otherEntityField": "numero"
+        },
+        {
+            "relationshipName": "listaOperatori",
+            "otherEntityName": "listaOperatori",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nome"
         }
     ],
     "fields": [
-        {
-            "fieldName": "nome",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
         {
             "fieldName": "data",
             "fieldType": "LocalDate"

@@ -94,4 +94,8 @@ export class TelefonoService {
         //        map(response => response[1].username)
         //        );
     }
+
+    getIstituti() {
+        return this.http.get<any>(`${this.resourceUrl}/getIstituti`);
+    }
 }

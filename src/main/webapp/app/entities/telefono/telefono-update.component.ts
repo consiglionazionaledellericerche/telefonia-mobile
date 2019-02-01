@@ -42,6 +42,7 @@ export class TelefonoUpdateComponent implements OnInit {
     dataCessazioneDp: any;
     searching = false;
     searchFailed = false;
+    istituti = [];
 
     constructor(private _service: WikipediaService, private telefonoService: TelefonoService, private activatedRoute: ActivatedRoute) {}
 
@@ -49,6 +50,10 @@ export class TelefonoUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ telefono }) => {
             this.telefono = telefono;
+        });
+
+        this.telefonoService.getIstituti().subscribe(istitutiRestituiti => {
+            this.istituti = istitutiRestituiti;
         });
     }
 
@@ -102,6 +107,4 @@ export class TelefonoUpdateComponent implements OnInit {
             ),
             tap(() => (this.searching = false))
         );
-
-    // formatter = (x: {username: string}) => x.username
 }
