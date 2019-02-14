@@ -103,8 +103,8 @@
 
                     <select [(ngModel)]="telefono.istitutoTelefono" name="istitutoTelefono" class="form-control" required>
                         <option value=""></option>
-                        <option value="SEDE CENTRALE">SEDE CENTRALE</option>
-                        <option *ngFor="let i of istituti" [ngValue]="i.denominazione">{{i.denominazione}}</option>
+                        <!--<option value="SEDE CENTRALE">SEDE CENTRALE</option>-->
+                        <option *ngFor="let i of istituti" [ngValue]="i.cdsuo+' - '+i.denominazione">{{i.cdsuo+' - '+i.denominazione}}</option>
                     </select>
                     <pre>Model: {{ telefono.istitutoTelefono | json }}</pre>
 
