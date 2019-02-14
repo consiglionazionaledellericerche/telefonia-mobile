@@ -2,8 +2,10 @@ package si.cnr.it.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.service.AceService;
+import it.cnr.si.service.dto.anagrafica.base.NodeDto;
 import it.cnr.si.service.dto.anagrafica.base.PageDto;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
+import it.cnr.si.service.dto.anagrafica.letture.IndirizzoWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -50,6 +52,8 @@ public class TelefonoResource {
     private static final String ENTITY_NAME = "telefono";
 
     private final TelefonoRepository telefonoRepository;
+
+    List<EntitaOrganizzativaWebDto> ist;
 
     public TelefonoResource(TelefonoRepository telefonoRepository) {
         this.telefonoRepository = telefonoRepository;
@@ -263,21 +267,138 @@ public class TelefonoResource {
     @Timed
     public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto() {
 
-       List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
-//         List<EntitaOrganizzativaWebDto> istituti = ace.entitaOrganizzativaFindByTerm("122000");
 
-        istituti = istituti.stream()
+        String cds = getCdsUser();
+        List<NodeDto> gerarchiaIstituti = ace.getGerarchiaIstituti();
+
+        List<EntitaOrganizzativaWebDto> istitutiESedi = new ArrayList<>();
+        //Inserisco Sede Centrale
+        EntitaOrganizzativaWebDto ist = new EntitaOrganizzativaWebDto();
+        IndirizzoWebDto indirizzo = new IndirizzoWebDto();
+        indirizzo.setComune("Roma");
+        ist.setCdsuo("000000");
+        ist.setDenominazione("SEDE CENTRALE");
+        ist.setIndirizzoPrincipale(indirizzo);
+        //Fine inserimento Sede Centrale
+
+        String cdsuo = "";
+        String cdsuos = "";
+        int a = 0;
+
+        //  System.out.print(cds);
+        for (NodeDto istituto: gerarchiaIstituti) {
+            if(a == 0 && cds.equals("000")) {
+                //Prova inserimento a buffo sede centrale
+                istitutiESedi.add(ist);
+                //Fine Prova inserimento a buffo sede centrale
+                a = a+1;
+            }
+            if(istituto.entitaOrganizzativa.getCdsuo().substring(0,3).equals(cds) || cds.equals("000")) {
+
+                /** Tolgo il padre che sono i figli quelli che mi interessano
+                 * istitutiESedi.add(istituto.entitaOrganizzativa);
+                 cdsuo = istituto.entitaOrganizzativa.getCdsuo();
+                 cdsuos = cdsuos+" - "+istituto.entitaOrganizzativa.getCdsuo();*/
+                // System.out.print("quanto è cdsuo: "+cdsuo);
+            }
+            for (NodeDto figlio: istituto.children) {
+                // System.out.print("Contiene cdsuo = "+istitutiESedi.contains(figlio.entitaOrganizzativa.getCdsuo())+" - questo valore: "+figlio.entitaOrganizzativa.getCdsuo()+" ||");
+                if(figlio.entitaOrganizzativa.getCdsuo().equals(cdsuo)){
+
+                }
+                else{
+                    if(cdsuos.contains(figlio.entitaOrganizzativa.getCdsuo())){
+
+                    }
+                    else {
+                        if(figlio.entitaOrganizzativa.getCdsuo().substring(0,3).equals(cds) || cds.equals("000"))
+                            istitutiESedi.add(figlio.entitaOrganizzativa);
+                    }
+                }
+                cdsuos = cdsuos+" - "+figlio.entitaOrganizzativa.getCdsuo();
+
+            }
+        }
+
+        istitutiESedi = istitutiESedi.stream()
             .sorted((i1, i2) -> i1.getDenominazione().compareTo(i2.getDenominazione()))
             .map(i -> {
-//                i.setDenominazione(i.getCdsuo()+" - "+i.getDenominazione().toUpperCase());
+                //i.setDenominazione(i.getCdsuo()+" - "+i.getDenominazione().toUpperCase());
+//                i.setDenominazione(i.getDenominazione().toUpperCase()+" - "+i.getIndirizzoPrincipale().getProvincia());
                 i.setDenominazione(i.getDenominazione().toUpperCase());
                 return i;
             })
             .collect(Collectors.toList());
 
-        return ResponseEntity.ok(istituti);
+
+
+
+
+
+
+
+//        List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
+//
+//        istituti = istituti.stream()
+//            .sorted((i1, i2) -> i1.getDenominazione().compareTo(i2.getDenominazione()))
+//            .map(i -> {
+//                i.setDenominazione(i.getDenominazione().toUpperCase());
+//                return i;
+//            })
+//            .collect(Collectors.toList());
+
+
+
+
+//        List<String> result = new ArrayList<>();
+//
+//        Map<String, String> query = new HashMap<>();
+//        query.put("term", term);
+//
+//        List<EntitaOrganizzativaWebDto> istituti = ace.listaIstitutiAttivi();
+//
+//
+//        for (EntitaOrganizzativaWebDto istituto : istituti ) {
+//            if ( istituto.getDenominazione() != null)
+//                result.add(  istituto.getDenominazione()  );
+//        }
+//
+//        listaPersone.stream()
+//            .forEach(persona -> result.add(  persona.getUsername()  )  );
+//
+//
+//
+//        result = listaPersone.stream()
+//            .filter( persona -> persona.getUsername() != null )
+//            .map(persona -> persona.getUsername())
+//            .collect(Collectors.toList()    );
+
+        setIst(istitutiESedi);
+
+
+        return ResponseEntity.ok(istitutiESedi);
     }
 
+    public String getSedeUser(){
+//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
 
+        return sede_user;
+    }
+
+    public String getCdsUser(){
+//        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+        return cds;
+    }
+
+    public void setIst(List<EntitaOrganizzativaWebDto> istituti){
+        ist = istituti;
+    }
+
+    public List<EntitaOrganizzativaWebDto> getIst(){
+        return ist;
+    }
 
 }
