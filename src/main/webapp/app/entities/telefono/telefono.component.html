@@ -22,6 +22,7 @@
             <th jhiSortBy="numeroContratto"><span jhiTranslate="telefoniaApp.telefono.numeroContratto">Numero Contratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="utenzaTelefono"><span jhiTranslate="telefoniaApp.telefono.utenzaTelefono">Utenza Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="istitutoTelefono"><span jhiTranslate="telefoniaApp.telefono.istitutoTelefono">Istituto Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cdsuo"><span jhiTranslate="telefoniaApp.telefono.cdsuo">Cdsuo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -35,29 +36,29 @@
                 <td>{{telefono.numeroContratto}}</td>
                 <td>{{telefono.utenzaTelefono}}</td>
                 <td>{{telefono.istitutoTelefono}}</td>
+                <td>{{telefono.cdsuo}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <!--<button type="submit"-->
-                                <!--[routerLink]="['/telefono', telefono.id, 'view' ]"-->
-                                <!--class="btn btn-info btn-sm">-->
-                            <!--<fa-icon [icon]="'eye'"></fa-icon>-->
-                            <!--<span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
-                        <!--</button>-->
+                        <button type="submit"
+                                [routerLink]="['/telefono', telefono.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
                         <button type="submit"
                                 [routerLink]="['/telefono', telefono.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button *jhiHasAnyAuthority="['ROLE_ADMIN']"
-                                type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'telefono/'+ telefono.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
+                        <!--<button *jhiHasAnyAuthority="['ROLE_ADMIN']" type="submit"-->
+                                <!--[routerLink]="['/', { outlets: { popup: 'telefono/'+ telefono.id + '/delete'} }]"-->
+                                <!--replaceUrl="true"-->
+                                <!--queryParamsHandling="merge"-->
+                                <!--class="btn btn-danger btn-sm">-->
+                            <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                            <!--<span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+                        <!--</button>-->
                     </div>
                 </td>
             </tr>

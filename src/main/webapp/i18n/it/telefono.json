@@ -22,7 +22,8 @@
             "intestatarioContratto": "Intestatario Contratto",
             "numeroContratto": "Numero Contratto",
             "utenzaTelefono": "Utenza Telefono",
-            "istitutoTelefono": "Istituto Telefono"
+            "istitutoTelefono": "Istituto Telefono",
+            "cdsuo": "Cdsuo"
         }
     }
 }
