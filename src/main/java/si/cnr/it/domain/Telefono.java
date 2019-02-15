@@ -52,29 +52,11 @@ public class Telefono implements Serializable {
     @Column(name = "istituto_telefono", nullable = false)
     private String istitutoTelefono;
 
-
+    @NotNull
+    @Column(name = "cdsuo", nullable = false)
+    private String cdsuo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-    /** Prova Valerio */
-//    @NotNull
-//    //@Column(name = "ist", nullable = false)
-//    private String ist = "";
-//
-//    public String getIst() {
-//        return ist;
-//    }
-//
-//    public Telefono ist(String ist) {
-//        this.ist = ist;
-//        return this;
-//    }
-//
-//    public void setIst(String ist) {
-//        this.ist = ist;
-//    }
-    /** Fine Prova Valerio */
-
     public Long getId() {
         return id;
     }
@@ -173,6 +155,19 @@ public class Telefono implements Serializable {
     public void setIstitutoTelefono(String istitutoTelefono) {
         this.istitutoTelefono = istitutoTelefono;
     }
+
+    public String getCdsuo() {
+        return cdsuo;
+    }
+
+    public Telefono cdsuo(String cdsuo) {
+        this.cdsuo = cdsuo;
+        return this;
+    }
+
+    public void setCdsuo(String cdsuo) {
+        this.cdsuo = cdsuo;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -206,7 +201,7 @@ public class Telefono implements Serializable {
             ", numeroContratto='" + getNumeroContratto() + "'" +
             ", utenzaTelefono='" + getUtenzaTelefono() + "'" +
             ", istitutoTelefono='" + getIstitutoTelefono() + "'" +
-//            ", ist='" + getIst() + "'" +
+            ", cdsuo='" + getCdsuo() + "'" +
             "}";
     }
 }

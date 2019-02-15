@@ -63,6 +63,9 @@ public class TelefonoResourceIntTest {
     private static final String DEFAULT_ISTITUTO_TELEFONO = "AAAAAAAAAA";
     private static final String UPDATED_ISTITUTO_TELEFONO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CDSUO = "AAAAAAAAAA";
+    private static final String UPDATED_CDSUO = "BBBBBBBBBB";
+
     @Autowired
     private TelefonoRepository telefonoRepository;
 
@@ -107,7 +110,8 @@ public class TelefonoResourceIntTest {
             .intestatarioContratto(DEFAULT_INTESTATARIO_CONTRATTO)
             .numeroContratto(DEFAULT_NUMERO_CONTRATTO)
             .utenzaTelefono(DEFAULT_UTENZA_TELEFONO)
-            .istitutoTelefono(DEFAULT_ISTITUTO_TELEFONO);
+            .istitutoTelefono(DEFAULT_ISTITUTO_TELEFONO)
+            .cdsuo(DEFAULT_CDSUO);
         return telefono;
     }
 
@@ -138,6 +142,7 @@ public class TelefonoResourceIntTest {
         assertThat(testTelefono.getNumeroContratto()).isEqualTo(DEFAULT_NUMERO_CONTRATTO);
         assertThat(testTelefono.getUtenzaTelefono()).isEqualTo(DEFAULT_UTENZA_TELEFONO);
         assertThat(testTelefono.getIstitutoTelefono()).isEqualTo(DEFAULT_ISTITUTO_TELEFONO);
+        assertThat(testTelefono.getCdsuo()).isEqualTo(DEFAULT_CDSUO);
     }
 
     @Test
@@ -268,6 +273,24 @@ public class TelefonoResourceIntTest {
     }
 
     @Test
+    @Transactional
+    public void checkCdsuoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = telefonoRepository.findAll().size();
+        // set the field null
+        telefono.setCdsuo(null);
+
+        // Create the Telefono, which fails.
+
+        restTelefonoMockMvc.perform(post("/api/telefonos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(telefono)))
+            .andExpect(status().isBadRequest());
+
+        List<Telefono> telefonoList = telefonoRepository.findAll();
+        assertThat(telefonoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     @Ignore
     @Transactional
     public void getAllTelefonos() throws Exception {
@@ -285,7 +308,8 @@ public class TelefonoResourceIntTest {
             .andExpect(jsonPath("$.[*].intestatarioContratto").value(hasItem(DEFAULT_INTESTATARIO_CONTRATTO.toString())))
             .andExpect(jsonPath("$.[*].numeroContratto").value(hasItem(DEFAULT_NUMERO_CONTRATTO.toString())))
             .andExpect(jsonPath("$.[*].utenzaTelefono").value(hasItem(DEFAULT_UTENZA_TELEFONO.toString())))
-            .andExpect(jsonPath("$.[*].istitutoTelefono").value(hasItem(DEFAULT_ISTITUTO_TELEFONO.toString())));
+            .andExpect(jsonPath("$.[*].istitutoTelefono").value(hasItem(DEFAULT_ISTITUTO_TELEFONO.toString())))
+            .andExpect(jsonPath("$.[*].cdsuo").value(hasItem(DEFAULT_CDSUO.toString())));
     }
     
     @Test
@@ -305,7 +329,8 @@ public class TelefonoResourceIntTest {
             .andExpect(jsonPath("$.intestatarioContratto").value(DEFAULT_INTESTATARIO_CONTRATTO.toString()))
             .andExpect(jsonPath("$.numeroContratto").value(DEFAULT_NUMERO_CONTRATTO.toString()))
             .andExpect(jsonPath("$.utenzaTelefono").value(DEFAULT_UTENZA_TELEFONO.toString()))
-            .andExpect(jsonPath("$.istitutoTelefono").value(DEFAULT_ISTITUTO_TELEFONO.toString()));
+            .andExpect(jsonPath("$.istitutoTelefono").value(DEFAULT_ISTITUTO_TELEFONO.toString()))
+            .andExpect(jsonPath("$.cdsuo").value(DEFAULT_CDSUO.toString()));
     }
 
     @Test
@@ -335,7 +360,8 @@ public class TelefonoResourceIntTest {
             .intestatarioContratto(UPDATED_INTESTATARIO_CONTRATTO)
             .numeroContratto(UPDATED_NUMERO_CONTRATTO)
             .utenzaTelefono(UPDATED_UTENZA_TELEFONO)
-            .istitutoTelefono(UPDATED_ISTITUTO_TELEFONO);
+            .istitutoTelefono(UPDATED_ISTITUTO_TELEFONO)
+            .cdsuo(UPDATED_CDSUO);
 
         restTelefonoMockMvc.perform(put("/api/telefonos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -353,6 +379,7 @@ public class TelefonoResourceIntTest {
         assertThat(testTelefono.getNumeroContratto()).isEqualTo(UPDATED_NUMERO_CONTRATTO);
         assertThat(testTelefono.getUtenzaTelefono()).isEqualTo(UPDATED_UTENZA_TELEFONO);
         assertThat(testTelefono.getIstitutoTelefono()).isEqualTo(UPDATED_ISTITUTO_TELEFONO);
+        assertThat(testTelefono.getCdsuo()).isEqualTo(UPDATED_CDSUO);
     }
 
     @Test

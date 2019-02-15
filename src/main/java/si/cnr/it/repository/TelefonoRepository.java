@@ -23,6 +23,6 @@ public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
 
     public List<Telefono> findByIstitutoTelefono(String istitutoTelefono);
 
-  /**  @RequestLine("GET api/ace/v1/entitaorganizzativa?term={term}&tipo=1")
+    /**  @RequestLine("GET api/ace/v1/entitaorganizzativa?term={term}&tipo=1")
     PageDto<EntitaOrganizzativaWebDto> findIstitutiByTerm(@Param("term") String var1);*/
 }

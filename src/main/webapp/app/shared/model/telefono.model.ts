@@ -9,6 +9,7 @@ export interface ITelefono {
     numeroContratto?: string;
     utenzaTelefono?: string;
     istitutoTelefono?: string;
+    cdsuo?: string;
 }
 
 export class Telefono implements ITelefono {
@@ -20,6 +21,7 @@ export class Telefono implements ITelefono {
         public intestatarioContratto?: string,
         public numeroContratto?: string,
         public utenzaTelefono?: string,
-        public istitutoTelefono?: string
+        public istitutoTelefono?: string,
+        public cdsuo?: string
     ) {}
 }

@@ -55,6 +55,8 @@ export class TelefonoUpdateComponent implements OnInit {
         this.telefonoService.getIstituti().subscribe(istitutiRestituiti => {
             this.istituti = istitutiRestituiti;
         });
+
+        this.telefono.cdsuo = 'pippo';
     }
 
     previousState() {
