@@ -287,9 +287,15 @@ public class TelefonoResource {
 
 
         String cds = getCdsUser();
-        List<NodeDto> gerarchiaIstituti = ace.getGerarchiaIstituti();
 
+        //Istituti Richiamo
+        List<NodeDto> gerarchiaIstituti = ace.getGerarchiaIstituti();
+        //Uffici Richiamo
+        List<NodeDto> gerarchiaUffici = ace.getGerarchiaUffici();
+
+        //Array completo
         List<EntitaOrganizzativaWebDto> istitutiESedi = new ArrayList<>();
+
         //Inserisco Sede Centrale
         EntitaOrganizzativaWebDto ist = new EntitaOrganizzativaWebDto();
         IndirizzoWebDto indirizzo = new IndirizzoWebDto();
@@ -299,8 +305,33 @@ public class TelefonoResource {
         ist.setIndirizzoPrincipale(indirizzo);
         //Fine inserimento Sede Centrale
 
+
         String cdsuo = "";
         String cdsuos = "";
+        String Prova = "";
+        for (NodeDto ufficio: gerarchiaUffici) {
+            for (NodeDto figlio: ufficio.children) {
+                if(figlio.entitaOrganizzativa.getCdsuo().substring(0,3).equals(cds) || cds.equals("000")){
+                    figlio.entitaOrganizzativa.setIndirizzoPrincipale(indirizzo); //Lo forzo sennò non funziona
+                    istitutiESedi.add(figlio.entitaOrganizzativa);
+                }
+
+
+            }
+        }
+
+
+
+
+
+        //Istituti
+        //List<EntitaOrganizzativaWebDto> istitutiESedi = new ArrayList<>();
+
+     //   String cdsuo = "";
+     //   String cdsuos = "";
+        cdsuo = "";
+        cdsuos = "";
+
         int a = 0;
 
         //  System.out.print(cds);
@@ -350,7 +381,11 @@ public class TelefonoResource {
 
 
 
-
+        Iterator i = istitutiESedi.iterator();
+        while(i.hasNext()){
+            EntitaOrganizzativaWebDto EO = (EntitaOrganizzativaWebDto) i.next();
+            System.out.println("Inizio"+EO.getDenominazione()+" - "+EO.getCdsuo()+""+EO.getIndirizzoPrincipale().getComune()+"Fine");
+        }
 
 
 
