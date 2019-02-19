@@ -20,9 +20,10 @@
             <th jhiSortBy="dataCessazione"><span jhiTranslate="telefoniaApp.telefono.dataCessazione">Data Cessazione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="intestatarioContratto"><span jhiTranslate="telefoniaApp.telefono.intestatarioContratto">Intestatario Contratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numeroContratto"><span jhiTranslate="telefoniaApp.telefono.numeroContratto">Numero Contratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="utenzaTelefono"><span jhiTranslate="telefoniaApp.telefono.utenzaTelefono">Utenza Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="istitutoTelefono"><span jhiTranslate="telefoniaApp.telefono.istitutoTelefono">Istituto Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cdsuo"><span jhiTranslate="telefoniaApp.telefono.cdsuo">Cdsuo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="deleted"><span jhiTranslate="telefoniaApp.telefono.deleted">Deleted</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <!--<th jhiSortBy="deletedNote"><span jhiTranslate="telefoniaApp.telefono.deletedNote">Deleted Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="utilizzatoreUtenza"><span jhiTranslate="telefoniaApp.telefono.utilizzatoreUtenza">Utilizzatore Utenza</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -34,9 +35,10 @@
                 <td>{{telefono.dataCessazione | date:'mediumDate'}}</td>
                 <td>{{telefono.intestatarioContratto}}</td>
                 <td>{{telefono.numeroContratto}}</td>
-                <td>{{telefono.utenzaTelefono}}</td>
-                <td>{{telefono.istitutoTelefono}}</td>
                 <td>{{telefono.cdsuo}}</td>
+                <!--<td>{{telefono.deleted}}</td>-->
+                <!--<td>{{telefono.deletedNote}}</td>-->
+                <td>{{telefono.utilizzatoreUtenza}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

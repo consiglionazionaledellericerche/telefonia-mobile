@@ -113,7 +113,7 @@ public class TelefonoServiziResource {
             hasPermission = true;
         else {
            // TelefonoServizi t = telefonoServiziRepository.getOne(telefonoServizi.getId());
-            String t = telefonoServizi.getTelefono().getIstitutoTelefono();
+            String t = telefonoServizi.getTelefono().getIntestatarioContratto();
             hasPermission = sede_user.equals(t);
         }
      //   System.out.print("Che valore hai true o false? "+hasPermission);
@@ -153,7 +153,7 @@ public class TelefonoServiziResource {
         if (cds.equals("000"))
             page = telefonoServiziRepository.findAll(pageable);
         else
-            page = telefonoServiziRepository.findByIstitutoTelefono(sede_user, pageable);
+            page = telefonoServiziRepository.findByIntestatarioContratto(sede_user, pageable);
 
         /**Prova Valerio
         // System.out.println("TI TROVO = "+securityUtils.getCurrentUserLogin().get()); username
@@ -234,7 +234,7 @@ public class TelefonoServiziResource {
         if (cds.equals("000"))
             telefoni = telefonoRepository.findAll();
         else
-            telefoni = telefonoRepository.findByIstitutoTelefono(sede_user);
+            telefoni = telefonoRepository.findByIntestatarioContratto(sede_user);
 
 
         return ResponseEntity.ok(telefoni);

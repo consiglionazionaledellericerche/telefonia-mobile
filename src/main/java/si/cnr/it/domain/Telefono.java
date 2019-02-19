@@ -45,16 +45,18 @@ public class Telefono implements Serializable {
     private String numeroContratto;
 
     @NotNull
-    @Column(name = "utenza_telefono", nullable = false)
-    private String utenzaTelefono;
-
-    @NotNull
-    @Column(name = "istituto_telefono", nullable = false)
-    private String istitutoTelefono;
-
-    @NotNull
     @Column(name = "cdsuo", nullable = false)
     private String cdsuo;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    @Column(name = "deleted_note")
+    private String deletedNote;
+
+    @NotNull
+    @Column(name = "utilizzatore_utenza", nullable = false)
+    private String utilizzatoreUtenza;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -130,32 +132,6 @@ public class Telefono implements Serializable {
         this.numeroContratto = numeroContratto;
     }
 
-    public String getUtenzaTelefono() {
-        return utenzaTelefono;
-    }
-
-    public Telefono utenzaTelefono(String utenzaTelefono) {
-        this.utenzaTelefono = utenzaTelefono;
-        return this;
-    }
-
-    public void setUtenzaTelefono(String utenzaTelefono) {
-        this.utenzaTelefono = utenzaTelefono;
-    }
-
-    public String getIstitutoTelefono() {
-        return istitutoTelefono;
-    }
-
-    public Telefono istitutoTelefono(String istitutoTelefono) {
-        this.istitutoTelefono = istitutoTelefono;
-        return this;
-    }
-
-    public void setIstitutoTelefono(String istitutoTelefono) {
-        this.istitutoTelefono = istitutoTelefono;
-    }
-
     public String getCdsuo() {
         return cdsuo;
     }
@@ -167,6 +143,45 @@ public class Telefono implements Serializable {
 
     public void setCdsuo(String cdsuo) {
         this.cdsuo = cdsuo;
+    }
+
+    public Boolean isDeleted() {
+        return deleted;
+    }
+
+    public Telefono deleted(Boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getDeletedNote() {
+        return deletedNote;
+    }
+
+    public Telefono deletedNote(String deletedNote) {
+        this.deletedNote = deletedNote;
+        return this;
+    }
+
+    public void setDeletedNote(String deletedNote) {
+        this.deletedNote = deletedNote;
+    }
+
+    public String getUtilizzatoreUtenza() {
+        return utilizzatoreUtenza;
+    }
+
+    public Telefono utilizzatoreUtenza(String utilizzatoreUtenza) {
+        this.utilizzatoreUtenza = utilizzatoreUtenza;
+        return this;
+    }
+
+    public void setUtilizzatoreUtenza(String utilizzatoreUtenza) {
+        this.utilizzatoreUtenza = utilizzatoreUtenza;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -199,9 +214,10 @@ public class Telefono implements Serializable {
             ", dataCessazione='" + getDataCessazione() + "'" +
             ", intestatarioContratto='" + getIntestatarioContratto() + "'" +
             ", numeroContratto='" + getNumeroContratto() + "'" +
-            ", utenzaTelefono='" + getUtenzaTelefono() + "'" +
-            ", istitutoTelefono='" + getIstitutoTelefono() + "'" +
             ", cdsuo='" + getCdsuo() + "'" +
+            ", deleted='" + isDeleted() + "'" +
+            ", deletedNote='" + getDeletedNote() + "'" +
+            ", utilizzatoreUtenza='" + getUtilizzatoreUtenza() + "'" +
             "}";
     }
 }

@@ -36,21 +36,22 @@
             ]
         },
         {
-            "fieldName": "utenzaTelefono",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "istitutoTelefono",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "cdsuo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "deleted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "deletedNote",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "utilizzatoreUtenza",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"

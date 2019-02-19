@@ -21,9 +21,10 @@
             "dataCessazione": "Data Cessazione",
             "intestatarioContratto": "Intestatario Contratto",
             "numeroContratto": "Numero Contratto",
-            "utenzaTelefono": "Utenza Telefono",
-            "istitutoTelefono": "Istituto Telefono",
-            "cdsuo": "Cdsuo"
+            "cdsuo": "Cdsuo",
+            "deleted": "Deleted",
+            "deletedNote": "Deleted Note",
+            "utilizzatoreUtenza": "Utilizzatore Utenza"
         }
     }
 }

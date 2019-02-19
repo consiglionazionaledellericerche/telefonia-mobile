@@ -73,7 +73,7 @@ public class TelefonoResource {
         if (telefono.getId() != null) {
             throw new BadRequestAlertException("A new telefono cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if(telefono.getUtenzaTelefono().contains(".")){
+        if(telefono.getUtilizzatoreUtenza().contains(".")){
 
         }
         else{
@@ -82,10 +82,10 @@ public class TelefonoResource {
         /**
          * Per mettere il cdsuo
          */
-        String telefonocdsuo = telefono.getIstitutoTelefono();
+        String telefonocdsuo = telefono.getIntestatarioContratto();
         telefonocdsuo = telefonocdsuo.substring(0,6);
         telefono.setCdsuo(telefonocdsuo);
-        telefono.setIstitutoTelefono(telefono.getIstitutoTelefono().substring(9));
+        telefono.setIntestatarioContratto(telefono.getIntestatarioContratto().substring(9));
         /**
          * Fine mettere cdsuo
          */
@@ -118,10 +118,10 @@ public class TelefonoResource {
         String cds = getCdsUser();
 
 // Per mettere CDSUO
-        String telefonocdsuo = telefono.getIstitutoTelefono();
+        String telefonocdsuo = telefono.getIntestatarioContratto();
         telefonocdsuo = telefonocdsuo.substring(0,6);
         telefono.setCdsuo(telefonocdsuo);
-        telefono.setIstitutoTelefono(telefono.getIstitutoTelefono().substring(9));
+        telefono.setIntestatarioContratto(telefono.getIntestatarioContratto().substring(9));
 //Fine
         // Codice che permette di salvare solo se sei la persona corretta
         boolean hasPermission = false;
@@ -130,12 +130,12 @@ public class TelefonoResource {
             hasPermission = true;
         else {
 //            Telefono t = telefonoRepository.getOne(telefono.getId());
-            String t = telefono.getIstitutoTelefono();
+            String t = telefono.getIntestatarioContratto();
             hasPermission = sede_user.equals(t);
         }
 //        System.out.print("Che valore hai true o false? "+hasPermission);
         if (hasPermission) {
-            if(telefono.getUtenzaTelefono().contains(".")){
+            if(telefono.getUtilizzatoreUtenza().contains(".")){
 
             }
             else{
@@ -167,8 +167,9 @@ public class TelefonoResource {
         if(cds.equals("000")) {
             telefoni = telefonoRepository.findAll(pageable);
         } else {
-            telefoni = telefonoRepository.findByIstitutoTelefono(sede_user, pageable);
+            telefoni = telefonoRepository.findByIntestatarioContratto(sede_user, pageable);
         }
+        System.out.println("TELEFONI = "+telefoni+"CDS="+cds+"="+sede_user+"=ISTITUTO PER LE RISORSE BIOLOGICHE E BIOTECNOLOGIE MARINE=");
 
         findIstituto();
         Iterator v = telefoni.iterator();
@@ -177,8 +178,8 @@ public class TelefonoResource {
             Iterator<EntitaOrganizzativaWebDto> i = ist.iterator();
             while (i.hasNext()) {
                 EntitaOrganizzativaWebDto is = (EntitaOrganizzativaWebDto) i.next();
-                if(tel.getIstitutoTelefono().equals(is.getDenominazione())){
-                    tel.setIstitutoTelefono(tel.getIstitutoTelefono()+" ("+is.getIndirizzoPrincipale().getComune()+")");
+                if(tel.getIntestatarioContratto().equals(is.getDenominazione())){
+                    tel.setIntestatarioContratto(tel.getIntestatarioContratto()+" ("+is.getIndirizzoPrincipale().getComune()+")");
                 }
             }
         }
@@ -205,19 +206,19 @@ public class TelefonoResource {
         Iterator<EntitaOrganizzativaWebDto> i = ist.iterator();
         while (i.hasNext()) {
             EntitaOrganizzativaWebDto is = (EntitaOrganizzativaWebDto) i.next();
-            if(telefono.get().getIstitutoTelefono().equals(is.getDenominazione())){
-                telefono.get().setIstitutoTelefono(telefono.get().getIstitutoTelefono()+" ("+is.getIndirizzoPrincipale().getComune()+")");
+            if(telefono.get().getIntestatarioContratto().equals(is.getDenominazione())){
+                telefono.get().setIntestatarioContratto(telefono.get().getIntestatarioContratto()+" ("+is.getIndirizzoPrincipale().getComune()+")");
             }
         }
 
 
         if (cds.equals("000")){
-            telefono.get().setIstitutoTelefono(telefono.get().getCdsuo() + " - " + telefono.get().getIstitutoTelefono());
+            telefono.get().setIntestatarioContratto(telefono.get().getCdsuo() + " - " + telefono.get().getIntestatarioContratto());
             return ResponseUtil.wrapOrNotFound(telefono);
         }
         else{
-            if(getSedeUser().equals(telefono.get().getIstitutoTelefono())) {
-                telefono.get().setIstitutoTelefono(telefono.get().getCdsuo() + " - " + telefono.get().getIstitutoTelefono());
+            if(getSedeUser().equals(telefono.get().getIntestatarioContratto())) {
+                telefono.get().setIntestatarioContratto(telefono.get().getCdsuo() + " - " + telefono.get().getIntestatarioContratto());
                 return ResponseUtil.wrapOrNotFound(telefono);
             }
             else {
@@ -433,15 +434,15 @@ public class TelefonoResource {
     }
 
     public String getSedeUser(){
-//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
-        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
+//        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
 
         return sede_user;
     }
 
     public String getCdsUser(){
-//        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
-        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
+//        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
         String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
         return cds;
     }
@@ -453,6 +454,7 @@ public class TelefonoResource {
     public List<EntitaOrganizzativaWebDto> getIst(){
         return ist;
     }
+
 
 
 }

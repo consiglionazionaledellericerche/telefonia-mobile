@@ -19,7 +19,7 @@ import java.util.List;
 public interface TelefonoServiziRepository extends JpaRepository<TelefonoServizi, Long> {
 
     // @Query("select form from Form form where form.processDefinitionKey =:processDefinitionKey and form.version = :version and form.taskId =:taskId")
-    @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.istitutoTelefono =:istitutoTelefono ")
-    public Page<TelefonoServizi> findByIstitutoTelefono(@Param("istitutoTelefono") String istitutoTelefono, Pageable pageable);
+    @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.intestatarioContratto =:intestatarioContratto ")
+    public Page<TelefonoServizi> findByIntestatarioContratto(@Param("intestatarioContratto") String intestatarioContratto, Pageable pageable);
 
 }

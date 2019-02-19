@@ -41,15 +41,19 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="utenza_telefono" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="istituto_telefono" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
             <column name="cdsuo" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="deleted" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="deleted_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="utilizzatore_utenza" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
