@@ -18,7 +18,7 @@ import { ListaOperatoriService } from 'app/entities/lista-operatori';
 export class OperatoreUpdateComponent implements OnInit {
     private _operatore: IOperatore;
     isSaving: boolean;
-
+    telefono = [];
     telefonos: ITelefono[];
 
     listaoperatoris: IListaOperatori[];
@@ -49,6 +49,9 @@ export class OperatoreUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.operatoreService.findTelefono().subscribe(telefonoRestituiti => {
+            this.telefono = telefonoRestituiti;
+        });
     }
 
     previousState() {

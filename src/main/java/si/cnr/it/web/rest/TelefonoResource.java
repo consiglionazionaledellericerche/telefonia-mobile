@@ -178,7 +178,9 @@ public class TelefonoResource {
             Iterator<EntitaOrganizzativaWebDto> i = ist.iterator();
             while (i.hasNext()) {
                 EntitaOrganizzativaWebDto is = (EntitaOrganizzativaWebDto) i.next();
-                if(tel.getIntestatarioContratto().equals(is.getDenominazione())){
+                if(tel.getCdsuo().equals(is.getCdsuo())){
+//                if(tel.getIntestatarioContratto().equals(is.getDenominazione())){
+//                if(tel.getIntestatarioContratto().equals(is.getSigla())){
                     tel.setIntestatarioContratto(tel.getIntestatarioContratto()+" ("+is.getIndirizzoPrincipale().getComune()+")");
                 }
             }
@@ -200,29 +202,34 @@ public class TelefonoResource {
         log.debug("REST request to get Telefono : {}", id);
         Optional<Telefono> telefono = telefonoRepository.findById(id);
 
+        String sede_user = getSedeUser();
         String cds = getCdsUser();
+        String denominazione = "";
+
 
         findIstituto();
         Iterator<EntitaOrganizzativaWebDto> i = ist.iterator();
         while (i.hasNext()) {
             EntitaOrganizzativaWebDto is = (EntitaOrganizzativaWebDto) i.next();
-            if(telefono.get().getIntestatarioContratto().equals(is.getDenominazione())){
+            if(telefono.get().getCdsuo().equals(is.getCdsuo())){
+//            if(telefono.get().getIntestatarioContratto().equals(is.getSigla())){
+                denominazione = telefono.get().getIntestatarioContratto();
                 telefono.get().setIntestatarioContratto(telefono.get().getIntestatarioContratto()+" ("+is.getIndirizzoPrincipale().getComune()+")");
             }
         }
 
-
+        System.out.print("Vediamo un pò"+sede_user+" == "+denominazione+"Fine");
         if (cds.equals("000")){
             telefono.get().setIntestatarioContratto(telefono.get().getCdsuo() + " - " + telefono.get().getIntestatarioContratto());
             return ResponseUtil.wrapOrNotFound(telefono);
         }
         else{
-            if(getSedeUser().equals(telefono.get().getIntestatarioContratto())) {
+            if(sede_user.equals(denominazione)) {
                 telefono.get().setIntestatarioContratto(telefono.get().getCdsuo() + " - " + telefono.get().getIntestatarioContratto());
                 return ResponseUtil.wrapOrNotFound(telefono);
             }
             else {
-//                System.out.print("Sei quiiiiiiii!!!");
+                System.out.print("Sei quiiiiiiii!!!");
                 java.lang.Long ids = Long.valueOf(0);
                 Optional<Telefono> telefonos = telefonoRepository.findById(ids);
                 return ResponseUtil.wrapOrNotFound(telefonos);
@@ -332,7 +339,7 @@ public class TelefonoResource {
      //   String cdsuos = "";
         cdsuo = "";
         cdsuos = "";
-
+String nome = "";
         int a = 0;
 
         //  System.out.print(cds);
@@ -351,6 +358,7 @@ public class TelefonoResource {
                  cdsuos = cdsuos+" - "+istituto.entitaOrganizzativa.getCdsuo();*/
                 // System.out.print("quanto è cdsuo: "+cdsuo);
             }
+            nome = istituto.entitaOrganizzativa.getDenominazione();
             for (NodeDto figlio: istituto.children) {
                 // System.out.print("Contiene cdsuo = "+istitutiESedi.contains(figlio.entitaOrganizzativa.getCdsuo())+" - questo valore: "+figlio.entitaOrganizzativa.getCdsuo()+" ||");
                 if(figlio.entitaOrganizzativa.getCdsuo().equals(cdsuo)){
@@ -362,6 +370,7 @@ public class TelefonoResource {
                     }
                     else {
                         if(figlio.entitaOrganizzativa.getCdsuo().substring(0,3).equals(cds) || cds.equals("000"))
+                            figlio.entitaOrganizzativa.setDenominazione(nome);
                             istitutiESedi.add(figlio.entitaOrganizzativa);
                     }
                 }
@@ -385,7 +394,7 @@ public class TelefonoResource {
         Iterator i = istitutiESedi.iterator();
         while(i.hasNext()){
             EntitaOrganizzativaWebDto EO = (EntitaOrganizzativaWebDto) i.next();
-            System.out.println("Inizio"+EO.getDenominazione()+" - "+EO.getCdsuo()+""+EO.getIndirizzoPrincipale().getComune()+"Fine");
+//            System.out.println("Inizio"+EO.getDenominazione()+" - "+EO.getCdsuo()+""+EO.getIndirizzoPrincipale().getComune()+"Fine");
         }
 
 
@@ -434,15 +443,16 @@ public class TelefonoResource {
     }
 
     public String getSedeUser(){
-        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
-//        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
-
+//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getDenominazione(); //sede di username
+        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
+//        String sede_user = ace.getPersonaByUsername("gaetana.irrera").getSede().getSigla(); //sigla di username
+//        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getSigla(); //sigla di username
         return sede_user;
     }
 
     public String getCdsUser(){
-        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
-//        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
+//        String sede_cdsuoUser = ace.getPersonaByUsername("gaetana.irrera").getSede().getCdsuo(); //sede_cds di username
+        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
         String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
         return cds;
     }
