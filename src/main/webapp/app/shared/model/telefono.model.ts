@@ -7,9 +7,10 @@ export interface ITelefono {
     dataCessazione?: Moment;
     intestatarioContratto?: string;
     numeroContratto?: string;
-    utenzaTelefono?: string;
-    istitutoTelefono?: string;
     cdsuo?: string;
+    deleted?: boolean;
+    deletedNote?: string;
+    utilizzatoreUtenza?: string;
 }
 
 export class Telefono implements ITelefono {
@@ -20,8 +21,11 @@ export class Telefono implements ITelefono {
         public dataCessazione?: Moment,
         public intestatarioContratto?: string,
         public numeroContratto?: string,
-        public utenzaTelefono?: string,
-        public istitutoTelefono?: string,
-        public cdsuo?: string
-    ) {}
+        public cdsuo?: string,
+        public deleted?: boolean,
+        public deletedNote?: string,
+        public utilizzatoreUtenza?: string
+    ) {
+        this.deleted = this.deleted || false;
+    }
 }

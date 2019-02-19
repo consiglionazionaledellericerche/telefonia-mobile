@@ -1,6 +1,5 @@
 package si.cnr.it.web.rest;
 
-import org.junit.Ignore;
 import si.cnr.it.TelefoniaApp;
 
 import si.cnr.it.domain.Telefono;
@@ -57,14 +56,17 @@ public class TelefonoResourceIntTest {
     private static final String DEFAULT_NUMERO_CONTRATTO = "AAAAAAAAAA";
     private static final String UPDATED_NUMERO_CONTRATTO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_UTENZA_TELEFONO = "AAAAAAAAAA";
-    private static final String UPDATED_UTENZA_TELEFONO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ISTITUTO_TELEFONO = "AAAAAAAAAA";
-    private static final String UPDATED_ISTITUTO_TELEFONO = "BBBBBBBBBB";
-
     private static final String DEFAULT_CDSUO = "AAAAAAAAAA";
     private static final String UPDATED_CDSUO = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_DELETED = false;
+    private static final Boolean UPDATED_DELETED = true;
+
+    private static final String DEFAULT_DELETED_NOTE = "AAAAAAAAAA";
+    private static final String UPDATED_DELETED_NOTE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_UTILIZZATORE_UTENZA = "AAAAAAAAAA";
+    private static final String UPDATED_UTILIZZATORE_UTENZA = "BBBBBBBBBB";
 
     @Autowired
     private TelefonoRepository telefonoRepository;
@@ -109,9 +111,10 @@ public class TelefonoResourceIntTest {
             .dataCessazione(DEFAULT_DATA_CESSAZIONE)
             .intestatarioContratto(DEFAULT_INTESTATARIO_CONTRATTO)
             .numeroContratto(DEFAULT_NUMERO_CONTRATTO)
-            .utenzaTelefono(DEFAULT_UTENZA_TELEFONO)
-            .istitutoTelefono(DEFAULT_ISTITUTO_TELEFONO)
-            .cdsuo(DEFAULT_CDSUO);
+            .cdsuo(DEFAULT_CDSUO)
+            .deleted(DEFAULT_DELETED)
+            .deletedNote(DEFAULT_DELETED_NOTE)
+            .utilizzatoreUtenza(DEFAULT_UTILIZZATORE_UTENZA);
         return telefono;
     }
 
@@ -140,9 +143,10 @@ public class TelefonoResourceIntTest {
         assertThat(testTelefono.getDataCessazione()).isEqualTo(DEFAULT_DATA_CESSAZIONE);
         assertThat(testTelefono.getIntestatarioContratto()).isEqualTo(DEFAULT_INTESTATARIO_CONTRATTO);
         assertThat(testTelefono.getNumeroContratto()).isEqualTo(DEFAULT_NUMERO_CONTRATTO);
-        assertThat(testTelefono.getUtenzaTelefono()).isEqualTo(DEFAULT_UTENZA_TELEFONO);
-        assertThat(testTelefono.getIstitutoTelefono()).isEqualTo(DEFAULT_ISTITUTO_TELEFONO);
         assertThat(testTelefono.getCdsuo()).isEqualTo(DEFAULT_CDSUO);
+        assertThat(testTelefono.isDeleted()).isEqualTo(DEFAULT_DELETED);
+        assertThat(testTelefono.getDeletedNote()).isEqualTo(DEFAULT_DELETED_NOTE);
+        assertThat(testTelefono.getUtilizzatoreUtenza()).isEqualTo(DEFAULT_UTILIZZATORE_UTENZA);
     }
 
     @Test
@@ -238,42 +242,6 @@ public class TelefonoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkUtenzaTelefonoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = telefonoRepository.findAll().size();
-        // set the field null
-        telefono.setUtenzaTelefono(null);
-
-        // Create the Telefono, which fails.
-
-        restTelefonoMockMvc.perform(post("/api/telefonos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(telefono)))
-            .andExpect(status().isBadRequest());
-
-        List<Telefono> telefonoList = telefonoRepository.findAll();
-        assertThat(telefonoList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkIstitutoTelefonoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = telefonoRepository.findAll().size();
-        // set the field null
-        telefono.setIstitutoTelefono(null);
-
-        // Create the Telefono, which fails.
-
-        restTelefonoMockMvc.perform(post("/api/telefonos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(telefono)))
-            .andExpect(status().isBadRequest());
-
-        List<Telefono> telefonoList = telefonoRepository.findAll();
-        assertThat(telefonoList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkCdsuoIsRequired() throws Exception {
         int databaseSizeBeforeTest = telefonoRepository.findAll().size();
         // set the field null
@@ -291,7 +259,24 @@ public class TelefonoResourceIntTest {
     }
 
     @Test
-    @Ignore
+    @Transactional
+    public void checkUtilizzatoreUtenzaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = telefonoRepository.findAll().size();
+        // set the field null
+        telefono.setUtilizzatoreUtenza(null);
+
+        // Create the Telefono, which fails.
+
+        restTelefonoMockMvc.perform(post("/api/telefonos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(telefono)))
+            .andExpect(status().isBadRequest());
+
+        List<Telefono> telefonoList = telefonoRepository.findAll();
+        assertThat(telefonoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     @Transactional
     public void getAllTelefonos() throws Exception {
         // Initialize the database
@@ -307,9 +292,10 @@ public class TelefonoResourceIntTest {
             .andExpect(jsonPath("$.[*].dataCessazione").value(hasItem(DEFAULT_DATA_CESSAZIONE.toString())))
             .andExpect(jsonPath("$.[*].intestatarioContratto").value(hasItem(DEFAULT_INTESTATARIO_CONTRATTO.toString())))
             .andExpect(jsonPath("$.[*].numeroContratto").value(hasItem(DEFAULT_NUMERO_CONTRATTO.toString())))
-            .andExpect(jsonPath("$.[*].utenzaTelefono").value(hasItem(DEFAULT_UTENZA_TELEFONO.toString())))
-            .andExpect(jsonPath("$.[*].istitutoTelefono").value(hasItem(DEFAULT_ISTITUTO_TELEFONO.toString())))
-            .andExpect(jsonPath("$.[*].cdsuo").value(hasItem(DEFAULT_CDSUO.toString())));
+            .andExpect(jsonPath("$.[*].cdsuo").value(hasItem(DEFAULT_CDSUO.toString())))
+            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())))
+            .andExpect(jsonPath("$.[*].deletedNote").value(hasItem(DEFAULT_DELETED_NOTE.toString())))
+            .andExpect(jsonPath("$.[*].utilizzatoreUtenza").value(hasItem(DEFAULT_UTILIZZATORE_UTENZA.toString())));
     }
     
     @Test
@@ -328,9 +314,10 @@ public class TelefonoResourceIntTest {
             .andExpect(jsonPath("$.dataCessazione").value(DEFAULT_DATA_CESSAZIONE.toString()))
             .andExpect(jsonPath("$.intestatarioContratto").value(DEFAULT_INTESTATARIO_CONTRATTO.toString()))
             .andExpect(jsonPath("$.numeroContratto").value(DEFAULT_NUMERO_CONTRATTO.toString()))
-            .andExpect(jsonPath("$.utenzaTelefono").value(DEFAULT_UTENZA_TELEFONO.toString()))
-            .andExpect(jsonPath("$.istitutoTelefono").value(DEFAULT_ISTITUTO_TELEFONO.toString()))
-            .andExpect(jsonPath("$.cdsuo").value(DEFAULT_CDSUO.toString()));
+            .andExpect(jsonPath("$.cdsuo").value(DEFAULT_CDSUO.toString()))
+            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()))
+            .andExpect(jsonPath("$.deletedNote").value(DEFAULT_DELETED_NOTE.toString()))
+            .andExpect(jsonPath("$.utilizzatoreUtenza").value(DEFAULT_UTILIZZATORE_UTENZA.toString()));
     }
 
     @Test
@@ -359,9 +346,10 @@ public class TelefonoResourceIntTest {
             .dataCessazione(UPDATED_DATA_CESSAZIONE)
             .intestatarioContratto(UPDATED_INTESTATARIO_CONTRATTO)
             .numeroContratto(UPDATED_NUMERO_CONTRATTO)
-            .utenzaTelefono(UPDATED_UTENZA_TELEFONO)
-            .istitutoTelefono(UPDATED_ISTITUTO_TELEFONO)
-            .cdsuo(UPDATED_CDSUO);
+            .cdsuo(UPDATED_CDSUO)
+            .deleted(UPDATED_DELETED)
+            .deletedNote(UPDATED_DELETED_NOTE)
+            .utilizzatoreUtenza(UPDATED_UTILIZZATORE_UTENZA);
 
         restTelefonoMockMvc.perform(put("/api/telefonos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -377,9 +365,10 @@ public class TelefonoResourceIntTest {
         assertThat(testTelefono.getDataCessazione()).isEqualTo(UPDATED_DATA_CESSAZIONE);
         assertThat(testTelefono.getIntestatarioContratto()).isEqualTo(UPDATED_INTESTATARIO_CONTRATTO);
         assertThat(testTelefono.getNumeroContratto()).isEqualTo(UPDATED_NUMERO_CONTRATTO);
-        assertThat(testTelefono.getUtenzaTelefono()).isEqualTo(UPDATED_UTENZA_TELEFONO);
-        assertThat(testTelefono.getIstitutoTelefono()).isEqualTo(UPDATED_ISTITUTO_TELEFONO);
         assertThat(testTelefono.getCdsuo()).isEqualTo(UPDATED_CDSUO);
+        assertThat(testTelefono.isDeleted()).isEqualTo(UPDATED_DELETED);
+        assertThat(testTelefono.getDeletedNote()).isEqualTo(UPDATED_DELETED_NOTE);
+        assertThat(testTelefono.getUtilizzatoreUtenza()).isEqualTo(UPDATED_UTILIZZATORE_UTENZA);
     }
 
     @Test
