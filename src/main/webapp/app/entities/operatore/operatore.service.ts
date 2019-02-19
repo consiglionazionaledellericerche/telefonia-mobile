@@ -67,4 +67,7 @@ export class OperatoreService {
         });
         return res;
     }
+    findTelefono() {
+        return this.http.get<any>(`${this.resourceUrl}/findTelefono`);
+    }
 }

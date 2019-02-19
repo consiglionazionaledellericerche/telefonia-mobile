@@ -1,8 +1,13 @@
 package si.cnr.it.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import it.cnr.si.service.AceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import si.cnr.it.domain.Operatore;
+import si.cnr.it.domain.Telefono;
 import si.cnr.it.repository.OperatoreRepository;
+import si.cnr.it.repository.TelefonoRepository;
+import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
 import si.cnr.it.web.rest.util.PaginationUtil;
@@ -29,6 +34,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class OperatoreResource {
+
+    @Autowired
+    private AceService ace;
+
+    @Autowired
+    private TelefonoRepository telefonoRepository;
+
+    private SecurityUtils securityUtils;
+
+    private TelefonoResource telefonoResource;
 
     private final Logger log = LoggerFactory.getLogger(OperatoreResource.class);
 
@@ -76,10 +91,43 @@ public class OperatoreResource {
         if (operatore.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Operatore result = operatoreRepository.save(operatore);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, operatore.getId().toString()))
-            .body(result);
+        String sede_user = telefonoResource.getSedeUser(); //sigla di username
+        String sede_cdsuoUser = telefonoResource.getCdsUser(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+
+        String valoreCdsUoSede = sede_cdsuoUser+" - "+sede_user;
+
+        /**
+         * Codice che permette di salvare solo se sei
+         * la persona corretta
+         *
+         */
+        boolean hasPermission = false;
+
+        if (cds.equals("000"))
+            hasPermission = true;
+        else {
+            // TelefonoServizi t = telefonoServiziRepository.getOne(telefonoServizi.getId());
+            String t = operatore.getTelefonoOperatore().getIntestatarioContratto();
+            hasPermission = sede_user.equals(t);
+        }
+        //   System.out.print("Che valore hai true o false? "+hasPermission);
+        if (hasPermission) {
+            Operatore result = operatoreRepository.save(operatore);
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, operatore.getId().toString()))
+                .body(result);
+        } else
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+//        TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
+//        return ResponseEntity.ok()
+//            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefonoServizi.getId().toString()))
+//            .body(result);
+
+//        Operatore result = operatoreRepository.save(operatore);
+//        return ResponseEntity.ok()
+//            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, operatore.getId().toString()))
+//            .body(result);
     }
 
     /**
@@ -92,7 +140,19 @@ public class OperatoreResource {
     @Timed
     public ResponseEntity<List<Operatore>> getAllOperatores(Pageable pageable) {
         log.debug("REST request to get a page of Operatores");
-        Page<Operatore> page = operatoreRepository.findAll(pageable);
+
+        String sede_user = telefonoResource.getSedeUser(); //sigla di username
+        String sede_cdsuoUser = telefonoResource.getCdsUser(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+
+        Page<Operatore> page;
+        if (cds.equals("000"))
+            page = operatoreRepository.findAll(pageable);
+        else
+            page = operatoreRepository.findByIntestatarioContratto(sede_user, pageable);
+
+
+//        Page<Operatore> page = operatoreRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/operatores");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -124,5 +184,26 @@ public class OperatoreResource {
 
         operatoreRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    //Per richiamare Telefoni
+    @GetMapping("/operatores/findTelefono")
+    @Timed
+    public ResponseEntity<List<Telefono>> findTelefono() {
+
+        List<Telefono> telefoni;
+
+        String sede_user = telefonoResource.getSedeUser(); //sigla di username
+        String sede_cdsuoUser = telefonoResource.getCdsUser(); //sede_cds di username
+        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
+
+        if (cds.equals("000"))
+            telefoni = telefonoRepository.findAll();
+        else
+            telefoni = telefonoRepository.findByIntestatarioContratto(sede_user);
+
+        System.out.println("TELEFONI ===== "+telefoni+" cds ==== "+cds+" sede_user ===== "+sede_user);
+
+        return ResponseEntity.ok(telefoni);
     }
 }
