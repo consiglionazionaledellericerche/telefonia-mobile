@@ -164,7 +164,7 @@ public class TelefonoServiziResource {
 
 
         else
-            page = telefonoServiziRepository.findByIntestatarioContratto(sede_user, pageable);
+            page = telefonoServiziRepository.findByIntestatarioContratto(sede_user,false, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefono-servizis");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -218,9 +218,9 @@ public class TelefonoServiziResource {
         String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
 
         if (cds.equals("000"))
-            telefoni = telefonoRepository.findAll();
+            telefoni = telefonoRepository.findByDeletedFalse();
         else
-            telefoni = telefonoRepository.findByIntestatarioContratto(sede_user);
+            telefoni = telefonoRepository.findByIntestatarioContrattoAndDeleted(sede_user,false);
 
 
         return ResponseEntity.ok(telefoni);

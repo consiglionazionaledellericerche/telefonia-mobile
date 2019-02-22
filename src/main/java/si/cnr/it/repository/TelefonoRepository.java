@@ -20,9 +20,10 @@ import java.util.List;
 @Repository
 public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
 
-    public Page<Telefono> findByIntestatarioContratto(String intestatarioContratto, Pageable pageable);
 
-    public List<Telefono> findByIntestatarioContratto(String intestatarioContratto);
+    public Page<Telefono> findByIntestatarioContrattoAndDeleted(String intestatarioContratto,Boolean deleted, Pageable pageable);
+
+    public List<Telefono> findByIntestatarioContrattoAndDeleted(String intestatarioContratto,Boolean deleted);
 
     public Page<Telefono> findByDeletedFalse(Pageable pageable);
 
@@ -31,3 +32,4 @@ public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
     /**  @RequestLine("GET api/ace/v1/entitaorganizzativa?term={term}&tipo=1")
     PageDto<EntitaOrganizzativaWebDto> findIstitutiByTerm(@Param("term") String var1);*/
 }
+//  @Query("SELECT te FROM Telefono te where te.deleted =:deleted and te.intestatarioContratto =:intestatarioContratto ")

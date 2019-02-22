@@ -21,8 +21,8 @@ public interface TelefonoServiziRepository extends JpaRepository<TelefonoServizi
     public Boolean falso = Boolean.FALSE;
 
     // @Query("select form from Form form where form.processDefinitionKey =:processDefinitionKey and form.version = :version and form.taskId =:taskId")
-    @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.intestatarioContratto =:intestatarioContratto ")
-    public Page<TelefonoServizi> findByIntestatarioContratto(@Param("intestatarioContratto") String intestatarioContratto, Pageable pageable);
+    @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.intestatarioContratto =:intestatarioContratto and ts.telefono.deleted =:deleted")
+    public Page<TelefonoServizi> findByIntestatarioContratto(@Param("intestatarioContratto") String intestatarioContratto,@Param("deleted") boolean deleted, Pageable pageable);
 
     @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.deleted =:deleted ")
     public Page<TelefonoServizi> findAllActive(@Param("deleted") boolean deleted,  Pageable pageable);

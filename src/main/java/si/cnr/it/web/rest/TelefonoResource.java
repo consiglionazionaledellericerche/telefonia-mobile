@@ -1,5 +1,6 @@
 package si.cnr.it.web.rest;
 
+
 import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.service.AceService;
 import it.cnr.si.service.dto.anagrafica.base.NodeDto;
@@ -27,12 +28,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.Inet4Address;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import java.util.Calendar;
+import java.net.InetAddress;
 /**
  * REST controller for managing Telefono.
  */
@@ -167,11 +171,11 @@ public class TelefonoResource {
         Page<Telefono> telefoni;
         if(cds.equals("000")) {
 //            telefoni = telefonoRepository.findAll(pageable);
-            telefoni = (Page<Telefono>) telefonoRepository.findByDeletedFalse(pageable);
+            telefoni = telefonoRepository.findByDeletedFalse(pageable);
         } else {
-            telefoni = telefonoRepository.findByIntestatarioContratto(sede_user, pageable);
+            telefoni = telefonoRepository.findByIntestatarioContrattoAndDeleted(sede_user,false, pageable);
         }
-        System.out.println("TELEFONI = "+telefoni+"CDS="+cds+"="+sede_user+"=ISTITUTO PER LE RISORSE BIOLOGICHE E BIOTECNOLOGIE MARINE=");
+       // System.out.println("TELEFONI = "+telefoni+"CDS="+cds+"="+sede_user+"=ISTITUTO PER LE RISORSE BIOLOGICHE E BIOTECNOLOGIE MARINE=");
 
         findIstituto();
         Iterator v = telefoni.iterator();
@@ -252,7 +256,31 @@ public class TelefonoResource {
     public ResponseEntity<Void> deleteTelefono(@PathVariable Long id) {
         log.debug("REST request to delete Telefono : {}", id);
 
-        telefonoRepository.deleteById(id);
+        //Prova di scrittura invece  di eliminazione
+        String sede_user = getSedeUser();
+        String cds = getCdsUser();
+        Optional<Telefono> telefono = telefonoRepository.findById(id);
+
+        Telefono tel = new Telefono();
+
+        tel = telefono.get();
+
+        //Impostare calendario Gregoriano
+        Calendar cal = new GregorianCalendar();
+        int giorno = cal.get(Calendar.DAY_OF_MONTH);
+        int mese = cal.get(Calendar.MONTH);
+        int anno = cal.get(Calendar.YEAR);
+        System.out.println(giorno + "-" + (mese + 1) + "-" + anno);
+
+
+        tel.setDeleted(true);
+
+
+
+        tel.setDeletedNote("USER = "+ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername()+" DATA = "+giorno + "-" + (mese + 1) + "-" + anno);
+        telefonoRepository.save(tel);
+        System.out.println(" DATA = "+Calendar.getInstance());
+        //telefonoRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

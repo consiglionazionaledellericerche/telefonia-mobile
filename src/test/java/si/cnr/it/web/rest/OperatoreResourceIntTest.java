@@ -48,6 +48,8 @@ public class OperatoreResourceIntTest {
 
     @Autowired
     private OperatoreRepository operatoreRepository;
+    @Autowired
+    private OperatoreResource operatoreResource;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -68,7 +70,7 @@ public class OperatoreResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final OperatoreResource operatoreResource = new OperatoreResource(operatoreRepository);
+     //   final OperatoreResource operatoreResource = new OperatoreResource(operatoreRepository);
         this.restOperatoreMockMvc = MockMvcBuilders.standaloneSetup(operatoreResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

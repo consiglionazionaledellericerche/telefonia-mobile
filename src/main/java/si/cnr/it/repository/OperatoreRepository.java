@@ -17,7 +17,9 @@ import si.cnr.it.domain.TelefonoServizi;
 @Repository
 public interface OperatoreRepository extends JpaRepository<Operatore, Long> {
 
-    @Query("SELECT op FROM Operatore op where op.telefonoOperatore.intestatarioContratto =:intestatarioContratto ")
-    public Page<Operatore> findByIntestatarioContratto(@Param("intestatarioContratto") String intestatarioContratto, Pageable pageable);
+    @Query("SELECT op FROM Operatore op where op.telefonoOperatore.intestatarioContratto =:intestatarioContratto AND op.telefonoOperatore.deleted =:deleted ")
+    public Page<Operatore> findByIntestatarioContratto(@Param("intestatarioContratto") String intestatarioContratto,@Param("deleted") boolean deleted, Pageable pageable);
 
+    @Query("SELECT op FROM Operatore op where op.telefonoOperatore.deleted =:deleted ")
+    public Page<Operatore> findAllActive(@Param("deleted") boolean deleted,  Pageable pageable);
 }
