@@ -153,43 +153,19 @@ public class TelefonoServiziResource {
 //        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
 //        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getSigla(); //sigla di username
 //        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
-        String sede_user = telefonoResource.getSedeUser(); //sigla di username
+
+        String sede_user = telefonoResource.getSedeUser(); //sede di username
         String sede_cdsuoUser = telefonoResource.getCdsUser(); //sede_cds di username
         String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
 
         Page<TelefonoServizi> page;
         if (cds.equals("000"))
-            page = telefonoServiziRepository.findAll(pageable);
+            page = telefonoServiziRepository.findAllActive(false,pageable);
+//            page = telefonoServiziRepository.findAll(pageable);
+
+
         else
             page = telefonoServiziRepository.findByIntestatarioContratto(sede_user, pageable);
-
-        /**Prova Valerio
-        // System.out.println("TI TROVO = "+securityUtils.getCurrentUserLogin().get()); username
-        String sede_user = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getDenominazione(); //sede di username
-        String sede_cdsuoUser = ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getSede().getCdsuo(); //sede_cds di username
-        // System.out.println(sede_cdsuoUser+" - "+sede_user);
-        String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
-        // System.out.println(cds);
-        String vedetutto = "0";
-        Iterator i = page.iterator();
-
-
-         //cds = "002"; //forzo cds
-         //sede_user = "ISTITUTO AMBIENTE MARINO E COSTIERO"; //forzo denominazione
-
-        while(i.hasNext()){
-            Telefono telefono = (Telefono) i.next();
-
-            if(cds.equals("000")){
-                vedetutto = "1";
-            }
-            else if(!telefono.getIstitutoTelefono().equals(sede_user) && vedetutto.equals("0")){
-                i.remove();
-            }
-
-        }
-        Fine Prova Valerio */
-
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefono-servizis");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

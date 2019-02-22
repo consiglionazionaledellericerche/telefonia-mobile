@@ -24,6 +24,10 @@ public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
 
     public List<Telefono> findByIntestatarioContratto(String intestatarioContratto);
 
+    public Page<Telefono> findByDeletedFalse(Pageable pageable);
+
+    public List<Telefono> findByDeletedFalse();
+
     /**  @RequestLine("GET api/ace/v1/entitaorganizzativa?term={term}&tipo=1")
     PageDto<EntitaOrganizzativaWebDto> findIstitutiByTerm(@Param("term") String var1);*/
 }

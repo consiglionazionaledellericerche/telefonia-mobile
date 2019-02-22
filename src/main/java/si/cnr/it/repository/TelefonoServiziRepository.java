@@ -18,8 +18,12 @@ import java.util.List;
 @Repository
 public interface TelefonoServiziRepository extends JpaRepository<TelefonoServizi, Long> {
 
+    public Boolean falso = Boolean.FALSE;
+
     // @Query("select form from Form form where form.processDefinitionKey =:processDefinitionKey and form.version = :version and form.taskId =:taskId")
     @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.intestatarioContratto =:intestatarioContratto ")
     public Page<TelefonoServizi> findByIntestatarioContratto(@Param("intestatarioContratto") String intestatarioContratto, Pageable pageable);
 
+    @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.deleted =:deleted ")
+    public Page<TelefonoServizi> findAllActive(@Param("deleted") boolean deleted,  Pageable pageable);
 }
