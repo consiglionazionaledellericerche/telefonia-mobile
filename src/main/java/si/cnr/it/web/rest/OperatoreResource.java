@@ -37,23 +37,21 @@ public class OperatoreResource {
 
     @Autowired
     private AceService ace;
-
     @Autowired
     private TelefonoRepository telefonoRepository;
+    @Autowired
+    private TelefonoResource telefonoResource;
+    @Autowired
+    private OperatoreRepository operatoreRepository;
+
 
     private SecurityUtils securityUtils;
 
-    private TelefonoResource telefonoResource;
+
 
     private final Logger log = LoggerFactory.getLogger(OperatoreResource.class);
 
     private static final String ENTITY_NAME = "operatore";
-
-    private final OperatoreRepository operatoreRepository;
-
-    public OperatoreResource(OperatoreRepository operatoreRepository) {
-        this.operatoreRepository = operatoreRepository;
-    }
 
     /**
      * POST  /operatores : Create a new operatore.
@@ -147,9 +145,10 @@ public class OperatoreResource {
 
         Page<Operatore> page;
         if (cds.equals("000"))
-            page = operatoreRepository.findAll(pageable);
+            page = operatoreRepository.findAllActive(false,pageable);
+            //page = operatoreRepository.findAll(pageable);
         else
-            page = operatoreRepository.findByIntestatarioContratto(sede_user, pageable);
+            page = operatoreRepository.findByIntestatarioContratto(sede_user,false, pageable);
 
 
 //        Page<Operatore> page = operatoreRepository.findAll(pageable);
@@ -198,11 +197,11 @@ public class OperatoreResource {
         String cds = sede_cdsuoUser.substring(0,3); //passo solo i primi tre caratteri quindi cds
 
         if (cds.equals("000"))
-            telefoni = telefonoRepository.findAll();
+            telefoni = telefonoRepository.findByDeletedFalse();
         else
-            telefoni = telefonoRepository.findByIntestatarioContratto(sede_user);
+            telefoni = telefonoRepository.findByIntestatarioContrattoAndDeleted(sede_user,false);
 
-        System.out.println("TELEFONI ===== "+telefoni+" cds ==== "+cds+" sede_user ===== "+sede_user);
+      // System.out.println("TELEFONI ===== "+telefoni+" cds ==== "+cds+" sede_user ===== "+sede_user);
 
         return ResponseEntity.ok(telefoni);
     }
