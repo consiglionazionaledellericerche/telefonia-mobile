@@ -162,10 +162,12 @@ public class TelefonoResource {
 
         String sede_user = getSedeUser(); //sede di username
         String cds = getCdsUser();
+        String deleted = "FALSE";
 
         Page<Telefono> telefoni;
         if(cds.equals("000")) {
-            telefoni = telefonoRepository.findAll(pageable);
+//            telefoni = telefonoRepository.findAll(pageable);
+            telefoni = (Page<Telefono>) telefonoRepository.findByDeletedFalse(pageable);
         } else {
             telefoni = telefonoRepository.findByIntestatarioContratto(sede_user, pageable);
         }
