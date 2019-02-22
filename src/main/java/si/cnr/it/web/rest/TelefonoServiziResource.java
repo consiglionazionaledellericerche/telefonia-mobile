@@ -42,11 +42,12 @@ public class TelefonoServiziResource {
 
     @Autowired
     private AceService ace;
-
     @Autowired
     private TelefonoRepository telefonoRepository;
-
+    @Autowired
     private TelefonoResource telefonoResource;
+    @Autowired
+    private TelefonoServiziRepository telefonoServiziRepository;
 
     private SecurityUtils securityUtils;
 
@@ -54,11 +55,9 @@ public class TelefonoServiziResource {
 
     private static final String ENTITY_NAME = "telefonoServizi";
 
-    private final TelefonoServiziRepository telefonoServiziRepository;
-
-    public TelefonoServiziResource(TelefonoServiziRepository telefonoServiziRepository) {
-        this.telefonoServiziRepository = telefonoServiziRepository;
-    }
+//    public TelefonoServiziResource(TelefonoServiziRepository telefonoServiziRepository) {
+//        this.telefonoServiziRepository = telefonoServiziRepository;
+//    }
 
     /**
      * POST  /telefono-servizis : Create a new telefonoServizi.

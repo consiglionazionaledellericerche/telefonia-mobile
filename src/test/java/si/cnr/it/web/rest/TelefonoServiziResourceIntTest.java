@@ -57,6 +57,9 @@ public class TelefonoServiziResourceIntTest {
     private ExceptionTranslator exceptionTranslator;
 
     @Autowired
+    private TelefonoServiziResource telefonoServiziResource;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restTelefonoServiziMockMvc;
@@ -66,7 +69,6 @@ public class TelefonoServiziResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TelefonoServiziResource telefonoServiziResource = new TelefonoServiziResource(telefonoServiziRepository);
         this.restTelefonoServiziMockMvc = MockMvcBuilders.standaloneSetup(telefonoServiziResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
