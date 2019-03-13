@@ -10,14 +10,14 @@
     
     <groupId>it.cnr.si</groupId>
     <artifactId>telefonia-mobile</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>war</packaging>
     <name>Telefonia</name>
 
     <scm>
         <connection>scm:git:ssh://git@git.si.cnr.it/dev/telefonia-mobile.git</connection>
         <developerConnection>scm:git:ssh://git@git.si.cnr.it/dev/telefonia-mobile.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>telefonia-mobile-0.0.1</tag>
     </scm>
 
     <repositories>
@@ -531,9 +531,9 @@
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.h2.Driver</driver>
                     <url>jdbc:h2:file:./target/h2db/db/telefonia</url>
-                    <defaultSchemaName></defaultSchemaName>
+                    <defaultSchemaName />
                     <username>telefonia</username>
-                    <password></password>
+                    <password />
                     <referenceUrl>hibernate:spring:si.cnr.it.domain?dialect=org.hibernate.dialect.H2Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
@@ -666,7 +666,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -680,7 +680,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
