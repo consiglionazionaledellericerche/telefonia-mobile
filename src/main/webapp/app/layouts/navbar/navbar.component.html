@@ -5,7 +5,7 @@
         </a>
         <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
             <span class="logo-img"></span>
-            <span jhiTranslate="global.title" class="navbar-title">Telefonia</span> <span class="navbar-version">{{version}}</span>
+            <span jhiTranslate="global.title" class="navbar-title">Telefonia</span> <!--<span class="navbar-version">{{version}}</span>-->
         </a>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
@@ -24,7 +24,7 @@
                     <span>
                         <fa-icon [icon]="'th-list'"></fa-icon>
                         <!--<span jhiTranslate="global.menu.entities.main">-->
-                            Elenco Funzionalit&aacute;
+                            Gestore
                         <!--</span>-->
                     </span>
                 </a>
@@ -33,7 +33,7 @@
                         <a class="dropdown-item" routerLink="servizi" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.servizi">-->
-                                Servizi
+                            Servizi
                             <!--</span>-->
                         </a>
                     </li>
@@ -45,6 +45,36 @@
                             <!--</span>-->
                         </a>
                     </li>
+                </ul>
+            </li>
+
+            <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
+                    <span>
+                        <fa-icon [icon]="'th-list'"></fa-icon>
+                        <!--<span jhiTranslate="global.menu.entities.main">-->
+                            Elenco Funzionalit&aacute;
+                        <!--</span>-->
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <!--<li *jhiHasAnyAuthority="'ROLE_ADMIN'">-->
+                        <!--<a class="dropdown-item" routerLink="servizi" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
+                            <!--<fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>-->
+                            <!--&lt;!&ndash;<span jhiTranslate="global.menu.entities.servizi">&ndash;&gt;-->
+                                <!--Servizi-->
+                            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a class="dropdown-item" routerLink="lista-operatori" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
+                            <!--<fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>-->
+                            <!--&lt;!&ndash;<span jhiTranslate="global.menu.entities.listaOperatori">&ndash;&gt;-->
+                            <!--Operatori-->
+                            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                        <!--</a>-->
+                    <!--</li>-->
                     <li>
                         <a class="dropdown-item" routerLink="telefono" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
