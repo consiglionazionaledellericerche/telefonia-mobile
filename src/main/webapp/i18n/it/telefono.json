@@ -3,18 +3,18 @@
     "telefoniaApp": {
         "telefono" : {
             "home": {
-                "title": "Telefonos",
-                "createLabel": "Genera un nuovo Telefono",
-                "createOrEditLabel": "Genera o modifica un Telefono"
+                "title": "Lista Telefoni",
+                "createLabel": "Aggiungi un nuovo Telefono",
+                "createOrEditLabel": "Aggiungi o modifica un Telefono"
             },
-            "created": "&Egrave; stato generato un nuovo Telefono con identificatore {{ param }}",
-            "updated": "&Egrave; stato aggiornato Telefono identificato da {{ param }}",
-            "deleted": "&Egrave; stato eliminato Telefono con identificatore {{ param }}",
+            "created": "&Egrave; stato inserito un nuovo Telefono con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato un Telefono identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato un Telefono con identificatore {{ param }}",
             "delete": {
-                "question": "Sei sicuro di volere eliminare Telefono {{ id }}?"
+                "question": "Sei sicuro di volere eliminare un Telefono {{ id }}?"
             },
             "detail": {
-                "title": "Telefono"
+                "title": "Lista Telefoni"
             },
             "numero": "Numero",
             "dataAttivazione": "Data Attivazione",

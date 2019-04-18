@@ -3,18 +3,18 @@
     "telefoniaApp": {
         "listaOperatori" : {
             "home": {
-                "title": "ListaOperatoris",
-                "createLabel": "Genera un nuovo Lista Operatori",
-                "createOrEditLabel": "Genera o modifica un Lista Operatori"
+                "title": "Lista Operatori Telefonici",
+                "createLabel": "Aggiungi un nuovo Operatore",
+                "createOrEditLabel": "Aggiungi o Modifica un nuovo Operatore"
             },
-            "created": "&Egrave; stato generato un nuovo Lista Operatori con identificatore {{ param }}",
-            "updated": "&Egrave; stato aggiornato Lista Operatori identificato da {{ param }}",
-            "deleted": "&Egrave; stato eliminato Lista Operatori con identificatore {{ param }}",
+            "created": "&Egrave; stato generato un nuovo Operatore con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato l'Operatore identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato l'Operatore identificato da {{ param }}",
             "delete": {
-                "question": "Sei sicuro di volere eliminare Lista Operatori {{ id }}?"
+                "question": "Sei sicuro di volere eliminare l'Operatori {{ id }}?"
             },
             "detail": {
-                "title": "Lista Operatori"
+                "title": "Lista Operatori Telefonici"
             },
             "nome": "Nome"
         }

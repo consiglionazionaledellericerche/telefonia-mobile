@@ -3,18 +3,18 @@
     "telefoniaApp": {
         "servizi" : {
             "home": {
-                "title": "Servizis",
-                "createLabel": "Genera un nuovo Servizi",
-                "createOrEditLabel": "Genera o modifica un Servizi"
+                "title": "Lista Servizi",
+                "createLabel": "Aggiungi un Servizio",
+                "createOrEditLabel": "Aggiungi o modifica un Servizo"
             },
-            "created": "&Egrave; stato generato un nuovo Servizi con identificatore {{ param }}",
-            "updated": "&Egrave; stato aggiornato Servizi identificato da {{ param }}",
-            "deleted": "&Egrave; stato eliminato Servizi con identificatore {{ param }}",
+            "created": "&Egrave; stato inserito un nuovo Servizio con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato un Servizio identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato un Servizi ocon identificatore {{ param }}",
             "delete": {
-                "question": "Sei sicuro di volere eliminare Servizi {{ id }}?"
+                "question": "Sei sicuro di volere eliminare il Servizio {{ id }}?"
             },
             "detail": {
-                "title": "Servizi"
+                "title": "Lista Servizi"
             },
             "nome": "Nome"
         }

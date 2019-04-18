@@ -3,22 +3,22 @@
     "telefoniaApp": {
         "operatore" : {
             "home": {
-                "title": "Operatores",
-                "createLabel": "Genera un nuovo Operatore",
-                "createOrEditLabel": "Genera o modifica un Operatore"
+                "title": "Telefono Operatore",
+                "createLabel": "Aggiungi un nuovo Telefono Operatore",
+                "createOrEditLabel": "Aggiungi o modifica un Telefono Operatore"
             },
-            "created": "&Egrave; stato generato un nuovo Operatore con identificatore {{ param }}",
-            "updated": "&Egrave; stato aggiornato Operatore identificato da {{ param }}",
-            "deleted": "&Egrave; stato eliminato Operatore con identificatore {{ param }}",
+            "created": "&Egrave; stato generato un nuovo Telefono Operatore con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato un Telefono Operatore identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Telefono Operatore con identificatore {{ param }}",
             "delete": {
-                "question": "Sei sicuro di volere eliminare Operatore {{ id }}?"
+                "question": "Sei sicuro di volere eliminare il Telefono Operatore {{ id }}?"
             },
             "detail": {
-                "title": "Operatore"
+                "title": "Telefono Operatore"
             },
             "data": "Data",
-            "telefonoOperatore": "Telefono Operatore",
-            "listaOperatori": "Lista Operatori"
+            "telefonoOperatore": "Telefono",
+            "listaOperatori": "Operatore"
         }
     }
 }
