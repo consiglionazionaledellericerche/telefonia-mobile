@@ -9,41 +9,115 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="telefono.id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.numero" for="field_numero">Numero</label>
-                    <input type="text" class="form-control" name="numero" id="field_numero"
-                        [(ngModel)]="telefono.numero" required/>
-                    <div [hidden]="!(editForm.controls.numero?.dirty && editForm.controls.numero?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.numero?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
+                <div class="card border-primary mt-1">
+                    <div class="card-header text-white bg-primary">
+                        Dati Telefono
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.numero" for="field_numero">Numero</label>
+                                    <input type="text" class="form-control" name="numero" id="field_numero"
+                                           [(ngModel)]="telefono.numero" required/>
+                                    <div [hidden]="!(editForm.controls.numero?.dirty && editForm.controls.numero?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.numero?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.dataAttivazione" for="field_dataAttivazione">Data Attivazione</label>
+                                <div class="input-group">
+                                    <input id="field_dataAttivazione" type="text" class="form-control" name="dataAttivazione" ngbDatepicker  #dataAttivazioneDp="ngbDatepicker" [(ngModel)]="telefono.dataAttivazione"
+                                           required/>
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dataAttivazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                    </span>
+                                </div>
+                                <div [hidden]="!(editForm.controls.dataAttivazione?.dirty && editForm.controls.dataAttivazione?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.dataAttivazione?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.dataCessazione" for="field_dataCessazione">Data Cessazione</label>
+                                <div class="input-group">
+                                    <input id="field_dataCessazione" type="text" class="form-control" name="dataCessazione" ngbDatepicker  #dataCessazioneDp="ngbDatepicker" [(ngModel)]="telefono.dataCessazione"
+                                    />
+                                    <span class="input-group-append">
+                                         <button type="button" class="btn btn-secondary" (click)="dataCessazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.dataAttivazione" for="field_dataAttivazione">Data Attivazione</label>
-                    <div class="input-group">
-                        <input id="field_dataAttivazione" type="text" class="form-control" name="dataAttivazione" ngbDatepicker  #dataAttivazioneDp="ngbDatepicker" [(ngModel)]="telefono.dataAttivazione"
-                        required/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dataAttivazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
+                <div class="card border-primary mt-1">
+                    <div class="card-header text-white bg-primary">
+                        Dati Persona
                     </div>
-                    <div [hidden]="!(editForm.controls.dataAttivazione?.dirty && editForm.controls.dataAttivazione?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.dataAttivazione?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.dataCessazione" for="field_dataCessazione">Data Cessazione</label>
-                    <div class="input-group">
-                        <input id="field_dataCessazione" type="text" class="form-control" name="dataCessazione" ngbDatepicker  #dataCessazioneDp="ngbDatepicker" [(ngModel)]="telefono.dataCessazione"
-                        />
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dataCessazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.intestatarioContratto" for="field_intestatarioContratto">Intestatario Contratto</label>
+
+                                <select [(ngModel)]="telefono.intestatarioContratto" name="intestatarioContratto" class="form-control" id="intestatarioContratto" required>
+                                    <option value=""></option>
+                                    <!--<option value="SEDE CENTRALE">SEDE CENTRALE</option>-->
+                                    <option *ngFor="let i of istituti" [ngValue]="i.cdsuo+' - '+i.denominazione">{{i.cdsuo+' - '+i.denominazione}} ({{i.indirizzoPrincipale.comune}})</option>
+                                </select>
+                                <pre>Model: {{ telefono.intestatarioContratto | json }}</pre>
+                            </div>
+                            <div class="form-group col-md-7">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.utilizzatoreUtenza" for="field_utilizzatoreUtenza">Utilizzatore Utenza</label>
+                                    <input type="text" class="form-control" name="utilizzatoreUtenza" id="field_utilizzatoreUtenza" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
+                                           [(ngModel)]="telefono.utilizzatoreUtenza" placeholder="search"  required/>
+                                    <div [hidden]="!(editForm.controls.utilizzatoreUtenza?.dirty && editForm.controls.utilizzatoreUtenza?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.utilizzatoreUtenza?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
+                                    <span *ngIf="searching">searching...</span>
+                                    <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+                                </div>
+                                <!--<hr>-->
+                                <!--<pre>Model: {{ model | json }}</pre>-->
+                                <!--<pre>Model: {{ telefono.utenzaTelefono | json }}</pre>-->
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.numeroContratto" for="field_numeroContratto">Numero Contratto</label>
+                                <input type="text" class="form-control" name="numeroContratto" id="field_numeroContratto"
+                                       [(ngModel)]="telefono.numeroContratto" required/>
+                                <div [hidden]="!(editForm.controls.numeroContratto?.dirty && editForm.controls.numeroContratto?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.numeroContratto?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-7">
+                                <div class="form-group">
+                                    <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefono.cdsuo" for="field_cdsuo">Cdsuo</label>-->
+                                    <input type="text" class="form-control" name="cdsuo" id="field_cdsuo"
+                                           [(ngModel)]="telefono.cdsuo" hidden required/>
+                                    <div [hidden]="!(editForm.controls.cdsuo?.dirty && editForm.controls.cdsuo?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.cdsuo?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--<div class="form-group">-->
@@ -57,40 +131,8 @@
                         <!--</small>-->
                     <!--</div>-->
                 <!--</div>-->
-                <div class="form-group">
 
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.intestatarioContratto" for="field_intestatarioContratto">Intestatario Contratto</label>
 
-                    <select [(ngModel)]="telefono.intestatarioContratto" name="intestatarioContratto" class="form-control" id="intestatarioContratto" required>
-                        <option value=""></option>
-                        <!--<option value="SEDE CENTRALE">SEDE CENTRALE</option>-->
-                        <option *ngFor="let i of istituti" [ngValue]="i.cdsuo+' - '+i.denominazione">{{i.cdsuo+' - '+i.denominazione}} ({{i.indirizzoPrincipale.comune}})</option>
-                    </select>
-                    <pre>Model: {{ telefono.intestatarioContratto | json }}</pre>
-
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.numeroContratto" for="field_numeroContratto">Numero Contratto</label>
-                    <input type="text" class="form-control" name="numeroContratto" id="field_numeroContratto"
-                        [(ngModel)]="telefono.numeroContratto" required/>
-                    <div [hidden]="!(editForm.controls.numeroContratto?.dirty && editForm.controls.numeroContratto?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.numeroContratto?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefono.cdsuo" for="field_cdsuo">Cdsuo</label>-->
-                    <input type="text" class="form-control" name="cdsuo" id="field_cdsuo"
-                           [(ngModel)]="telefono.cdsuo" hidden required/>
-                    <div [hidden]="!(editForm.controls.cdsuo?.dirty && editForm.controls.cdsuo?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.cdsuo?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </div>
-                </div>
                 <!--<div class="form-group">-->
                     <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefono.deleted" for="field_deleted">Deleted</label>-->
                     <!--<input type="checkbox" class="form-control" name="deleted" id="field_deleted"-->
@@ -112,31 +154,15 @@
                         <!--</small>-->
                     <!--</div>-->
                 <!--</div>-->
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.utilizzatoreUtenza" for="field_utilizzatoreUtenza">Utilizzatore Utenza</label>
-                    <input type="text" class="form-control" name="utilizzatoreUtenza" id="field_utilizzatoreUtenza" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
-                           [(ngModel)]="telefono.utilizzatoreUtenza" placeholder="search"  required/>
-                    <div [hidden]="!(editForm.controls.utilizzatoreUtenza?.dirty && editForm.controls.utilizzatoreUtenza?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.utilizzatoreUtenza?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </div>
-                    <span *ngIf="searching">searching...</span>
-                    <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
-                </div>
-                <!--<hr>-->
-                <!--<pre>Model: {{ model | json }}</pre>-->
-                <!--<pre>Model: {{ telefono.utenzaTelefono | json }}</pre>-->
 
-            </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
+                <div class="row mt-2">
+                    <button type="button" id="cancel-save" class="btn btn-outline-secondary col-md-5"  (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-outline-primary col-md-5 ml-auto">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    </button>
+                </div>
             </div>
         </form>
     </div>
