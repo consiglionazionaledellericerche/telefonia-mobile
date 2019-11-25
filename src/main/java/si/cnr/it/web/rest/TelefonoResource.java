@@ -5,7 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.service.AceService;
 import it.cnr.si.service.dto.anagrafica.base.NodeDto;
 import it.cnr.si.service.dto.anagrafica.base.PageDto;
-import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
+import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDtoForGerarchia;
 import it.cnr.si.service.dto.anagrafica.letture.IndirizzoWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class TelefonoResource {
 
     private final TelefonoRepository telefonoRepository;
 
-    private List<EntitaOrganizzativaWebDto> ist;
+    private List<EntitaOrganizzativaWebDtoForGerarchia> ist;
 
     public TelefonoResource(TelefonoRepository telefonoRepository) {
         this.telefonoRepository = telefonoRepository;
@@ -181,9 +181,9 @@ public class TelefonoResource {
         Iterator v = telefoni.iterator();
         while(v.hasNext()) {
             Telefono tel = (Telefono) v.next();
-            Iterator<EntitaOrganizzativaWebDto> i = ist.iterator();
+            Iterator<EntitaOrganizzativaWebDtoForGerarchia> i = ist.iterator();
             while (i.hasNext()) {
-                EntitaOrganizzativaWebDto is = (EntitaOrganizzativaWebDto) i.next();
+                EntitaOrganizzativaWebDtoForGerarchia is = (EntitaOrganizzativaWebDtoForGerarchia) i.next();
 //                if(tel.getCdsuo().equals(is.getCdsuo())){
                 if(tel.getIntestatarioContratto().equals(is.getDenominazione()) && tel.getCdsuo().equals(is.getCdsuo())){
 //                if(tel.getIntestatarioContratto().equals(is.getSigla())){
@@ -214,9 +214,9 @@ public class TelefonoResource {
 
 
         findIstituto();
-        Iterator<EntitaOrganizzativaWebDto> i = ist.iterator();
+        Iterator<EntitaOrganizzativaWebDtoForGerarchia> i = ist.iterator();
         while (i.hasNext()) {
-            EntitaOrganizzativaWebDto is = (EntitaOrganizzativaWebDto) i.next();
+            EntitaOrganizzativaWebDtoForGerarchia is = (EntitaOrganizzativaWebDtoForGerarchia) i.next();
 //            if(telefono.get().getCdsuo().equals(is.getCdsuo())){
 //            if(telefono.get().getIntestatarioContratto().equals(is.getSigla())){
             if(telefono.get().getIntestatarioContratto().equals(is.getDenominazione())){
@@ -322,7 +322,7 @@ public class TelefonoResource {
     //Per richiamare istituti ACE
     @GetMapping("/telefonos/getIstituti")
     @Timed
-    public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto() {
+    public ResponseEntity<List<EntitaOrganizzativaWebDtoForGerarchia>> findIstituto() {
 
 
         String cds = getCdsUser();
@@ -333,10 +333,10 @@ public class TelefonoResource {
         List<NodeDto> gerarchiaUffici = ace.getGerarchiaUffici();
 
         //Array completo
-        List<EntitaOrganizzativaWebDto> istitutiESedi = new ArrayList<>();
+        List<EntitaOrganizzativaWebDtoForGerarchia> istitutiESedi = new ArrayList<>();
 
         //Inserisco Sede Centrale
-        EntitaOrganizzativaWebDto ist = new EntitaOrganizzativaWebDto();
+        EntitaOrganizzativaWebDtoForGerarchia ist = new EntitaOrganizzativaWebDtoForGerarchia();
         IndirizzoWebDto indirizzo = new IndirizzoWebDto();
         indirizzo.setComune("Roma");
         ist.setCdsuo("000000");
@@ -488,11 +488,11 @@ String nome = "";
         return cds;
     }
 
-    public void setIst(List<EntitaOrganizzativaWebDto> istituti){
+    public void setIst(List<EntitaOrganizzativaWebDtoForGerarchia> istituti){
         ist = istituti;
     }
 
-    public List<EntitaOrganizzativaWebDto> getIst(){
+    public List<EntitaOrganizzativaWebDtoForGerarchia> getIst(){
         return ist;
     }
 
