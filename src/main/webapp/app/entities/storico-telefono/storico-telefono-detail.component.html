@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="storicoTelefono">
+            <h2><span jhiTranslate="telefoniaApp.storicoTelefono.detail.title">Storico Telefono</span> {{storicoTelefono.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.dataModifica">Data Modifica</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.dataModifica}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.dataAttivazione">Data Attivazione</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.dataAttivazione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.dataCessazione">Data Cessazione</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.dataCessazione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.intestatarioContratto">Intestatario Contratto</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.intestatarioContratto}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.numeroContratto">Numero Contratto</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.numeroContratto}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.utilizzatoreUtenza">Utilizzatore Utenza</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.utilizzatoreUtenza}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.cdsuo">Cdsuo</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.cdsuo}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.operatore">Operatore</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.operatore}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.servizi">Servizi</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.servizi}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.userModifica">User Modifica</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.userModifica}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.versione">Versione</span></dt>
+                <dd>
+                    <span>{{storicoTelefono.versione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.storicotelefonoTelefono">Storicotelefono Telefono</span></dt>
+                <dd>
+                    <div *ngIf="storicoTelefono.storicotelefonoTelefono">
+                        <a [routerLink]="['/telefono', storicoTelefono.storicotelefonoTelefono?.id, 'view']">{{storicoTelefono.storicotelefonoTelefono?.telefono}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/storico-telefono', storicoTelefono.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

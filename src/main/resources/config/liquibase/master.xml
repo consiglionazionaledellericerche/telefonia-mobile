@@ -10,9 +10,13 @@
     <include file="config/liquibase/changelog/20181220072701_added_entity_Operatore.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181220074906_added_entity_TelefonoServizi.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190130092957_added_entity_ListaOperatori.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191203115513_added_entity_Validazione.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191203120641_added_entity_StoricoTelefono.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20181220072701_added_entity_constraints_Operatore.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181220074906_added_entity_constraints_TelefonoServizi.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190130092957_added_entity_constraints_ListaOperatori.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191203115513_added_entity_constraints_Validazione.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191203120641_added_entity_constraints_StoricoTelefono.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -5,6 +5,8 @@ import { TelefoniaTelefonoModule } from './telefono/telefono.module';
 import { TelefoniaOperatoreModule } from './operatore/operatore.module';
 import { TelefoniaTelefonoServiziModule } from './telefono-servizi/telefono-servizi.module';
 import { TelefoniaListaOperatoriModule } from './lista-operatori/lista-operatori.module';
+import { TelefoniaValidazioneModule } from './validazione/validazione.module';
+import { TelefoniaStoricoTelefonoModule } from './storico-telefono/storico-telefono.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -15,6 +17,8 @@ import { TelefoniaListaOperatoriModule } from './lista-operatori/lista-operatori
         TelefoniaOperatoreModule,
         TelefoniaTelefonoServiziModule,
         TelefoniaListaOperatoriModule,
+        TelefoniaValidazioneModule,
+        TelefoniaStoricoTelefonoModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -68,6 +69,11 @@ public class TelefonoResourceIntTest {
     private static final String DEFAULT_UTILIZZATORE_UTENZA = "AAAAAAAAAA";
     private static final String UPDATED_UTILIZZATORE_UTENZA = "BBBBBBBBBB";
 
+    private static final byte[] DEFAULT_CONTRATTO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_CONTRATTO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_CONTRATTO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_CONTRATTO_CONTENT_TYPE = "image/png";
+
     @Autowired
     private TelefonoRepository telefonoRepository;
 
@@ -114,7 +120,9 @@ public class TelefonoResourceIntTest {
             .cdsuo(DEFAULT_CDSUO)
             .deleted(DEFAULT_DELETED)
             .deletedNote(DEFAULT_DELETED_NOTE)
-            .utilizzatoreUtenza(DEFAULT_UTILIZZATORE_UTENZA);
+            .utilizzatoreUtenza(DEFAULT_UTILIZZATORE_UTENZA)
+            .contratto(DEFAULT_CONTRATTO)
+            .contrattoContentType(DEFAULT_CONTRATTO_CONTENT_TYPE);
         return telefono;
     }
 
@@ -147,6 +155,8 @@ public class TelefonoResourceIntTest {
         assertThat(testTelefono.isDeleted()).isEqualTo(DEFAULT_DELETED);
         assertThat(testTelefono.getDeletedNote()).isEqualTo(DEFAULT_DELETED_NOTE);
         assertThat(testTelefono.getUtilizzatoreUtenza()).isEqualTo(DEFAULT_UTILIZZATORE_UTENZA);
+        assertThat(testTelefono.getContratto()).isEqualTo(DEFAULT_CONTRATTO);
+        assertThat(testTelefono.getContrattoContentType()).isEqualTo(DEFAULT_CONTRATTO_CONTENT_TYPE);
     }
 
     @Test
@@ -295,7 +305,9 @@ public class TelefonoResourceIntTest {
             .andExpect(jsonPath("$.[*].cdsuo").value(hasItem(DEFAULT_CDSUO.toString())))
             .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())))
             .andExpect(jsonPath("$.[*].deletedNote").value(hasItem(DEFAULT_DELETED_NOTE.toString())))
-            .andExpect(jsonPath("$.[*].utilizzatoreUtenza").value(hasItem(DEFAULT_UTILIZZATORE_UTENZA.toString())));
+            .andExpect(jsonPath("$.[*].utilizzatoreUtenza").value(hasItem(DEFAULT_UTILIZZATORE_UTENZA.toString())))
+            .andExpect(jsonPath("$.[*].contrattoContentType").value(hasItem(DEFAULT_CONTRATTO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].contratto").value(hasItem(Base64Utils.encodeToString(DEFAULT_CONTRATTO))));
     }
     
     @Test
@@ -317,7 +329,9 @@ public class TelefonoResourceIntTest {
             .andExpect(jsonPath("$.cdsuo").value(DEFAULT_CDSUO.toString()))
             .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()))
             .andExpect(jsonPath("$.deletedNote").value(DEFAULT_DELETED_NOTE.toString()))
-            .andExpect(jsonPath("$.utilizzatoreUtenza").value(DEFAULT_UTILIZZATORE_UTENZA.toString()));
+            .andExpect(jsonPath("$.utilizzatoreUtenza").value(DEFAULT_UTILIZZATORE_UTENZA.toString()))
+            .andExpect(jsonPath("$.contrattoContentType").value(DEFAULT_CONTRATTO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.contratto").value(Base64Utils.encodeToString(DEFAULT_CONTRATTO)));
     }
 
     @Test
@@ -349,7 +363,9 @@ public class TelefonoResourceIntTest {
             .cdsuo(UPDATED_CDSUO)
             .deleted(UPDATED_DELETED)
             .deletedNote(UPDATED_DELETED_NOTE)
-            .utilizzatoreUtenza(UPDATED_UTILIZZATORE_UTENZA);
+            .utilizzatoreUtenza(UPDATED_UTILIZZATORE_UTENZA)
+            .contratto(UPDATED_CONTRATTO)
+            .contrattoContentType(UPDATED_CONTRATTO_CONTENT_TYPE);
 
         restTelefonoMockMvc.perform(put("/api/telefonos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -369,6 +385,8 @@ public class TelefonoResourceIntTest {
         assertThat(testTelefono.isDeleted()).isEqualTo(UPDATED_DELETED);
         assertThat(testTelefono.getDeletedNote()).isEqualTo(UPDATED_DELETED_NOTE);
         assertThat(testTelefono.getUtilizzatoreUtenza()).isEqualTo(UPDATED_UTILIZZATORE_UTENZA);
+        assertThat(testTelefono.getContratto()).isEqualTo(UPDATED_CONTRATTO);
+        assertThat(testTelefono.getContrattoContentType()).isEqualTo(UPDATED_CONTRATTO_CONTENT_TYPE);
     }
 
     @Test

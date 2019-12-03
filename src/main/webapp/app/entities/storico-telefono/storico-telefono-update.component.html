@@ -1,0 +1,132 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-storico-telefono-heading" jhiTranslate="telefoniaApp.storicoTelefono.home.createOrEditLabel">Create or edit a Storico Telefono</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!storicoTelefono.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="storicoTelefono.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.dataModifica" for="field_dataModifica">Data Modifica</label>
+                    <div class="d-flex">
+                        <input id="field_dataModifica" type="datetime-local" class="form-control" name="dataModifica" [(ngModel)]="dataModifica"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dataModifica?.dirty && editForm.controls.dataModifica?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dataModifica?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.dataModifica?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.dataAttivazione" for="field_dataAttivazione">Data Attivazione</label>
+                    <div class="input-group">
+                        <input id="field_dataAttivazione" type="text" class="form-control" name="dataAttivazione" ngbDatepicker  #dataAttivazioneDp="ngbDatepicker" [(ngModel)]="storicoTelefono.dataAttivazione"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dataAttivazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dataAttivazione?.dirty && editForm.controls.dataAttivazione?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dataAttivazione?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.dataCessazione" for="field_dataCessazione">Data Cessazione</label>
+                    <div class="input-group">
+                        <input id="field_dataCessazione" type="text" class="form-control" name="dataCessazione" ngbDatepicker  #dataCessazioneDp="ngbDatepicker" [(ngModel)]="storicoTelefono.dataCessazione"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dataCessazioneDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.intestatarioContratto" for="field_intestatarioContratto">Intestatario Contratto</label>
+                    <input type="text" class="form-control" name="intestatarioContratto" id="field_intestatarioContratto"
+                        [(ngModel)]="storicoTelefono.intestatarioContratto" required/>
+                    <div [hidden]="!(editForm.controls.intestatarioContratto?.dirty && editForm.controls.intestatarioContratto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.intestatarioContratto?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.numeroContratto" for="field_numeroContratto">Numero Contratto</label>
+                    <input type="text" class="form-control" name="numeroContratto" id="field_numeroContratto"
+                        [(ngModel)]="storicoTelefono.numeroContratto" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.utilizzatoreUtenza" for="field_utilizzatoreUtenza">Utilizzatore Utenza</label>
+                    <input type="text" class="form-control" name="utilizzatoreUtenza" id="field_utilizzatoreUtenza"
+                        [(ngModel)]="storicoTelefono.utilizzatoreUtenza" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.cdsuo" for="field_cdsuo">Cdsuo</label>
+                    <input type="text" class="form-control" name="cdsuo" id="field_cdsuo"
+                        [(ngModel)]="storicoTelefono.cdsuo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.operatore" for="field_operatore">Operatore</label>
+                    <input type="text" class="form-control" name="operatore" id="field_operatore"
+                        [(ngModel)]="storicoTelefono.operatore" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.servizi" for="field_servizi">Servizi</label>
+                    <input type="text" class="form-control" name="servizi" id="field_servizi"
+                        [(ngModel)]="storicoTelefono.servizi" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.userModifica" for="field_userModifica">User Modifica</label>
+                    <input type="text" class="form-control" name="userModifica" id="field_userModifica"
+                        [(ngModel)]="storicoTelefono.userModifica" required/>
+                    <div [hidden]="!(editForm.controls.userModifica?.dirty && editForm.controls.userModifica?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.userModifica?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.versione" for="field_versione">Versione</label>
+                    <input type="text" class="form-control" name="versione" id="field_versione"
+                        [(ngModel)]="storicoTelefono.versione" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.storicoTelefono.storicotelefonoTelefono" for="field_storicotelefonoTelefono">Storicotelefono Telefono</label>
+                    <select class="form-control" id="field_storicotelefonoTelefono" name="storicotelefonoTelefono" [(ngModel)]="storicoTelefono.storicotelefonoTelefono"  required>
+                        <option *ngIf="!editForm.value.storicotelefonoTelefono" [ngValue]="null" selected></option>
+                        <option [ngValue]="telefonoOption.id === storicoTelefono.storicotelefonoTelefono?.id ? storicoTelefono.storicotelefonoTelefono : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.telefono}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.storicotelefonoTelefono?.dirty && editForm.controls.storicotelefonoTelefono?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.storicotelefonoTelefono?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

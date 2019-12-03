@@ -6,6 +6,7 @@ import { TelefonoService } from './telefono.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
+import { JhiDataUtils } from 'ng-jhipster';
 
 const WIKI_URL = 'https://en.wikipedia.org/w/api.php';
 const PARAMS = new HttpParams({
@@ -44,19 +45,35 @@ export class TelefonoUpdateComponent implements OnInit {
     searchFailed = false;
     istituti = [];
 
-    constructor(private _service: WikipediaService, private telefonoService: TelefonoService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private _service: WikipediaService,
+        private dataUtils: JhiDataUtils,
+        private telefonoService: TelefonoService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ telefono }) => {
             this.telefono = telefono;
         });
-
         this.telefonoService.getIstituti().subscribe(istitutiRestituiti => {
             this.istituti = istitutiRestituiti;
         });
 
         this.telefono.cdsuo = 'pippo';
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     previousState() {

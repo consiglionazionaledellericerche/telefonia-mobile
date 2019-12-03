@@ -58,6 +58,14 @@ public class Telefono implements Serializable {
     @Column(name = "utilizzatore_utenza", nullable = false)
     private String utilizzatoreUtenza;
 
+    
+    @Lob
+    @Column(name = "contratto", nullable = false)
+    private byte[] contratto;
+
+    @Column(name = "contratto_content_type", nullable = false)
+    private String contrattoContentType;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -183,6 +191,32 @@ public class Telefono implements Serializable {
     public void setUtilizzatoreUtenza(String utilizzatoreUtenza) {
         this.utilizzatoreUtenza = utilizzatoreUtenza;
     }
+
+    public byte[] getContratto() {
+        return contratto;
+    }
+
+    public Telefono contratto(byte[] contratto) {
+        this.contratto = contratto;
+        return this;
+    }
+
+    public void setContratto(byte[] contratto) {
+        this.contratto = contratto;
+    }
+
+    public String getContrattoContentType() {
+        return contrattoContentType;
+    }
+
+    public Telefono contrattoContentType(String contrattoContentType) {
+        this.contrattoContentType = contrattoContentType;
+        return this;
+    }
+
+    public void setContrattoContentType(String contrattoContentType) {
+        this.contrattoContentType = contrattoContentType;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -218,6 +252,8 @@ public class Telefono implements Serializable {
             ", deleted='" + isDeleted() + "'" +
             ", deletedNote='" + getDeletedNote() + "'" +
             ", utilizzatoreUtenza='" + getUtilizzatoreUtenza() + "'" +
+            ", contratto='" + getContratto() + "'" +
+            ", contrattoContentType='" + getContrattoContentType() + "'" +
             "}";
     }
 }

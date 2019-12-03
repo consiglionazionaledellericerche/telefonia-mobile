@@ -41,6 +41,13 @@
                 <dd>
                     <span>{{telefono.utilizzatoreUtenza}}</span>
                 </dd>
+                <dt><span jhiTranslate="telefoniaApp.telefono.contratto">Contratto</span></dt>
+                <dd>
+                    <div *ngIf="telefono.contratto">
+                        <a (click)="openFile(telefono.contrattoContentType, telefono.contratto)" jhiTranslate="entity.action.open">open</a>
+                        {{telefono.contrattoContentType}}, {{byteSize(telefono.contratto)}}
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

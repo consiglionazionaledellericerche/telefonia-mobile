@@ -24,6 +24,7 @@
             <!--<th jhiSortBy="deleted"><span jhiTranslate="telefoniaApp.telefono.deleted">Deleted</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <!--<th jhiSortBy="deletedNote"><span jhiTranslate="telefoniaApp.telefono.deletedNote">Deleted Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="utilizzatoreUtenza"><span jhiTranslate="telefoniaApp.telefono.utilizzatoreUtenza">Utilizzatore Utenza</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="contratto"><span jhiTranslate="telefoniaApp.telefono.contratto">Contratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -39,6 +40,10 @@
                 <!--<td>{{telefono.deleted}}</td>-->
                 <!--<td>{{telefono.deletedNote}}</td>-->
                 <td>{{telefono.utilizzatoreUtenza}}</td>
+                <td>
+                    <a *ngIf="telefono.contratto" (click)="openFile(telefono.contrattoContentType, telefono.contratto)" jhiTranslate="entity.action.open">open</a>
+                    <span *ngIf="telefono.contratto">{{telefono.contrattoContentType}}, {{byteSize(telefono.contratto)}}</span>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <!--<button type="submit"-->

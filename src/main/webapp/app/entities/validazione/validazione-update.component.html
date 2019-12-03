@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-validazione-heading" jhiTranslate="telefoniaApp.validazione.home.createOrEditLabel">Create or edit a Validazione</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!validazione.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="validazione.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.dataModifica" for="field_dataModifica">Data Modifica</label>
+                    <div class="input-group">
+                        <input id="field_dataModifica" type="text" class="form-control" name="dataModifica" ngbDatepicker  #dataModificaDp="ngbDatepicker" [(ngModel)]="validazione.dataModifica"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dataModificaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dataModifica?.dirty && editForm.controls.dataModifica?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dataModifica?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.descrizione" for="field_descrizione">Descrizione</label>
+                    <input type="text" class="form-control" name="descrizione" id="field_descrizione"
+                        [(ngModel)]="validazione.descrizione" required/>
+                    <div [hidden]="!(editForm.controls.descrizione?.dirty && editForm.controls.descrizione?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descrizione?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.documentoFirmato" for="field_documentoFirmato">Documento Firmato</label>
+                    <div>
+                        <div *ngIf="validazione.documentoFirmato" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(validazione.documentoFirmatoContentType, validazione.documentoFirmato)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{validazione.documentoFirmatoContentType}}, {{byteSize(validazione.documentoFirmato)}}</span>
+                            <button type="button" (click)="validazione.documentoFirmato=null;validazione.documentoFirmatoContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_documentoFirmato" (change)="setFileData($event, validazione, 'documentoFirmato', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="documentoFirmato" id="field_documentoFirmato"
+                        [(ngModel)]="validazione.documentoFirmato" />
+                    <input type="hidden" class="form-control" name="documentoFirmatoContentType" id="field_documentoFirmatoContentType"
+                        [(ngModel)]="validazione.documentoFirmatoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.dataValidazione" for="field_dataValidazione">Data Validazione</label>
+                    <div class="d-flex">
+                        <input id="field_dataValidazione" type="datetime-local" class="form-control" name="dataValidazione" [(ngModel)]="dataValidazione"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.userDirettore" for="field_userDirettore">User Direttore</label>
+                    <input type="text" class="form-control" name="userDirettore" id="field_userDirettore"
+                        [(ngModel)]="validazione.userDirettore" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.ipValidazione" for="field_ipValidazione">Ip Validazione</label>
+                    <input type="text" class="form-control" name="ipValidazione" id="field_ipValidazione"
+                        [(ngModel)]="validazione.ipValidazione" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.idFlusso" for="field_idFlusso">Id Flusso</label>
+                    <input type="text" class="form-control" name="idFlusso" id="field_idFlusso"
+                        [(ngModel)]="validazione.idFlusso" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.validazioneTelefono" for="field_validazioneTelefono">Validazione Telefono</label>
+                    <select class="form-control" id="field_validazioneTelefono" name="validazioneTelefono" [(ngModel)]="validazione.validazioneTelefono"  required>
+                        <option *ngIf="!editForm.value.validazioneTelefono" [ngValue]="null" selected></option>
+                        <option [ngValue]="telefonoOption.id === validazione.validazioneTelefono?.id ? validazione.validazioneTelefono : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.validazioneTelefono?.dirty && editForm.controls.validazioneTelefono?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.validazioneTelefono?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

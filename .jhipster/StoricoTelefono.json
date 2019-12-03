@@ -1,0 +1,80 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "storicotelefonoTelefono",
+            "otherEntityName": "telefono",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "telefono"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dataModifica",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dataAttivazione",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dataCessazione",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "intestatarioContratto",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "numeroContratto",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "utilizzatoreUtenza",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cdsuo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "operatore",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "servizi",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userModifica",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "versione",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20191203120641",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "storico_telefono",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

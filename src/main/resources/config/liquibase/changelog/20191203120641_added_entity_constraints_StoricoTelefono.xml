@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity StoricoTelefono.
+    -->
+    <changeSet id="20191203120641-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="storicotelefono_telefono_id"
+                                 baseTableName="storico_telefono"
+                                 constraintName="fk_storico_telefono_storicotelefono_telefono_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="telefono"/>
+
+    </changeSet>
+</databaseChangeLog>

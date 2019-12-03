@@ -1,0 +1,88 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="telefoniaApp.storicoTelefono.home.title">Storico Telefonos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-storico-telefono" [routerLink]="['/storico-telefono/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="telefoniaApp.storicoTelefono.home.createLabel">
+            Create new Storico Telefono
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="storicoTelefonos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dataModifica"><span jhiTranslate="telefoniaApp.storicoTelefono.dataModifica">Data Modifica</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dataAttivazione"><span jhiTranslate="telefoniaApp.storicoTelefono.dataAttivazione">Data Attivazione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dataCessazione"><span jhiTranslate="telefoniaApp.storicoTelefono.dataCessazione">Data Cessazione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="intestatarioContratto"><span jhiTranslate="telefoniaApp.storicoTelefono.intestatarioContratto">Intestatario Contratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numeroContratto"><span jhiTranslate="telefoniaApp.storicoTelefono.numeroContratto">Numero Contratto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="utilizzatoreUtenza"><span jhiTranslate="telefoniaApp.storicoTelefono.utilizzatoreUtenza">Utilizzatore Utenza</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cdsuo"><span jhiTranslate="telefoniaApp.storicoTelefono.cdsuo">Cdsuo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="operatore"><span jhiTranslate="telefoniaApp.storicoTelefono.operatore">Operatore</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="servizi"><span jhiTranslate="telefoniaApp.storicoTelefono.servizi">Servizi</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userModifica"><span jhiTranslate="telefoniaApp.storicoTelefono.userModifica">User Modifica</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="versione"><span jhiTranslate="telefoniaApp.storicoTelefono.versione">Versione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="storicotelefonoTelefono.telefono"><span jhiTranslate="telefoniaApp.storicoTelefono.storicotelefonoTelefono">Storicotelefono Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let storicoTelefono of storicoTelefonos ;trackBy: trackId">
+                <td><a [routerLink]="['/storico-telefono', storicoTelefono.id, 'view' ]">{{storicoTelefono.id}}</a></td>
+                <td>{{storicoTelefono.dataModifica | date:'medium'}}</td>
+                <td>{{storicoTelefono.dataAttivazione | date:'mediumDate'}}</td>
+                <td>{{storicoTelefono.dataCessazione | date:'mediumDate'}}</td>
+                <td>{{storicoTelefono.intestatarioContratto}}</td>
+                <td>{{storicoTelefono.numeroContratto}}</td>
+                <td>{{storicoTelefono.utilizzatoreUtenza}}</td>
+                <td>{{storicoTelefono.cdsuo}}</td>
+                <td>{{storicoTelefono.operatore}}</td>
+                <td>{{storicoTelefono.servizi}}</td>
+                <td>{{storicoTelefono.userModifica}}</td>
+                <td>{{storicoTelefono.versione}}</td>
+                <td>
+                    <div *ngIf="storicoTelefono.storicotelefonoTelefono">
+                        <a [routerLink]="['../telefono', storicoTelefono.storicotelefonoTelefono?.id, 'view' ]" >{{storicoTelefono.storicotelefonoTelefono?.telefono}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/storico-telefono', storicoTelefono.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/storico-telefono', storicoTelefono.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'storico-telefono/'+ storicoTelefono.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="storicoTelefonos && storicoTelefonos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

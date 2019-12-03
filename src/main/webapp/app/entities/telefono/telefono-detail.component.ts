@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JhiDataUtils } from 'ng-jhipster';
 
 import { ITelefono } from 'app/shared/model/telefono.model';
 
@@ -10,7 +11,7 @@ import { ITelefono } from 'app/shared/model/telefono.model';
 export class TelefonoDetailComponent implements OnInit {
     telefono: ITelefono;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(private activatedRoute: ActivatedRoute, private dataUtils: JhiDataUtils) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ telefono }) => {
@@ -18,6 +19,13 @@ export class TelefonoDetailComponent implements OnInit {
         });
     }
 
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
     previousState() {
         window.history.back();
     }
