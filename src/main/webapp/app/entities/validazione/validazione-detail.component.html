@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="validazione">
+            <h2><span jhiTranslate="telefoniaApp.validazione.detail.title">Validazione</span> {{validazione.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="telefoniaApp.validazione.dataModifica">Data Modifica</span></dt>
+                <dd>
+                    <span>{{validazione.dataModifica}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.descrizione">Descrizione</span></dt>
+                <dd>
+                    <span>{{validazione.descrizione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.documentoFirmato">Documento Firmato</span></dt>
+                <dd>
+                    <div *ngIf="validazione.documentoFirmato">
+                        <a (click)="openFile(validazione.documentoFirmatoContentType, validazione.documentoFirmato)" jhiTranslate="entity.action.open">open</a>
+                        {{validazione.documentoFirmatoContentType}}, {{byteSize(validazione.documentoFirmato)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.dataValidazione">Data Validazione</span></dt>
+                <dd>
+                    <span>{{validazione.dataValidazione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.userDirettore">User Direttore</span></dt>
+                <dd>
+                    <span>{{validazione.userDirettore}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.ipValidazione">Ip Validazione</span></dt>
+                <dd>
+                    <span>{{validazione.ipValidazione}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.idFlusso">Id Flusso</span></dt>
+                <dd>
+                    <span>{{validazione.idFlusso}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.validazioneTelefono">Validazione Telefono</span></dt>
+                <dd>
+                    <div *ngIf="validazione.validazioneTelefono">
+                        <a [routerLink]="['/telefono', validazione.validazioneTelefono?.id, 'view']">{{validazione.validazioneTelefono?.numero}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/validazione', validazione.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

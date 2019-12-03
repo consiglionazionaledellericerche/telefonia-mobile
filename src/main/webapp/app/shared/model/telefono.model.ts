@@ -11,6 +11,8 @@ export interface ITelefono {
     deleted?: boolean;
     deletedNote?: string;
     utilizzatoreUtenza?: string;
+    contrattoContentType?: string;
+    contratto?: any;
 }
 
 export class Telefono implements ITelefono {
@@ -24,7 +26,9 @@ export class Telefono implements ITelefono {
         public cdsuo?: string,
         public deleted?: boolean,
         public deletedNote?: string,
-        public utilizzatoreUtenza?: string
+        public utilizzatoreUtenza?: string,
+        public contrattoContentType?: string,
+        public contratto?: any
     ) {
         this.deleted = this.deleted || false;
     }

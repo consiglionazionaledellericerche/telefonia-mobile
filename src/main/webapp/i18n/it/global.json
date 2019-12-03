@@ -12,6 +12,8 @@
                 "operatore": "Operatore",
                 "telefonoServizi": "Telefono Servizi",
                 "listaOperatori": "Lista Operatori",
+                "validazione": "Validazione",
+                "storicoTelefono": "Storico Telefono",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

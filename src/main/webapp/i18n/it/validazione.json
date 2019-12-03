@@ -1,0 +1,29 @@
+
+{
+    "telefoniaApp": {
+        "validazione" : {
+            "home": {
+                "title": "Validaziones",
+                "createLabel": "Genera un nuovo Validazione",
+                "createOrEditLabel": "Genera o modifica un Validazione"
+            },
+            "created": "&Egrave; stato generato un nuovo Validazione con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Validazione identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Validazione con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Validazione {{ id }}?"
+            },
+            "detail": {
+                "title": "Validazione"
+            },
+            "dataModifica": "Data Modifica",
+            "descrizione": "Descrizione",
+            "documentoFirmato": "Documento Firmato",
+            "dataValidazione": "Data Validazione",
+            "userDirettore": "User Direttore",
+            "ipValidazione": "Ip Validazione",
+            "idFlusso": "Id Flusso",
+            "validazioneTelefono": "Validazione Telefono"
+        }
+    }
+}

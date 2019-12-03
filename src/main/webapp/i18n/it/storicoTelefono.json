@@ -1,0 +1,33 @@
+
+{
+    "telefoniaApp": {
+        "storicoTelefono" : {
+            "home": {
+                "title": "StoricoTelefonos",
+                "createLabel": "Genera un nuovo Storico Telefono",
+                "createOrEditLabel": "Genera o modifica un Storico Telefono"
+            },
+            "created": "&Egrave; stato generato un nuovo Storico Telefono con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Storico Telefono identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Storico Telefono con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Storico Telefono {{ id }}?"
+            },
+            "detail": {
+                "title": "Storico Telefono"
+            },
+            "dataModifica": "Data Modifica",
+            "dataAttivazione": "Data Attivazione",
+            "dataCessazione": "Data Cessazione",
+            "intestatarioContratto": "Intestatario Contratto",
+            "numeroContratto": "Numero Contratto",
+            "utilizzatoreUtenza": "Utilizzatore Utenza",
+            "cdsuo": "Cdsuo",
+            "operatore": "Operatore",
+            "servizi": "Servizi",
+            "userModifica": "User Modifica",
+            "versione": "Versione",
+            "storicotelefonoTelefono": "Storicotelefono Telefono"
+        }
+    }
+}

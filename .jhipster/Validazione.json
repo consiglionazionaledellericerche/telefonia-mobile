@@ -1,0 +1,59 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "validazioneTelefono",
+            "otherEntityName": "telefono",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "numero"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dataModifica",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descrizione",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "documentoFirmato",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "dataValidazione",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "userDirettore",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ipValidazione",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "idFlusso",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20191203115513",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "validazione",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}
