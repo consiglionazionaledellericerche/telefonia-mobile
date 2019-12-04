@@ -96,12 +96,12 @@ public class TelefonoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TelefonoResource telefonoResource = new TelefonoResource(telefonoRepository);
+      /*  final TelefonoResource telefonoResource = new TelefonoResource(telefonoRepository);
         this.restTelefonoMockMvc = MockMvcBuilders.standaloneSetup(telefonoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter).build();*/
     }
 
     /**
