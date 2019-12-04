@@ -3,7 +3,7 @@
     "telefoniaApp": {
         "validazione" : {
             "home": {
-                "title": "Validaziones",
+                "title": "Validazione Direttore",
                 "createLabel": "Genera un nuovo Validazione",
                 "createOrEditLabel": "Genera o modifica un Validazione"
             },

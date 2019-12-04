@@ -93,17 +93,7 @@
                                 <!--<pre>Model: {{ telefono.utenzaTelefono | json }}</pre>-->
 
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.numeroContratto" for="field_numeroContratto">Numero Contratto</label>
-                                <input type="text" class="form-control" name="numeroContratto" id="field_numeroContratto"
-                                       [(ngModel)]="telefono.numeroContratto" required/>
-                                <div [hidden]="!(editForm.controls.numeroContratto?.dirty && editForm.controls.numeroContratto?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.numeroContratto?.errors?.required" jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </div>
-                            </div>
+
                             <div class="form-group col-md-7">
                                 <div class="form-group">
                                     <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefono.cdsuo" for="field_cdsuo">Cdsuo</label>-->
@@ -120,31 +110,50 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.contratto" for="field_contratto">Contratto</label>
-                    <div>
-                        <div *ngIf="telefono.contratto" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(telefono.contrattoContentType, telefono.contratto)" jhiTranslate="entity.action.open">open</a><br>
-                            <span class="pull-left">{{telefono.contrattoContentType}}, {{byteSize(telefono.contratto)}}</span>
-                            <button type="button" (click)="telefono.contratto=null;telefono.contrattoContentType=null;"
-                                    class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
-                        </div>
-                        <input type="file" id="file_contratto" (change)="setFileData($event, telefono, 'contratto', false)" jhiTranslate="entity.action.addblob"/>
+                <div class="card border-primary mt-1">
+                    <div class="card-header text-white bg-primary">
+                        Contratto
                     </div>
-                    <input type="hidden" class="form-control" name="contratto" id="field_contratto"
-                        [(ngModel)]="telefono.contratto" required/>
-                    <input type="hidden" class="form-control" name="contrattoContentType" id="field_contrattoContentType"
-                        [(ngModel)]="telefono.contrattoContentType" />
-                    <div [hidden]="!(editForm.controls.contratto?.dirty && editForm.controls.contratto?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.contratto?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.numeroContratto" for="field_numeroContratto">Numero Contratto</label>
+                                <input type="text" class="form-control" name="numeroContratto" id="field_numeroContratto"
+                                       [(ngModel)]="telefono.numeroContratto" required/>
+                                <div [hidden]="!(editForm.controls.numeroContratto?.dirty && editForm.controls.numeroContratto?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.numeroContratto?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-7">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.contratto" for="field_contratto">Contratto</label>
+                                <div>
+                                    <div *ngIf="telefono.contratto" class="form-text text-danger clearfix">
+                                        <a class="pull-left" (click)="openFile(telefono.contrattoContentType, telefono.contratto)" jhiTranslate="entity.action.open">open</a><br>
+                                        <span class="pull-left">{{telefono.contrattoContentType}}, {{byteSize(telefono.contratto)}}</span>
+                                        <button type="button" (click)="telefono.contratto=null;telefono.contrattoContentType=null;"
+                                                class="btn btn-secondary btn-xs pull-right">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="file_contratto" (change)="setFileData($event, telefono, 'contratto', false)" jhiTranslate="entity.action.addblob"/>
+                                </div>
+                                <input type="hidden" class="form-control" name="contratto" id="field_contratto"
+                                       [(ngModel)]="telefono.contratto" required/>
+                                <input type="hidden" class="form-control" name="contrattoContentType" id="field_contrattoContentType"
+                                       [(ngModel)]="telefono.contrattoContentType" />
+                                <div [hidden]="!(editForm.controls.contratto?.dirty && editForm.controls.contratto?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.contratto?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <!--<div class="form-group">-->
                     <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefono.deleted" for="field_deleted">Deleted</label>-->
                     <!--<input type="checkbox" class="form-control" name="deleted" id="field_deleted"-->

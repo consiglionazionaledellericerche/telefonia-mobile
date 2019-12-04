@@ -10,8 +10,12 @@ import it.cnr.si.service.dto.anagrafica.letture.IndirizzoWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import si.cnr.it.domain.StoricoTelefono;
 import si.cnr.it.domain.Telefono;
+import si.cnr.it.domain.Validazione;
 import si.cnr.it.repository.TelefonoRepository;
+import si.cnr.it.repository.StoricoTelefonoRepository;
+import si.cnr.it.repository.ValidazioneRepository;
 import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
@@ -32,6 +36,8 @@ import java.net.Inet4Address;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.List;
@@ -59,10 +65,16 @@ public class TelefonoResource {
 
     private final TelefonoRepository telefonoRepository;
 
+    private final StoricoTelefonoRepository storicoTelefonoRepository;
+
+    private final ValidazioneRepository validazioneRepository;
+
     private List<EntitaOrganizzativaWebDtoForGerarchia> ist;
 
-    public TelefonoResource(TelefonoRepository telefonoRepository) {
+    public TelefonoResource(TelefonoRepository telefonoRepository, StoricoTelefonoRepository storicoTelefonoRepository, ValidazioneRepository validazioneRepository) {
         this.telefonoRepository = telefonoRepository;
+        this.storicoTelefonoRepository = storicoTelefonoRepository;
+        this.validazioneRepository = validazioneRepository;
     }
 
     /**
@@ -95,7 +107,42 @@ public class TelefonoResource {
         /**
          * Fine mettere cdsuo
          */
+
+
+
         Telefono result = telefonoRepository.save(telefono);
+
+
+
+
+        //Crea validazioneTelefono
+        Validazione validazione = new Validazione();
+        validazione.setDescrizione("INSERITO NUOVO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
+        validazione.setValidazioneTelefono(telefono);
+        validazione.setDataModifica(LocalDate.now());
+        Validazione resultValidazione  = validazioneRepository.save(validazione);
+
+        //Inserisce storicoTelefono
+        Instant instant = Instant.now();
+
+        StoricoTelefono storicoTelefono = new StoricoTelefono();
+        storicoTelefono.setDataAttivazione(telefono.getDataAttivazione());
+        storicoTelefono.setDataCessazione(telefono.getDataCessazione());
+        storicoTelefono.setDataModifica(instant);
+        storicoTelefono.setUserModifica(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
+        storicoTelefono.setIntestatarioContratto(telefono.getIntestatarioContratto());
+        storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
+        storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
+        storicoTelefono.setCdsuo(telefono.getCdsuo());
+        storicoTelefono.setVersione(resultValidazione.getId().toString()); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
+        storicoTelefono.setStoricotelefonoTelefono(telefono);
+        storicoTelefono = storicoTelefonoRepository.save(storicoTelefono);
+
+
+
+
+
+
         return ResponseEntity.created(new URI("/api/telefonos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -148,6 +195,33 @@ public class TelefonoResource {
                 return (ResponseEntity<Telefono>) ResponseEntity.unprocessableEntity();
             }
             Telefono result = telefonoRepository.save(telefono);
+
+            //Inserisce validazioneTelefono
+            Validazione validazione = new Validazione();
+            validazione.setDescrizione("MODIFICATO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
+            validazione.setValidazioneTelefono(telefono);
+            validazione.setDataModifica(LocalDate.now());
+            Validazione resultValidazione = validazioneRepository.save(validazione);
+
+            //Inserisce storicoTelefono
+            Instant instant = Instant.now();
+
+            StoricoTelefono storicoTelefono = new StoricoTelefono();
+            storicoTelefono.setDataAttivazione(telefono.getDataAttivazione());
+            storicoTelefono.setDataCessazione(telefono.getDataCessazione());
+            storicoTelefono.setDataModifica(instant);
+            storicoTelefono.setUserModifica(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
+            storicoTelefono.setIntestatarioContratto(telefono.getIntestatarioContratto());
+            storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
+            storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
+            storicoTelefono.setCdsuo(telefono.getCdsuo());
+            storicoTelefono.setVersione(resultValidazione.getId().toString()); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
+            storicoTelefono.setStoricotelefonoTelefono(telefono);
+
+            ///fare iterator per valori di servizi e operatore
+
+            storicoTelefono = storicoTelefonoRepository.save(storicoTelefono);
+
             return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefono.getId().toString()))
                 .body(result);
