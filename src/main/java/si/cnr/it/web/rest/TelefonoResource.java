@@ -19,6 +19,7 @@ import si.cnr.it.repository.TelefonoRepository;
 import si.cnr.it.repository.StoricoTelefonoRepository;
 import si.cnr.it.repository.ValidazioneRepository;
 import si.cnr.it.repository.TelefonoServiziRepository;
+import si.cnr.it.repository.OperatoreRepository;
 import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
@@ -72,14 +73,21 @@ public class TelefonoResource {
 
     private final ValidazioneRepository validazioneRepository;
 
+    private final OperatoreRepository operatoreRepository;
+
     private final TelefonoServiziRepository telefonoServiziRepository;
 
     private List<EntitaOrganizzativaWebDtoForGerarchia> ist;
 
-    public TelefonoResource(TelefonoRepository telefonoRepository, StoricoTelefonoRepository storicoTelefonoRepository, ValidazioneRepository validazioneRepository, TelefonoServiziRepository telefonoServiziRepository) {
+    public TelefonoResource(TelefonoRepository telefonoRepository,
+                            StoricoTelefonoRepository storicoTelefonoRepository,
+                            ValidazioneRepository validazioneRepository,
+                            TelefonoServiziRepository telefonoServiziRepository,
+                            OperatoreRepository operatoreRepository) {
         this.telefonoRepository = telefonoRepository;
         this.storicoTelefonoRepository = storicoTelefonoRepository;
         this.validazioneRepository = validazioneRepository;
+        this.operatoreRepository = operatoreRepository;
         this.telefonoServiziRepository = telefonoServiziRepository;
     }
 
@@ -240,7 +248,19 @@ public class TelefonoResource {
             storicoTelefono.setServizi(servizi);
 
             //Fare Iterator per operatore
-
+            List<Operatore> listOperatore = operatoreRepository.findByTelefonoOperatore(telefono);
+            Iterator<Operatore> iO = listOperatore.iterator();
+            String operatore = "";
+            while (iO.hasNext()) {
+                Operatore o  = (Operatore) iO.next();
+                if(operatore.equals("")){
+                    operatore = o.getData()+" ("+o.getListaOperatori().getNome()+")";
+                }
+                else{
+                    operatore = operatore +";"+o.getData()+" ("+o.getListaOperatori().getNome();
+                }
+            }
+            storicoTelefono.setOperatore(operatore);
 
             storicoTelefono = storicoTelefonoRepository.save(storicoTelefono);
 
