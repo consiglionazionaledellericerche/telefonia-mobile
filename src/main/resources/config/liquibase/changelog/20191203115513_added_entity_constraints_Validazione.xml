@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="telefono"/>
 
+        <addForeignKeyConstraint baseColumnNames="stampa_id"
+                                 baseTableName="validazione"
+                                 constraintName="fk_validazione_stampa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="storico_telefono"/>
+
     </changeSet>
 </databaseChangeLog>

@@ -23,7 +23,8 @@
             "userDirettore": "User Direttore",
             "ipValidazione": "Ip Validazione",
             "idFlusso": "Id Flusso",
-            "validazioneTelefono": "Validazione Telefono"
+            "validazioneTelefono": "Validazione Telefono",
+            "stampa": "Stampa"
         }
     }
 }

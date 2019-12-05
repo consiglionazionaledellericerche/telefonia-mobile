@@ -59,6 +59,11 @@ public class Validazione implements Serializable {
     @JsonIgnoreProperties("")
     private Telefono validazioneTelefono;
 
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private StoricoTelefono stampa;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -183,6 +188,19 @@ public class Validazione implements Serializable {
 
     public void setValidazioneTelefono(Telefono telefono) {
         this.validazioneTelefono = telefono;
+    }
+
+    public StoricoTelefono getStampa() {
+        return stampa;
+    }
+
+    public Validazione stampa(StoricoTelefono storicoTelefono) {
+        this.stampa = storicoTelefono;
+        return this;
+    }
+
+    public void setStampa(StoricoTelefono storicoTelefono) {
+        this.stampa = storicoTelefono;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { ITelefono } from 'app/shared/model//telefono.model';
+import { IStoricoTelefono } from 'app/shared/model//storico-telefono.model';
 
 export interface IValidazione {
     id?: number;
@@ -12,6 +13,7 @@ export interface IValidazione {
     ipValidazione?: string;
     idFlusso?: string;
     validazioneTelefono?: ITelefono;
+    stampa?: IStoricoTelefono;
 }
 
 export class Validazione implements IValidazione {
@@ -25,6 +27,7 @@ export class Validazione implements IValidazione {
         public userDirettore?: string,
         public ipValidazione?: string,
         public idFlusso?: string,
-        public validazioneTelefono?: ITelefono
+        public validazioneTelefono?: ITelefono,
+        public stampa?: IStoricoTelefono
     ) {}
 }

@@ -4,6 +4,7 @@ import si.cnr.it.TelefoniaApp;
 
 import si.cnr.it.domain.Validazione;
 import si.cnr.it.domain.Telefono;
+import si.cnr.it.domain.StoricoTelefono;
 import si.cnr.it.repository.ValidazioneRepository;
 import si.cnr.it.web.rest.errors.ExceptionTranslator;
 
@@ -121,6 +122,11 @@ public class ValidazioneResourceIntTest {
         em.persist(telefono);
         em.flush();
         validazione.setValidazioneTelefono(telefono);
+        // Add required entity
+        StoricoTelefono storicoTelefono = StoricoTelefonoResourceIntTest.createEntity(em);
+        em.persist(storicoTelefono);
+        em.flush();
+        validazione.setStampa(storicoTelefono);
         return validazione;
     }
 

@@ -129,12 +129,7 @@ public class TelefonoResource {
 
 
 
-        //Crea validazioneTelefono
-        Validazione validazione = new Validazione();
-        validazione.setDescrizione("INSERITO NUOVO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
-        validazione.setValidazioneTelefono(telefono);
-        validazione.setDataModifica(LocalDate.now());
-        Validazione resultValidazione  = validazioneRepository.save(validazione);
+
 
         //Inserisce storicoTelefono
         Instant instant = Instant.now();
@@ -148,11 +143,17 @@ public class TelefonoResource {
         storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
         storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
         storicoTelefono.setCdsuo(telefono.getCdsuo());
-        storicoTelefono.setVersione(resultValidazione.getId().toString()); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
+        storicoTelefono.setVersione("");
         storicoTelefono.setStoricotelefonoTelefono(telefono);
-        storicoTelefono = storicoTelefonoRepository.save(storicoTelefono);
+        StoricoTelefono valStoricoTelefono = storicoTelefonoRepository.save(storicoTelefono);
 
-
+        //Crea validazioneTelefono
+        Validazione validazione = new Validazione();
+        validazione.setDescrizione("INSERITO NUOVO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
+        validazione.setValidazioneTelefono(telefono);
+        validazione.setDataModifica(LocalDate.now());
+        validazione.setStampa(valStoricoTelefono);
+        Validazione resultValidazione  = validazioneRepository.save(validazione);
 
 
 
@@ -210,12 +211,7 @@ public class TelefonoResource {
             }
             Telefono result = telefonoRepository.save(telefono);
 
-            //Inserisce validazioneTelefono
-            Validazione validazione = new Validazione();
-            validazione.setDescrizione("MODIFICATO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
-            validazione.setValidazioneTelefono(telefono);
-            validazione.setDataModifica(LocalDate.now());
-            Validazione resultValidazione = validazioneRepository.save(validazione);
+
 
             //Inserisce storicoTelefono
             Instant instant = Instant.now();
@@ -229,7 +225,7 @@ public class TelefonoResource {
             storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
             storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
             storicoTelefono.setCdsuo(telefono.getCdsuo());
-            storicoTelefono.setVersione(resultValidazione.getId().toString()); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
+            storicoTelefono.setVersione(""); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
             storicoTelefono.setStoricotelefonoTelefono(telefono);
 
             ///fare iterator per valori di servizi
@@ -262,7 +258,15 @@ public class TelefonoResource {
             }
             storicoTelefono.setOperatore(operatore);
 
-            storicoTelefono = storicoTelefonoRepository.save(storicoTelefono);
+            StoricoTelefono valStoricoTelefono = storicoTelefonoRepository.save(storicoTelefono);
+
+            //Inserisce validazioneTelefono
+            Validazione validazione = new Validazione();
+            validazione.setDescrizione("MODIFICATO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
+            validazione.setValidazioneTelefono(telefono);
+            validazione.setDataModifica(LocalDate.now());
+            validazione.setStampa(valStoricoTelefono);
+            Validazione resultValidazione = validazioneRepository.save(validazione);
 
             return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefono.getId().toString()))

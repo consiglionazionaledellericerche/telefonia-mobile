@@ -10,6 +10,8 @@ import { IValidazione } from 'app/shared/model/validazione.model';
 import { ValidazioneService } from './validazione.service';
 import { ITelefono } from 'app/shared/model/telefono.model';
 import { TelefonoService } from 'app/entities/telefono';
+import { IStoricoTelefono } from 'app/shared/model/storico-telefono.model';
+import { StoricoTelefonoService } from 'app/entities/storico-telefono';
 
 @Component({
     selector: 'jhi-validazione-update',
@@ -20,6 +22,8 @@ export class ValidazioneUpdateComponent implements OnInit {
     isSaving: boolean;
 
     telefonos: ITelefono[];
+
+    stampas: IStoricoTelefono[];
     dataModificaDp: any;
     dataValidazione: string;
 
@@ -28,6 +32,7 @@ export class ValidazioneUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private validazioneService: ValidazioneService,
         private telefonoService: TelefonoService,
+        private storicoTelefonoService: StoricoTelefonoService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -39,6 +44,21 @@ export class ValidazioneUpdateComponent implements OnInit {
         this.telefonoService.query().subscribe(
             (res: HttpResponse<ITelefono[]>) => {
                 this.telefonos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.storicoTelefonoService.query({ filter: 'validazione-is-null' }).subscribe(
+            (res: HttpResponse<IStoricoTelefono[]>) => {
+                if (!this.validazione.stampa || !this.validazione.stampa.id) {
+                    this.stampas = res.body;
+                } else {
+                    this.storicoTelefonoService.find(this.validazione.stampa.id).subscribe(
+                        (subRes: HttpResponse<IStoricoTelefono>) => {
+                            this.stampas = [subRes.body].concat(res.body);
+                        },
+                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                    );
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -88,6 +108,10 @@ export class ValidazioneUpdateComponent implements OnInit {
     }
 
     trackTelefonoById(index: number, item: ITelefono) {
+        return item.id;
+    }
+
+    trackStoricoTelefonoById(index: number, item: IStoricoTelefono) {
         return item.id;
     }
     get validazione() {

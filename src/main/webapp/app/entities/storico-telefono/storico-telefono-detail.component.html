@@ -3,6 +3,8 @@
         <div *ngIf="storicoTelefono">
             <h2><span jhiTranslate="telefoniaApp.storicoTelefono.detail.title">Storico Telefono</span> {{storicoTelefono.id}}</h2>
             <hr>
+            <button class="btn btn-print" onclick="window.print();">Stampa</button>
+            <br>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="telefoniaApp.storicoTelefono.dataModifica">Data Modifica</span></dt>
@@ -62,12 +64,12 @@
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
-
-            <button type="button"
+            <button class="btn btn-print" onclick="window.print();">Stampa</button>
+            <!--<button type="button"
                     [routerLink]="['/storico-telefono', storicoTelefono.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </button>-->
         </div>
     </div>
 </div>
