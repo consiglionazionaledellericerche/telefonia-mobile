@@ -10,6 +10,17 @@
                 "required"
             ],
             "otherEntityField": "numero"
+        },
+        {
+            "relationshipName": "stampa",
+            "otherEntityName": "storicoTelefono",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "validazione"
         }
     ],
     "fields": [

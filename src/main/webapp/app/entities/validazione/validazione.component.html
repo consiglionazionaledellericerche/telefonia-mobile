@@ -17,12 +17,14 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dataModifica"><span jhiTranslate="telefoniaApp.validazione.dataModifica">Data Modifica</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="descrizione"><span jhiTranslate="telefoniaApp.validazione.descrizione">Descrizione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="stampa.id"><span jhiTranslate="telefoniaApp.validazione.stampa">Stampa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="documentoFirmato"><span jhiTranslate="telefoniaApp.validazione.documentoFirmato">Documento Firmato</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dataValidazione"><span jhiTranslate="telefoniaApp.validazione.dataValidazione">Data Validazione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="userDirettore"><span jhiTranslate="telefoniaApp.validazione.userDirettore">User Direttore</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="ipValidazione"><span jhiTranslate="telefoniaApp.validazione.ipValidazione">Ip Validazione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="idFlusso"><span jhiTranslate="telefoniaApp.validazione.idFlusso">Id Flusso</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="validazioneTelefono.numero"><span jhiTranslate="telefoniaApp.validazione.validazioneTelefono">Validazione Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
             <th></th>
             </tr>
             </thead>
@@ -31,6 +33,11 @@
                 <td><a [routerLink]="['/validazione', validazione.id, 'view' ]">{{validazione.id}}</a></td>
                 <td>{{validazione.dataModifica | date:'mediumDate'}}</td>
                 <td>{{validazione.descrizione}}</td>
+                <td>
+                    <div *ngIf="validazione.stampa">
+                        <a [routerLink]="['../storico-telefono', validazione.stampa?.id, 'view' ]" >{{validazione.stampa?.id}}</a>
+                    </div>
+                </td>
                 <td>
                     <a *ngIf="validazione.documentoFirmato" (click)="openFile(validazione.documentoFirmatoContentType, validazione.documentoFirmato)" jhiTranslate="entity.action.open">open</a>
                     <span *ngIf="validazione.documentoFirmato">{{validazione.documentoFirmatoContentType}}, {{byteSize(validazione.documentoFirmato)}}</span>
@@ -44,6 +51,7 @@
                         <a [routerLink]="['../telefono', validazione.validazioneTelefono?.id, 'view' ]" >{{validazione.validazioneTelefono?.numero}}</a>
                     </div>
                 </td>
+
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

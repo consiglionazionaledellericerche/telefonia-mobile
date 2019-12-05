@@ -90,6 +90,19 @@
                         This field is required.
                     </small>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.stampa" for="field_stampa">Stampa</label>
+                    <select class="form-control" id="field_stampa" name="stampa" [(ngModel)]="validazione.stampa" required>
+                        <option *ngIf="!editForm.value.stampa" [ngValue]="null" selected></option>
+                        <option [ngValue]="storicoTelefonoOption.id === validazione.stampa?.id ? validazione.stampa : storicoTelefonoOption" *ngFor="let storicoTelefonoOption of stampas; trackBy: trackStoricoTelefonoById">{{storicoTelefonoOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.stampa?.dirty && editForm.controls.stampa?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.stampa?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

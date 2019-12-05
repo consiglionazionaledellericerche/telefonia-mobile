@@ -42,6 +42,12 @@
                         <a [routerLink]="['/telefono', validazione.validazioneTelefono?.id, 'view']">{{validazione.validazioneTelefono?.numero}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="telefoniaApp.validazione.stampa">Stampa</span></dt>
+                <dd>
+                    <div *ngIf="validazione.stampa">
+                        <a [routerLink]="['/storico-telefono', validazione.stampa?.id, 'view']">{{validazione.stampa?.id}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"
