@@ -68,6 +68,7 @@ public class OperatoreResource {
             throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Operatore result = operatoreRepository.save(operatore);
+        telefonoResource.salvabackground(operatore.getTelefonoOperatore(),"MODIFICATO OPERATORE ");
         return ResponseEntity.created(new URI("/api/operatores/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

@@ -74,6 +74,7 @@ public class TelefonoServiziResource {
             throw new BadRequestAlertException("A new telefonoServizi cannot already have an ID", ENTITY_NAME, "idexists");
         }
         TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
+        telefonoResource.salvabackground(telefonoServizi.getTelefono(),"MODIFICATO SERVIZI ");
         return ResponseEntity.created(new URI("/api/telefono-servizis/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

@@ -126,37 +126,8 @@ public class TelefonoResource {
 
         Telefono result = telefonoRepository.save(telefono);
 
-
-
-
-
-
-        //Inserisce storicoTelefono
-        Instant instant = Instant.now();
-
-        StoricoTelefono storicoTelefono = new StoricoTelefono();
-        storicoTelefono.setDataAttivazione(telefono.getDataAttivazione());
-        storicoTelefono.setDataCessazione(telefono.getDataCessazione());
-        storicoTelefono.setDataModifica(instant);
-        storicoTelefono.setUserModifica(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
-        storicoTelefono.setIntestatarioContratto(telefono.getIntestatarioContratto());
-        storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
-        storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
-        storicoTelefono.setCdsuo(telefono.getCdsuo());
-        storicoTelefono.setVersione("");
-        storicoTelefono.setStoricotelefonoTelefono(telefono);
-        StoricoTelefono valStoricoTelefono = storicoTelefonoRepository.save(storicoTelefono);
-
-        //Crea validazioneTelefono
-        Validazione validazione = new Validazione();
-        validazione.setDescrizione("INSERITO NUOVO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
-        validazione.setValidazioneTelefono(telefono);
-        validazione.setDataModifica(LocalDate.now());
-        validazione.setStampa(valStoricoTelefono);
-        Validazione resultValidazione  = validazioneRepository.save(validazione);
-
-
-
+        String stato = "INSERITO";
+        salvabackground(telefono,stato);
 
         return ResponseEntity.created(new URI("/api/telefonos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -211,62 +182,9 @@ public class TelefonoResource {
             }
             Telefono result = telefonoRepository.save(telefono);
 
+            String stato = "MODIFICATO";
+            salvabackground(telefono,stato);
 
-
-            //Inserisce storicoTelefono
-            Instant instant = Instant.now();
-
-            StoricoTelefono storicoTelefono = new StoricoTelefono();
-            storicoTelefono.setDataAttivazione(telefono.getDataAttivazione());
-            storicoTelefono.setDataCessazione(telefono.getDataCessazione());
-            storicoTelefono.setDataModifica(instant);
-            storicoTelefono.setUserModifica(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
-            storicoTelefono.setIntestatarioContratto(telefono.getIntestatarioContratto());
-            storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
-            storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
-            storicoTelefono.setCdsuo(telefono.getCdsuo());
-            storicoTelefono.setVersione(""); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
-            storicoTelefono.setStoricotelefonoTelefono(telefono);
-
-            ///fare iterator per valori di servizi
-            List<TelefonoServizi> listTelefonoServizi = telefonoServiziRepository.findByTelefono(telefono);
-            Iterator<TelefonoServizi> iTS = listTelefonoServizi.iterator();
-            String servizi = "";
-            while (iTS.hasNext()) {
-                TelefonoServizi tS  = (TelefonoServizi) iTS.next();
-                if(servizi.equals("")){
-                    servizi = tS.getServizi().getNome();
-                }
-                else{
-                    servizi = servizi +";"+tS.getServizi().getNome();
-                }
-            }
-            storicoTelefono.setServizi(servizi);
-
-            //Fare Iterator per operatore
-            List<Operatore> listOperatore = operatoreRepository.findByTelefonoOperatore(telefono);
-            Iterator<Operatore> iO = listOperatore.iterator();
-            String operatore = "";
-            while (iO.hasNext()) {
-                Operatore o  = (Operatore) iO.next();
-                if(operatore.equals("")){
-                    operatore = o.getData()+" ("+o.getListaOperatori().getNome()+")";
-                }
-                else{
-                    operatore = operatore +";"+o.getData()+" ("+o.getListaOperatori().getNome();
-                }
-            }
-            storicoTelefono.setOperatore(operatore);
-
-            StoricoTelefono valStoricoTelefono = storicoTelefonoRepository.save(storicoTelefono);
-
-            //Inserisce validazioneTelefono
-            Validazione validazione = new Validazione();
-            validazione.setDescrizione("MODIFICATO TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
-            validazione.setValidazioneTelefono(telefono);
-            validazione.setDataModifica(LocalDate.now());
-            validazione.setStampa(valStoricoTelefono);
-            Validazione resultValidazione = validazioneRepository.save(validazione);
 
             return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefono.getId().toString()))
@@ -618,6 +536,61 @@ String nome = "";
         return ist;
     }
 
+    public void salvabackground(Telefono telefono, String stato){
+        //Inserisce storicoTelefono
+        Instant instant = Instant.now();
 
+        StoricoTelefono storicoTelefono = new StoricoTelefono();
+        storicoTelefono.setDataAttivazione(telefono.getDataAttivazione());
+        storicoTelefono.setDataCessazione(telefono.getDataCessazione());
+        storicoTelefono.setDataModifica(instant);
+        storicoTelefono.setUserModifica(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
+        storicoTelefono.setIntestatarioContratto(telefono.getIntestatarioContratto());
+        storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
+        storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
+        storicoTelefono.setCdsuo(telefono.getCdsuo());
+        storicoTelefono.setVersione(""); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
+        storicoTelefono.setStoricotelefonoTelefono(telefono);
+
+        ///fare iterator per valori di servizi
+        List<TelefonoServizi> listTelefonoServizi = telefonoServiziRepository.findByTelefono(telefono);
+        Iterator<TelefonoServizi> iTS = listTelefonoServizi.iterator();
+        String servizi = "";
+        while (iTS.hasNext()) {
+            TelefonoServizi tS  = (TelefonoServizi) iTS.next();
+            if(servizi.equals("")){
+                servizi = tS.getServizi().getNome();
+            }
+            else{
+                servizi = servizi +";"+tS.getServizi().getNome();
+            }
+        }
+        storicoTelefono.setServizi(servizi);
+
+        //Fare Iterator per operatore
+        List<Operatore> listOperatore = operatoreRepository.findByTelefonoOperatore(telefono);
+        Iterator<Operatore> iO = listOperatore.iterator();
+        String operatore = "";
+        while (iO.hasNext()) {
+            Operatore o  = (Operatore) iO.next();
+            if(operatore.equals("")){
+                operatore = o.getData()+" ("+o.getListaOperatori().getNome()+")";
+            }
+            else{
+                operatore = operatore +";"+o.getData()+" ("+o.getListaOperatori().getNome();
+            }
+        }
+        storicoTelefono.setOperatore(operatore);
+
+        StoricoTelefono valStoricoTelefono = storicoTelefonoRepository.save(storicoTelefono);
+
+        //Inserisce validazioneTelefono
+        Validazione validazione = new Validazione();
+        validazione.setDescrizione(stato+" TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
+        validazione.setValidazioneTelefono(telefono);
+        validazione.setDataModifica(LocalDate.now());
+        validazione.setStampa(valStoricoTelefono);
+        Validazione resultValidazione = validazioneRepository.save(validazione);
+    }
 
 }
