@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 import si.cnr.it.domain.TelefonoServizi;
 
+import java.util.List;
+
 
 /**
  * Spring Data  repository for the Operatore entity.
@@ -22,4 +24,6 @@ public interface OperatoreRepository extends JpaRepository<Operatore, Long> {
 
     @Query("SELECT op FROM Operatore op where op.telefonoOperatore.deleted =:deleted ")
     public Page<Operatore> findAllActive(@Param("deleted") boolean deleted,  Pageable pageable);
+
+    public List<Operatore> findByTelefonoOperatore(Telefono telefonoOperatore);
 }
