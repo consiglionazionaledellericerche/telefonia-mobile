@@ -26,4 +26,6 @@ public interface TelefonoServiziRepository extends JpaRepository<TelefonoServizi
 
     @Query("SELECT ts FROM TelefonoServizi ts where ts.telefono.deleted =:deleted ")
     public Page<TelefonoServizi> findAllActive(@Param("deleted") boolean deleted,  Pageable pageable);
+
+    public List<TelefonoServizi> findByTelefono(Telefono telefono);
 }

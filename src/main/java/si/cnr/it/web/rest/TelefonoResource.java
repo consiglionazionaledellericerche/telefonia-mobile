@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import si.cnr.it.domain.StoricoTelefono;
 import si.cnr.it.domain.Telefono;
+import si.cnr.it.domain.TelefonoServizi;
+import si.cnr.it.domain.Operatore;
 import si.cnr.it.domain.Validazione;
 import si.cnr.it.repository.TelefonoRepository;
 import si.cnr.it.repository.StoricoTelefonoRepository;
 import si.cnr.it.repository.ValidazioneRepository;
+import si.cnr.it.repository.TelefonoServiziRepository;
 import si.cnr.it.security.AuthoritiesConstants;
 import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
@@ -69,12 +72,15 @@ public class TelefonoResource {
 
     private final ValidazioneRepository validazioneRepository;
 
+    private final TelefonoServiziRepository telefonoServiziRepository;
+
     private List<EntitaOrganizzativaWebDtoForGerarchia> ist;
 
-    public TelefonoResource(TelefonoRepository telefonoRepository, StoricoTelefonoRepository storicoTelefonoRepository, ValidazioneRepository validazioneRepository) {
+    public TelefonoResource(TelefonoRepository telefonoRepository, StoricoTelefonoRepository storicoTelefonoRepository, ValidazioneRepository validazioneRepository, TelefonoServiziRepository telefonoServiziRepository) {
         this.telefonoRepository = telefonoRepository;
         this.storicoTelefonoRepository = storicoTelefonoRepository;
         this.validazioneRepository = validazioneRepository;
+        this.telefonoServiziRepository = telefonoServiziRepository;
     }
 
     /**
@@ -218,7 +224,23 @@ public class TelefonoResource {
             storicoTelefono.setVersione(resultValidazione.getId().toString()); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
             storicoTelefono.setStoricotelefonoTelefono(telefono);
 
-            ///fare iterator per valori di servizi e operatore
+            ///fare iterator per valori di servizi
+            List<TelefonoServizi> listTelefonoServizi = telefonoServiziRepository.findByTelefono(telefono);
+            Iterator<TelefonoServizi> iTS = listTelefonoServizi.iterator();
+            String servizi = "";
+            while (iTS.hasNext()) {
+                TelefonoServizi tS  = (TelefonoServizi) iTS.next();
+                if(servizi.equals("")){
+                    servizi = tS.getServizi().getNome();
+                }
+                else{
+                    servizi = servizi +";"+tS.getServizi().getNome();
+                }
+            }
+            storicoTelefono.setServizi(servizi);
+
+            //Fare Iterator per operatore
+
 
             storicoTelefono = storicoTelefonoRepository.save(storicoTelefono);
 
