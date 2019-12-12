@@ -131,4 +131,4 @@ jhipster:
 ace:
     url: "http://ace-webapp.test.si.cnr.it/"
     username: app.telefoniamobile
-    password: !TlFnMbIl#2019
+    password: '!TlFnMbIl#2019'
