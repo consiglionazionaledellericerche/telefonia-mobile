@@ -124,7 +124,11 @@ jhipster:
 # ===================================================================
 
 # application:
+#ace:
+#    url: "http://acebuntudock.si.cnr.it:5555/api"
+#    username: app.scrivaniadigitale
+#    password: bubbazza
 ace:
-    url: "http://acebuntudock.si.cnr.it:5555/api"
-    username: app.scrivaniadigitale
-    password: bubbazza
+    url: "http://ace-webapp.test.si.cnr.it/"
+    username: app.telefoniamobile
+    password: !TlFnMbIl#2019
