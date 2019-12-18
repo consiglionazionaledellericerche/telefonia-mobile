@@ -10,6 +10,13 @@
                         [(ngModel)]="validazione.id" readonly />
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.dataValidazione" for="field_dataValidazione">Data Validazione</label>
+                    <div class="d-flex">
+                        <input id="field_dataValidazione" type="datetime-local" class="form-control" name="dataValidazione" [(ngModel)]="dataValidazione"
+                               readonly/>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.dataModifica" for="field_dataModifica">Data Modifica</label>
                     <div class="input-group">
                         <input id="field_dataModifica" type="text" class="form-control" name="dataModifica" ngbDatepicker  #dataModificaDp="ngbDatepicker" [(ngModel)]="validazione.dataModifica"
@@ -54,14 +61,8 @@
                     <input type="hidden" class="form-control" name="documentoFirmatoContentType" id="field_documentoFirmatoContentType"
                         [(ngModel)]="validazione.documentoFirmatoContentType" />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.dataValidazione" for="field_dataValidazione">Data Validazione</label>
-                    <div class="d-flex">
-                        <input id="field_dataValidazione" type="datetime-local" class="form-control" name="dataValidazione" [(ngModel)]="dataValidazione"
-                        />
-                    </div>
-                </div>
-                <div class="form-group">
+
+               <!-- <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.userDirettore" for="field_userDirettore">User Direttore</label>
                     <input type="text" class="form-control" name="userDirettore" id="field_userDirettore"
                         [(ngModel)]="validazione.userDirettore" />
@@ -75,7 +76,7 @@
                     <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.idFlusso" for="field_idFlusso">Id Flusso</label>
                     <input type="text" class="form-control" name="idFlusso" id="field_idFlusso"
                         [(ngModel)]="validazione.idFlusso" />
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.validazioneTelefono" for="field_validazioneTelefono">Validazione Telefono</label>

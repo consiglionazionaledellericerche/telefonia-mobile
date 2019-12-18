@@ -540,6 +540,7 @@ String nome = "";
         //Inserisce storicoTelefono
         Instant instant = Instant.now();
 
+
         StoricoTelefono storicoTelefono = new StoricoTelefono();
         storicoTelefono.setDataAttivazione(telefono.getDataAttivazione());
         storicoTelefono.setDataCessazione(telefono.getDataCessazione());
@@ -549,7 +550,7 @@ String nome = "";
         storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
         storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
         storicoTelefono.setCdsuo(telefono.getCdsuo());
-        storicoTelefono.setVersione(""); // PESCO L'ID APPENA CREATO DA RESULT VALIDAZIONE
+        storicoTelefono.setVersione("");
         storicoTelefono.setStoricotelefonoTelefono(telefono);
 
         ///fare iterator per valori di servizi
@@ -584,13 +585,20 @@ String nome = "";
 
         StoricoTelefono valStoricoTelefono = storicoTelefonoRepository.save(storicoTelefono);
 
+        log.debug("Servizi è  : {}", servizi);
+        log.debug("operatore è : {}", operatore);
+
+
+
         //Inserisce validazioneTelefono
-        Validazione validazione = new Validazione();
-        validazione.setDescrizione(stato+" TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
-        validazione.setValidazioneTelefono(telefono);
-        validazione.setDataModifica(LocalDate.now());
-        validazione.setStampa(valStoricoTelefono);
-        Validazione resultValidazione = validazioneRepository.save(validazione);
+        if(!operatore.equals("") & !servizi.equals("")){
+            Validazione validazione = new Validazione();
+            validazione.setDescrizione(stato+" TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
+            validazione.setValidazioneTelefono(telefono);
+            validazione.setDataModifica(LocalDate.now());
+            validazione.setStampa(valStoricoTelefono);
+            Validazione resultValidazione = validazioneRepository.save(validazione);
+        }
     }
 
 }
