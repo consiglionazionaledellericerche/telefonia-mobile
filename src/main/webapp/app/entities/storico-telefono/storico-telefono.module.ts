@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TelefoniaSharedModule } from 'app/shared';
 import {
     StoricoTelefonoComponent,
+    StoricoTelefonoVistaComponent,
     StoricoTelefonoDetailComponent,
     StoricoTelefonoUpdateComponent,
     StoricoTelefonoDeletePopupComponent,
@@ -18,6 +19,7 @@ const ENTITY_STATES = [...storicoTelefonoRoute, ...storicoTelefonoPopupRoute];
     imports: [TelefoniaSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         StoricoTelefonoComponent,
+        StoricoTelefonoVistaComponent,
         StoricoTelefonoDetailComponent,
         StoricoTelefonoUpdateComponent,
         StoricoTelefonoDeleteDialogComponent,
@@ -25,6 +27,7 @@ const ENTITY_STATES = [...storicoTelefonoRoute, ...storicoTelefonoPopupRoute];
     ],
     entryComponents: [
         StoricoTelefonoComponent,
+        StoricoTelefonoVistaComponent,
         StoricoTelefonoUpdateComponent,
         StoricoTelefonoDeleteDialogComponent,
         StoricoTelefonoDeletePopupComponent
