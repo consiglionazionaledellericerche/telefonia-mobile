@@ -1,8 +1,11 @@
 package si.cnr.it.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import it.cnr.si.service.AceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import si.cnr.it.domain.Validazione;
 import si.cnr.it.repository.ValidazioneRepository;
+import si.cnr.it.security.SecurityUtils;
 import si.cnr.it.web.rest.errors.BadRequestAlertException;
 import si.cnr.it.web.rest.util.HeaderUtil;
 import si.cnr.it.web.rest.util.PaginationUtil;
@@ -20,6 +23,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +34,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ValidazioneResource {
+
+    @Autowired
+    private TelefonoResource telefonoResource;
+
+    @Autowired
+    private AceService ace;
+
+    private SecurityUtils securityUtils;
 
     private final Logger log = LoggerFactory.getLogger(ValidazioneResource.class);
 
@@ -76,6 +89,9 @@ public class ValidazioneResource {
         if (validazione.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        telefonoResource.salvabackground(validazione.getValidazioneTelefono(),"FIRMATO DIRETTORE");
+        validazione.setDataValidazione(ZonedDateTime.now(ZoneId.systemDefault()));
+        validazione.setUserDirettore(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
         Validazione result = validazioneRepository.save(validazione);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, validazione.getId().toString()))
