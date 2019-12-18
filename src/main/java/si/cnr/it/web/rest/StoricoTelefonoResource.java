@@ -125,4 +125,17 @@ public class StoricoTelefonoResource {
         storicoTelefonoRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+
+    ///Visualizza query per anno
+
+    @GetMapping("/storico-telefonos/vista")
+    @Timed
+    public ResponseEntity<List<StoricoTelefono>> getVista(Pageable pageable) {
+        log.debug("REST request to get a page of Storico Telefono getVista");
+        Page<StoricoTelefono> page = storicoTelefonoRepository.findById(1001,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefonos/vista");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 }

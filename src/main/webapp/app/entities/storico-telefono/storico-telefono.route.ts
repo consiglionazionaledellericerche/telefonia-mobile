@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { StoricoTelefono } from 'app/shared/model/storico-telefono.model';
 import { StoricoTelefonoService } from './storico-telefono.service';
 import { StoricoTelefonoComponent } from './storico-telefono.component';
+import { StoricoTelefonoVistaComponent } from './storico-telefono-vista.component';
 import { StoricoTelefonoDetailComponent } from './storico-telefono-detail.component';
 import { StoricoTelefonoUpdateComponent } from './storico-telefono-update.component';
 import { StoricoTelefonoDeletePopupComponent } from './storico-telefono-delete-dialog.component';
@@ -30,6 +31,19 @@ export const storicoTelefonoRoute: Routes = [
     {
         path: 'storico-telefono',
         component: StoricoTelefonoComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: 'telefoniaApp.storicoTelefono.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'storico-telefono/vista',
+        component: StoricoTelefonoVistaComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
         },

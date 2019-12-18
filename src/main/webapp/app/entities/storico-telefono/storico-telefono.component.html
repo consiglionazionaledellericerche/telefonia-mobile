@@ -46,7 +46,7 @@
                 <td>{{storicoTelefono.versione}}</td>
                 <td>
                     <div *ngIf="storicoTelefono.storicotelefonoTelefono">
-                        <a [routerLink]="['../telefono', storicoTelefono.storicotelefonoTelefono?.id, 'view' ]" >{{storicoTelefono.storicotelefonoTelefono?.telefono}}</a>
+                        <a [routerLink]="['../telefono', storicoTelefono.storicotelefonoTelefono?.id, 'view' ]" >{{storicoTelefono.storicotelefonoTelefono?.numero}}</a>
                     </div>
                 </td>
                 <td class="text-right">

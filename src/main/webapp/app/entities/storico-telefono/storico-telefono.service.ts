@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<IStoricoTelefono[]>;
 @Injectable({ providedIn: 'root' })
 export class StoricoTelefonoService {
     private resourceUrl = SERVER_API_URL + 'api/storico-telefonos';
+    private resourceVistaUrl = SERVER_API_URL + 'api/storico-telefonos/vista';
 
     constructor(private http: HttpClient) {}
 
@@ -42,6 +43,13 @@ export class StoricoTelefonoService {
         const options = createRequestOption(req);
         return this.http
             .get<IStoricoTelefono[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    queryVista(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IStoricoTelefono[]>(this.resourceVistaUrl, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
