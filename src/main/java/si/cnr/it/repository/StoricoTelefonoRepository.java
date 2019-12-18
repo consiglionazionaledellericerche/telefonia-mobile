@@ -18,6 +18,5 @@ public interface StoricoTelefonoRepository extends JpaRepository<StoricoTelefono
 //    @Query("SELECT op FROM Operatore op where op.telefonoOperatore.deleted =:deleted ")
 //    public Page<StoricoTelefono> findDataModifica(@Param("deleted") boolean deleted, Pageable pageable);
 
-
-    public Page<StoricoTelefono> findById(long id, Pageable pageable);
+    public Page<StoricoTelefono> findByVersione(String versione, Pageable pageable);
 }

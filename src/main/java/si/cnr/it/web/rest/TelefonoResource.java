@@ -550,7 +550,7 @@ String nome = "";
         storicoTelefono.setNumeroContratto(telefono.getNumeroContratto());
         storicoTelefono.setUtilizzatoreUtenza(telefono.getUtilizzatoreUtenza());
         storicoTelefono.setCdsuo(telefono.getCdsuo());
-        storicoTelefono.setVersione("");
+        storicoTelefono.setVersione(stato);
         storicoTelefono.setStoricotelefonoTelefono(telefono);
 
         ///fare iterator per valori di servizi
@@ -591,13 +591,15 @@ String nome = "";
 
 
         //Inserisce validazioneTelefono
-        if(!operatore.equals("") & !servizi.equals("")){
-            Validazione validazione = new Validazione();
-            validazione.setDescrizione(stato+" TELEFONO nome utente:"+telefono.getUtilizzatoreUtenza()+"; IntestatarioContratto:"+telefono.getIntestatarioContratto()+"; Cellulare:"+telefono.getNumero());
-            validazione.setValidazioneTelefono(telefono);
-            validazione.setDataModifica(LocalDate.now());
-            validazione.setStampa(valStoricoTelefono);
-            Validazione resultValidazione = validazioneRepository.save(validazione);
+        if(!stato.equals("FIRMATO DIRETTORE")) {
+            if (!operatore.equals("") & !servizi.equals("")) {
+                Validazione validazione = new Validazione();
+                validazione.setDescrizione(stato + " TELEFONO nome utente:" + telefono.getUtilizzatoreUtenza() + "; IntestatarioContratto:" + telefono.getIntestatarioContratto() + "; Cellulare:" + telefono.getNumero());
+                validazione.setValidazioneTelefono(telefono);
+                validazione.setDataModifica(LocalDate.now());
+                validazione.setStampa(valStoricoTelefono);
+                Validazione resultValidazione = validazioneRepository.save(validazione);
+            }
         }
     }
 

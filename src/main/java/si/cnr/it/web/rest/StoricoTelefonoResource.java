@@ -133,7 +133,8 @@ public class StoricoTelefonoResource {
     @Timed
     public ResponseEntity<List<StoricoTelefono>> getVista(Pageable pageable) {
         log.debug("REST request to get a page of Storico Telefono getVista");
-        Page<StoricoTelefono> page = storicoTelefonoRepository.findById(1001,pageable);
+        String versione = "FIRMATO DIRETTORE";
+        Page<StoricoTelefono> page = storicoTelefonoRepository.findByVersione(versione, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefonos/vista");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
