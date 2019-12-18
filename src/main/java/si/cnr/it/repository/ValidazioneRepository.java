@@ -17,7 +17,9 @@ import java.util.List;
 @Repository
 public interface ValidazioneRepository extends JpaRepository<Validazione, Long> {
     //public Page<Validazione> findByIntestatarioContratto(String intestatarioContratto, Pageable pageable);
-//TODO: fare query per visionare solo quelli del suo Ufficio/Istituto
   //  @Query("SELECT op FROM Operatore op where op.telefonoOperatore.deleted =:deleted ")
   //  public Page<Validazione> findAllActive(@Param("deleted") boolean deleted, Pageable pageable);
+ //   @Query("SELECT v FROM Validazione v where v.ValidazioneTelefono.cdsuo =:cdsuo")
+  //  public Page<Validazione> findCdsuo(String cdsuo,Pageable pageable);
+    public Page<Validazione> findByValidazioneTelefonoIntestatarioContratto(String intestatarioContratto,Pageable pageable);
 }
