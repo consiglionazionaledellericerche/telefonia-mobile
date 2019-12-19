@@ -20,7 +20,7 @@
                 <th jhiSortBy="servizi"><span jhiTranslate="telefoniaApp.storicoTelefono.servizi">Servizi</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="userModifica"><span jhiTranslate="telefoniaApp.storicoTelefono.userModifica">User Modifica</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="versione"><span jhiTranslate="telefoniaApp.storicoTelefono.versione">Versione</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="storicotelefonoTelefono.telefono"><span jhiTranslate="telefoniaApp.storicoTelefono.storicotelefonoTelefono">Storicotelefono Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="storicotelefonoTelefono.telefono"><!--<span jhiTranslate="telefoniaApp.storicoTelefono.storicotelefonoTelefono">Storicotelefono Telefono</span>-->Numero Telefono <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
             </tr>
             </thead>
@@ -40,7 +40,7 @@
                 <td>{{storicoTelefono.versione}}</td>
                 <td>
                     <div *ngIf="storicoTelefono.storicotelefonoTelefono">
-                        <a [routerLink]="['../telefono', storicoTelefono.storicotelefonoTelefono?.id, 'view' ]" >{{storicoTelefono.storicotelefonoTelefono?.telefono}}</a>
+                        <a [routerLink]="['../telefono', storicoTelefono.storicotelefonoTelefono?.id, 'view' ]" >{{storicoTelefono.storicotelefonoTelefono?.numero}}</a>
                     </div>
                 </td>
                 <!--<td class="text-right">

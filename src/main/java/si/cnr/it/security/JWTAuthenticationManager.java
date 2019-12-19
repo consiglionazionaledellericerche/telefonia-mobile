@@ -37,7 +37,7 @@ public class JWTAuthenticationManager implements AuthenticationManager {
             List<GrantedAuthority> authorities =
                     aceService.ruoliAttivi(principal).stream()
                             .filter(ruolo -> ruolo.getContesti().stream()
-                                    .anyMatch(r -> r.getSigla().equals("parcoauto-app")))
+                                    .anyMatch(r -> r.getSigla().equals("telefonia-app")))
                             .map(a -> new SimpleGrantedAuthority(a.getSigla()))
                             .collect(Collectors.toList());
 
