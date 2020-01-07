@@ -89,7 +89,7 @@ public class ValidazioneResource {
         if (validazione.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        telefonoResource.salvabackground(validazione.getValidazioneTelefono(),"FIRMATO DIRETTORE");
+        telefonoResource.salvabackground(validazione.getValidazioneTelefono(), "FIRMATO DIRETTORE");
         validazione.setDataValidazione(ZonedDateTime.now(ZoneId.systemDefault()));
         validazione.setUserDirettore(ace.getPersonaByUsername(securityUtils.getCurrentUserLogin().get()).getUsername());
         Validazione result = validazioneRepository.save(validazione);
@@ -111,10 +111,9 @@ public class ValidazioneResource {
         String sede_user = telefonoResource.getSedeUser(); //sede di username
         String cds = telefonoResource.getCdsUser();
         Page<Validazione> page;
-        if(cds.equals("000")) {
+        if (cds.equals("000")) {
             page = validazioneRepository.findAll(pageable);
-        }
-        else {
+        } else {
             page = validazioneRepository.findByValidazioneTelefonoIntestatarioContratto(sede_user, pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/validaziones");
@@ -131,7 +130,32 @@ public class ValidazioneResource {
     @Timed
     public ResponseEntity<Validazione> getValidazione(@PathVariable Long id) {
         log.debug("REST request to get Validazione : {}", id);
+        Optional<Validazione> val = validazioneRepository.findById(id);
         Optional<Validazione> validazione = validazioneRepository.findById(id);
+        String s = null;
+        if(val.isPresent()) {
+            if (val.get().getUserDirettore() != null) {
+                System.out.println("C'è firma direttore");
+                validazione = validazioneRepository.findById((long) 0);
+            }
+        }
+
+        /** ok ma non mi fa completare operazione
+         * validazione.ifPresent( UserDirettore-> {
+         System.out.println("User's name = " + UserDirettore.getUserDirettore());
+         if (!UserDirettore.getUserDirettore().equals("")){
+         System.out.println("C'è firma direttore");
+         }
+         else{
+         System.out.println("Non c'è firma");
+         }
+         });*/
+/**
+ Boolean doc = validazione.get().getUserDirettore().isEmpty();
+ log.debug("doc === ",doc);
+ if(doc.equals("")){
+ validazione = validazioneRepository.findById((long) 0);
+ }*/
         return ResponseUtil.wrapOrNotFound(validazione);
     }
 
@@ -149,4 +173,6 @@ public class ValidazioneResource {
         validazioneRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+
 }
