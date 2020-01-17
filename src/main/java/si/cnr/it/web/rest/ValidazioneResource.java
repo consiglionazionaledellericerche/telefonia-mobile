@@ -132,6 +132,7 @@ public class ValidazioneResource {
         log.debug("REST request to get Validazione : {}", id);
         Optional<Validazione> val = validazioneRepository.findById(id);
         Optional<Validazione> validazione = validazioneRepository.findById(id);
+        validazione.get().setDataValidazione(ZonedDateTime.now());
         String s = null;
         if(val.isPresent()) {
             if (val.get().getUserDirettore() != null) {

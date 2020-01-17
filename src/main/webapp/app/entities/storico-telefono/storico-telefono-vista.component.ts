@@ -9,6 +9,7 @@ import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { StoricoTelefonoService } from './storico-telefono.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-storico-telefono-vista',
@@ -29,6 +30,8 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    name = 'Angular 5';
+    fileUrl;
 
     constructor(
         private storicoTelefonoService: StoricoTelefonoService,
@@ -37,7 +40,8 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private sanitizer: DomSanitizer
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -97,6 +101,11 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInStoricoTelefonos();
+        this.storicoTelefonoService.getPdf();
+        const data = 'some text';
+        const blob = new Blob([data], { type: 'application/octet-stream' });
+
+        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     }
 
     ngOnDestroy() {

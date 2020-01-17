@@ -53,6 +53,10 @@ export class StoricoTelefonoService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    getPdf() {
+        return this.http.get<any>(`${this.resourceUrl}/pdf`);
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

@@ -96,7 +96,8 @@ public class StoricoTelefonoResourceIntTest {
 
     private StoricoTelefono storicoTelefono;
 
-    @Before
+
+    /** @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         final StoricoTelefonoResource storicoTelefonoResource = new StoricoTelefonoResource(storicoTelefonoRepository);
@@ -105,7 +106,7 @@ public class StoricoTelefonoResourceIntTest {
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
-    }
+    }*/
 
     /**
      * Create an entity for this test.
