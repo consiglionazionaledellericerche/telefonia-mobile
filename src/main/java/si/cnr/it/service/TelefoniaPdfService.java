@@ -11,6 +11,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDPageLabelRange;
 import org.apache.pdfbox.pdmodel.common.PDPageLabels;
 import org.apache.pdfbox.pdmodel.common.PDStream;
+import si.cnr.it.repository.StoricoTelefonoRepository;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -23,6 +24,7 @@ import rst.pdfbox.layout.elements.ImageElement;
 import rst.pdfbox.layout.elements.Paragraph;
 import rst.pdfbox.layout.text.BaseFont;
 import rst.pdfbox.layout.text.Position;
+import si.cnr.it.domain.StoricoTelefono;
 import si.cnr.it.web.rest.StoricoTelefonoResource;
 
 
@@ -31,6 +33,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 
 @Service
@@ -38,28 +43,107 @@ public class TelefoniaPdfService {
 
     private final Logger log = LoggerFactory.getLogger(StoricoTelefonoResource.class);
 
+    private final StoricoTelefonoRepository storicoTelefonoRepository;
+
+    public TelefoniaPdfService(StoricoTelefonoRepository storicoTelefonoRepository
+    ) {
+        this.storicoTelefonoRepository = storicoTelefonoRepository;
+
+    }
 
     public File faiPdf() throws IOException {
         log.debug("Entra in faiPdf()");
 
+        List<StoricoTelefono> listStoricoTelefonoVista = storicoTelefonoRepository.findByVersione("FIRMATO DIRETTORE");
 
+        //String[] array = listStoricoTelefonoVista.stream().toArray(String[]::new);
+        //String message2 = Arrays.toString(array);
+        int i = listStoricoTelefonoVista.size();
         String filename = "vista.pdf";
+
         String message = "vediamo se si vede il testo";
 
         PDDocument doc = new PDDocument();
 
         PDPage page = new PDPage();
-        doc.addPage(page);
 
-        PDFont font = PDType1Font.HELVETICA_BOLD;
 
-        try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
-            contents.beginText();
-            contents.setFont(font, 12);
-            contents.newLineAtOffset(100, 700);
-            contents.showText(message);
-            contents.endText();
-        }
+        //for(int p=0;p<i;p++) {
+            doc.addPage(page);
+
+            PDFont font = PDType1Font.HELVETICA_BOLD;
+
+            try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+                contents.beginText();//Inizio riga per testo da inserire
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(250, 750);
+                contents.showText("Telefonia Mobile - Anno 2020");
+                contents.endText();//Fine riga per testo da inserire
+                creaTitoloColonna(contents);
+                Iterator v = listStoricoTelefonoVista.iterator();
+                float ty = 650;
+                while(v.hasNext()) {
+                    float tx = 100;
+                    StoricoTelefono sTelefono = (StoricoTelefono) v.next();
+                    contents.beginText();//Inizio riga per testo da inserire
+                    contents.setFont(font, 12);
+                    contents.newLineAtOffset(tx, ty);
+                    contents.showText(sTelefono.getStoricotelefonoTelefono().getDataAttivazione().toString());
+                    contents.endText();//Fine riga per testo da inserire
+                    tx = tx+100;
+                    contents.beginText();//Inizio riga per testo da inserire
+                    contents.setFont(font, 12);
+                    contents.newLineAtOffset(tx, ty);
+                    if(sTelefono.getStoricotelefonoTelefono().getDataCessazione() == null) {
+                        contents.showText("");
+                    }
+                    else{
+                        contents.showText(sTelefono.getStoricotelefonoTelefono().getDataCessazione().toString());
+                    }
+                    contents.endText();//Fine riga per testo da inserire
+                    tx = tx+100;
+                    contents.beginText();//Inizio riga per testo da inserire
+                    contents.setFont(font, 12);
+                    contents.newLineAtOffset(tx, ty);
+                    contents.showText(sTelefono.getStoricotelefonoTelefono().getNumero());
+                    contents.endText();//Fine riga per testo da inserire
+                    tx = tx+100;
+                    contents.beginText();//Inizio riga per testo da inserire
+                    contents.setFont(font, 12);
+                    contents.newLineAtOffset(tx, ty);
+                    contents.showText(sTelefono.getStoricotelefonoTelefono().getUtilizzatoreUtenza());
+                    contents.endText();//Fine riga per testo da inserire
+                    tx = tx+100;
+                    ty = ty-15;
+                }
+                /**
+                contents.beginText();//Inizio riga per testo da inserire
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(100, 700);
+                contents.showText("Utilizzatore");
+                contents.endText();//Fine riga per testo da inserire
+                contents.beginText();//Inizio riga per testo da inserire
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(200, 700);
+                contents.showText("Telefono");
+                contents.endText();//Fine riga per testo da inserire
+                contents.beginText();//Inizio riga per testo da inserire
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(100, 650);
+                contents.showText(message);
+                contents.endText();//Fine riga per testo da inserire
+                contents.beginText();
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(300, 300);
+                contents.showText(message);
+                contents.endText();
+                contents.beginText();
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(300, 300);
+                contents.showText(message);
+                contents.endText();*/
+            }
+       // }
         File tmp = File.createTempFile("stm", null);
         doc.save(tmp);
         return tmp;
@@ -210,5 +294,34 @@ public class TelefoniaPdfService {
         return pdfByteArray;
     }*/
 
-
+    private void creaTitoloColonna(PDPageContentStream contents) throws IOException {
+        PDFont font = PDType1Font.HELVETICA_BOLD;
+        float ty = 700;
+        float tx = 100;
+        contents.beginText();//Inizio riga per testo da inserire
+        contents.setFont(font, 12);
+        contents.newLineAtOffset(tx, ty);
+        contents.showText("Data Attivazione");
+        contents.endText();//Fine riga per testo da inserire
+        tx = tx+100;
+        contents.beginText();//Inizio riga per testo da inserire
+        contents.setFont(font, 12);
+        contents.newLineAtOffset(tx, ty);
+        contents.showText("Data Cessazione");
+        contents.endText();//Fine riga per testo da inserire
+        tx = tx+100;
+        contents.beginText();//Inizio riga per testo da inserire
+        contents.setFont(font, 12);
+        contents.newLineAtOffset(tx, ty);
+        contents.showText("Numero");
+        contents.endText();//Fine riga per testo da inserire
+        tx = tx+100;
+        contents.beginText();//Inizio riga per testo da inserire
+        contents.setFont(font, 12);
+        contents.newLineAtOffset(tx, ty);
+        contents.showText("Nome Cognome");
+        contents.endText();//Fine riga per testo da inserire
+        tx = tx+100;
+        ty = ty-15;
+    }
 }
