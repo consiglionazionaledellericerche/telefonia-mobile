@@ -7,6 +7,8 @@ import si.cnr.it.domain.StoricoTelefono;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 /**
  * Spring Data  repository for the StoricoTelefono entity.
@@ -19,4 +21,6 @@ public interface StoricoTelefonoRepository extends JpaRepository<StoricoTelefono
 //    public Page<StoricoTelefono> findDataModifica(@Param("deleted") boolean deleted, Pageable pageable);
 
     public Page<StoricoTelefono> findByVersione(String versione, Pageable pageable);
+
+    public List<StoricoTelefono> findByVersione(String versione);
 }
