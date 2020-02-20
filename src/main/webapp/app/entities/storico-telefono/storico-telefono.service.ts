@@ -10,7 +10,6 @@ import { JhiDataUtils } from 'ng-jhipster';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IStoricoTelefono } from 'app/shared/model/storico-telefono.model';
-import { saveAs as importedSaveAs } from 'file-saver';
 
 type EntityResponseType = HttpResponse<IStoricoTelefono>;
 type EntityArrayResponseType = HttpResponse<IStoricoTelefono[]>;
@@ -99,35 +98,10 @@ export class StoricoTelefonoService {
     }
 
     pdf() {
-        const pluto = this.http
-            .get('api/storico-telefonos/pdf')
-            .map(res => res.blob())
-            .catch(this.handleError);
+        const pluto = this.http.get('api/storico-telefonos/pdf');
 
-        pluto.subscribe(blob => {
-            importedSaveAs(blob, this.fileName);
+        pluto.subscribe(map => {
+            this.dataUtils.openFile('application/pdf', map.b64);
         });
-
-        const FileSaver = require('file-saver');
-        // const options = {responseType: ResponseContentType.ArrayBuffer };
-        // const pippo = this.http.get<any>('api/storico-telefono/pdf');
-        // const blob = new Blob(pippo, {type: 'application/pdf'});
-        const pippo = this.http.get('api/storico-telefonos/pdf', 'application/pdf');
-        FileSaver.saveAs('api/storico-telefonos/pdf', 'pdf.pdf');
-        // this.http.get<IStoricoTelefono>('${this.resourceUrl}/pdf')
-        // const FileSaver = require('file-saver');
-        // this.dataUtils.openFile('application/pdf', '/documenti/pdf.pdf');
-        // this.http.get<IStoricoTelefono>('${this.resourceUrl}/pdf')
-        // .pipe(
-        //       map((data: pdff) => {
-        //           const blob = new Blob(pdff, {type: 'application/pdf'});
-        //           FileSaver.saveAs(blob, 'pdf.pdf');
-        //       }), catchError( error => {
-        //           return throwError( 'Something went wrong!' );
-        //       })
-        // )
-        // const pippo = this.http.get<IStoricoTelefono>(`${this.resourceUrl}/pdf`);
-        // const blob = new Blob([pippo], {type: 'application/pdf'});
-        // FileSaver.saveAs(blob, 'pdf.pdf');
     }
 }
