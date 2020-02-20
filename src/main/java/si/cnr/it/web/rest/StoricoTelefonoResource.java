@@ -44,8 +44,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 import static org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD;
 
@@ -182,54 +182,25 @@ public class StoricoTelefonoResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-   @RequestMapping(value = "/storico-telefonos/pdf", method = RequestMethod.GET, produces = "application/pdf")
+   @RequestMapping(value = "/storico-telefonos/pdf", method = RequestMethod.GET, produces = "application/json")
    @ResponseBody
    @Timed
   // @Secured(AuthoritiesConstants.USER) vediamo se è questo
-   public ResponseEntity<byte[]> getPdf(HttpServletRequest req) throws IOException, PrinterException, URISyntaxException {
-//       log.debug("Entri in getPdf e salvi pdf");
-//
-//       final float FONT_SIZE = 10;
-//       final float TITLE_SIZE = 18;
-//
-//       final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//       //telefoniaPdfService.faiPdf(outputStream);
-//
-//       Document pdf = new Document(40, 60, 40, 60);
-//       Paragraph paragraphField = new Paragraph();
-//       Paragraph paragraphDiagram = new Paragraph();
-//       Paragraph paragraphDocs = new Paragraph();
-//       Paragraph paragraphHistory = new Paragraph();
-//
-//       String titolo = "Titolo pdf \n";
-//       paragraphField.addText(titolo, TITLE_SIZE, HELVETICA_BOLD);
-//       pdf.add(paragraphField);
-//       pdf.add(ControlElement.NEWPAGE);
-//       pdf.add(paragraphDiagram);
-//       //  pdf.add(image);
-//       pdf.add(ControlElement.NEWPAGE);
-//       pdf.add(paragraphDocs);
-//       pdf.add(ControlElement.NEWPAGE);
-//       pdf.add(paragraphHistory);
-//       //  pdf.save(new File("prova2.pdf"));
-//       pdf.save(outputStream);
-//
-//       String fileName = "pdf.pdf";
-//       HttpHeaders headers = new HttpHeaders();
-//       headers.set("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-//       headers.setContentType(MediaType.parseMediaType("application/pdf"));
-//       headers.setContentLength(outputStream.toByteArray().length);
-//       return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+   public ResponseEntity<Map<String, Object>> getPdf() throws IOException, PrinterException, URISyntaxException {
 
-       //makePdf(pdf);
-
-       //return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+       Map<String, Object> result = new HashMap<>();
 
        File file = telefoniaPdfService.faiPdf();
        byte[] content = Files.readAllBytes(Paths.get(file.toURI()));
-        return new ResponseEntity<>(content, HttpStatus.OK);
 
+       String encoded = Base64.getEncoder().encodeToString(content);
+
+       result.put("b64", encoded);
+
+       return new ResponseEntity<>(result, HttpStatus.OK);
    }
+
+
 /**
     @RequestMapping(value = "/storico-telefonos/makepdf", headers = "Accept=application/pdf", method = RequestMethod.GET, produces = "application/pdf")
     @ResponseBody
