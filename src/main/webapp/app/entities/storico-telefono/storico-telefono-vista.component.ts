@@ -3,6 +3,7 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { saveAs } from 'file-saver';
 
 import { IStoricoTelefono } from 'app/shared/model/storico-telefono.model';
 import { Principal } from 'app/core';
@@ -10,6 +11,7 @@ import { Principal } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { StoricoTelefonoService } from './storico-telefono.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { JhiDataUtils } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-storico-telefono-vista',
@@ -41,7 +43,8 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private eventManager: JhiEventManager,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private dataUtils: JhiDataUtils
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -101,11 +104,11 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInStoricoTelefonos();
-        this.storicoTelefonoService.getPdf();
-        const data = 'some text';
-        const blob = new Blob([data], { type: 'application/octet-stream' });
+        // this.storicoTelefonoService.getPdf();
+        // const data = 'some text';
+        // const blob = new Blob([data], { type: 'application/octet-stream' });
 
-        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+        // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     }
 
     ngOnDestroy() {
@@ -137,5 +140,18 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    openFile() {
+        // window.open('api/storico-telefonos/pdf', 'application/pdf');
+        this.pdf();
+    }
+
+    private pdf() {
+        this.storicoTelefonoService.pdf();
+        // const FileSaver = require('file-saver');
+        // FileSaver.saveAs(SERVER_API_URL + 'api/storico-telefonos', 'application/pdf');
+        // const blob = new Blob(['Hello, world!'], {type: 'text/plain;charset=utf-8'});
+        // FileSaver.saveAs(blob, 'hello world.txt');
     }
 }
