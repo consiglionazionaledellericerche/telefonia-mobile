@@ -4,9 +4,11 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <br>Scarica il <a href="/storico-telefono/pdf">pdf</a><br><br>
+    <br>Scarica il <a (click)="openFile()">qui</a>
+    <!--<a href="/storico-telefono/pdf">pdf</a><br><br>
     <a [href]="fileUrl" download="file.txt">DownloadFile</a>
-    <a href="/documenti/pdf.pdf">ppp</a>
+
+    <button (click)="pdf()">Prova pdf</button>-->
     <br><br>
     <div class="table-responsive" *ngIf="storicoTelefonos">
         <table class="table table-striped">

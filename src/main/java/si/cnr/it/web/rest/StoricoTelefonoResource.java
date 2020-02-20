@@ -2,9 +2,10 @@ package si.cnr.it.web.rest;
 
 import ch.qos.logback.core.net.server.Client;
 import com.codahale.metrics.annotation.Timed;
-import org.apache.pdfbox.exceptions.COSVisitorException;
+//import org.apache.pdfbox.exceptions.COSVisitorException;
+import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+//import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,14 +36,14 @@ import javax.validation.Valid;
 import javax.xml.ws.Response;
 import java.awt.*;
 import java.awt.print.PrinterException;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -168,62 +169,66 @@ public class StoricoTelefonoResource {
     @GetMapping("/storico-telefonos/vista")
     @Secured(AuthoritiesConstants.ADMIN)
     @Timed
-    public ResponseEntity<List<StoricoTelefono>> getVista(Pageable pageable) throws IOException, COSVisitorException, PrinterException, URISyntaxException {
+    public ResponseEntity<List<StoricoTelefono>> getVista(Pageable pageable) throws IOException, PrinterException, URISyntaxException {
         log.debug("REST request to get a page of Storico Telefono getVista");
         String versione = "FIRMATO DIRETTORE";
         Page<StoricoTelefono> page = storicoTelefonoRepository.findByVersione(versione, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefonos/vista");
        // PDPageContentStream pdf = telefoniaPdfService.creaPdf();
         //makePdf(pdf);
+      //  final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        // telefoniaPdfService.faiPdf();
 
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-   @RequestMapping(value = "/storico-telefonos/pdf", headers = "Accept=application/pdf", method = RequestMethod.GET, produces = "application/pdf")
+   @RequestMapping(value = "/storico-telefonos/pdf", method = RequestMethod.GET, produces = "application/pdf")
    @ResponseBody
    @Timed
-   @Secured(AuthoritiesConstants.USER)
-   /**@GetMapping("/storico-telefono/pdf")
-   @Secured(AuthoritiesConstants.ADMIN)
-   @Timed*/
-   public ResponseEntity<byte[]> getPdf(HttpServletRequest req) throws IOException, COSVisitorException, PrinterException, URISyntaxException {
-       log.debug("Entri in getPdf e salvi pdf");
-
-       final float FONT_SIZE = 10;
-       final float TITLE_SIZE = 18;
-
-       final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-       //telefoniaPdfService.faiPdf(outputStream);
-
-       Document pdf = new Document(40, 60, 40, 60);
-       Paragraph paragraphField = new Paragraph();
-       Paragraph paragraphDiagram = new Paragraph();
-       Paragraph paragraphDocs = new Paragraph();
-       Paragraph paragraphHistory = new Paragraph();
-
-       String titolo = "Titolo pdf \n";
-       paragraphField.addText(titolo, TITLE_SIZE, HELVETICA_BOLD);
-       pdf.add(paragraphField);
-       pdf.add(ControlElement.NEWPAGE);
-       pdf.add(paragraphDiagram);
-       //  pdf.add(image);
-       pdf.add(ControlElement.NEWPAGE);
-       pdf.add(paragraphDocs);
-       pdf.add(ControlElement.NEWPAGE);
-       pdf.add(paragraphHistory);
-       //  pdf.save(new File("prova2.pdf"));
-       pdf.save(outputStream);
-
-       String fileName = "pdf.pdf";
-       HttpHeaders headers = new HttpHeaders();
-       headers.set("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-       headers.setContentType(MediaType.parseMediaType("application/pdf"));
-       headers.setContentLength(outputStream.toByteArray().length);
-       return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+  // @Secured(AuthoritiesConstants.USER) vediamo se è questo
+   public ResponseEntity<byte[]> getPdf(HttpServletRequest req) throws IOException, PrinterException, URISyntaxException {
+//       log.debug("Entri in getPdf e salvi pdf");
+//
+//       final float FONT_SIZE = 10;
+//       final float TITLE_SIZE = 18;
+//
+//       final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//       //telefoniaPdfService.faiPdf(outputStream);
+//
+//       Document pdf = new Document(40, 60, 40, 60);
+//       Paragraph paragraphField = new Paragraph();
+//       Paragraph paragraphDiagram = new Paragraph();
+//       Paragraph paragraphDocs = new Paragraph();
+//       Paragraph paragraphHistory = new Paragraph();
+//
+//       String titolo = "Titolo pdf \n";
+//       paragraphField.addText(titolo, TITLE_SIZE, HELVETICA_BOLD);
+//       pdf.add(paragraphField);
+//       pdf.add(ControlElement.NEWPAGE);
+//       pdf.add(paragraphDiagram);
+//       //  pdf.add(image);
+//       pdf.add(ControlElement.NEWPAGE);
+//       pdf.add(paragraphDocs);
+//       pdf.add(ControlElement.NEWPAGE);
+//       pdf.add(paragraphHistory);
+//       //  pdf.save(new File("prova2.pdf"));
+//       pdf.save(outputStream);
+//
+//       String fileName = "pdf.pdf";
+//       HttpHeaders headers = new HttpHeaders();
+//       headers.set("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+//       headers.setContentType(MediaType.parseMediaType("application/pdf"));
+//       headers.setContentLength(outputStream.toByteArray().length);
+//       return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
 
        //makePdf(pdf);
 
        //return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+
+       File file = telefoniaPdfService.faiPdf();
+       byte[] content = Files.readAllBytes(Paths.get(file.toURI()));
+        return new ResponseEntity<>(content, HttpStatus.OK);
+
    }
 /**
     @RequestMapping(value = "/storico-telefonos/makepdf", headers = "Accept=application/pdf", method = RequestMethod.GET, produces = "application/pdf")
