@@ -51,6 +51,11 @@ public class TelefoniaPdfService {
 
     }
 
+    float fontSizeTitolo = 13;
+    float fontSizeIstituti = 11;
+    float fontSizeCapiColonna = 11;
+    float fontSizeTesto = 9;
+
     public File faiPdf() throws IOException {
         log.debug("Entra in faiPdf()");
 
@@ -75,24 +80,24 @@ public class TelefoniaPdfService {
 
             try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
                 contents.beginText();//Inizio riga per testo da inserire
-                contents.setFont(font, 12);
+                contents.setFont(font, fontSizeTitolo);
                 contents.newLineAtOffset(250, 750);
                 contents.showText("Telefonia Mobile - Anno 2020");
                 contents.endText();//Fine riga per testo da inserire
                 creaTitoloColonna(contents);
                 Iterator v = listStoricoTelefonoVista.iterator();
-                float ty = 650;
+                float ty = 680;
                 while(v.hasNext()) {
                     float tx = 100;
                     StoricoTelefono sTelefono = (StoricoTelefono) v.next();
                     contents.beginText();//Inizio riga per testo da inserire
-                    contents.setFont(font, 12);
+                    contents.setFont(font, fontSizeTesto);
                     contents.newLineAtOffset(tx, ty);
                     contents.showText(sTelefono.getStoricotelefonoTelefono().getDataAttivazione().toString());
                     contents.endText();//Fine riga per testo da inserire
                     tx = tx+100;
                     contents.beginText();//Inizio riga per testo da inserire
-                    contents.setFont(font, 12);
+                    contents.setFont(font, fontSizeTesto);
                     contents.newLineAtOffset(tx, ty);
                     if(sTelefono.getStoricotelefonoTelefono().getDataCessazione() == null) {
                         contents.showText("");
@@ -103,45 +108,25 @@ public class TelefoniaPdfService {
                     contents.endText();//Fine riga per testo da inserire
                     tx = tx+100;
                     contents.beginText();//Inizio riga per testo da inserire
-                    contents.setFont(font, 12);
+                    contents.setFont(font, fontSizeTesto);
                     contents.newLineAtOffset(tx, ty);
                     contents.showText(sTelefono.getStoricotelefonoTelefono().getNumero());
                     contents.endText();//Fine riga per testo da inserire
                     tx = tx+100;
                     contents.beginText();//Inizio riga per testo da inserire
-                    contents.setFont(font, 12);
+                    contents.setFont(font, fontSizeTesto);
                     contents.newLineAtOffset(tx, ty);
                     contents.showText(sTelefono.getStoricotelefonoTelefono().getUtilizzatoreUtenza());
                     contents.endText();//Fine riga per testo da inserire
                     tx = tx+100;
+                    contents.beginText();//Inizio riga per testo da inserire
+                    contents.setFont(font, fontSizeTesto);
+                    contents.newLineAtOffset(tx, ty);
+                    //contents.showText(sTelefono.getStoricotelefonoTelefono().get());
+                    contents.endText();//Fine riga per testo da inserire
+                    tx = tx+100;
                     ty = ty-15;
                 }
-                /**
-                contents.beginText();//Inizio riga per testo da inserire
-                contents.setFont(font, 12);
-                contents.newLineAtOffset(100, 700);
-                contents.showText("Utilizzatore");
-                contents.endText();//Fine riga per testo da inserire
-                contents.beginText();//Inizio riga per testo da inserire
-                contents.setFont(font, 12);
-                contents.newLineAtOffset(200, 700);
-                contents.showText("Telefono");
-                contents.endText();//Fine riga per testo da inserire
-                contents.beginText();//Inizio riga per testo da inserire
-                contents.setFont(font, 12);
-                contents.newLineAtOffset(100, 650);
-                contents.showText(message);
-                contents.endText();//Fine riga per testo da inserire
-                contents.beginText();
-                contents.setFont(font, 12);
-                contents.newLineAtOffset(300, 300);
-                contents.showText(message);
-                contents.endText();
-                contents.beginText();
-                contents.setFont(font, 12);
-                contents.newLineAtOffset(300, 300);
-                contents.showText(message);
-                contents.endText();*/
             }
        // }
         File tmp = File.createTempFile("stm", null);
@@ -298,26 +283,27 @@ public class TelefoniaPdfService {
         PDFont font = PDType1Font.HELVETICA_BOLD;
         float ty = 700;
         float tx = 100;
+        contents.drawLine(1,1,1,1);
         contents.beginText();//Inizio riga per testo da inserire
-        contents.setFont(font, 12);
+        contents.setFont(font, fontSizeCapiColonna);
         contents.newLineAtOffset(tx, ty);
         contents.showText("Data Attivazione");
         contents.endText();//Fine riga per testo da inserire
         tx = tx+100;
         contents.beginText();//Inizio riga per testo da inserire
-        contents.setFont(font, 12);
+        contents.setFont(font, fontSizeCapiColonna);
         contents.newLineAtOffset(tx, ty);
         contents.showText("Data Cessazione");
         contents.endText();//Fine riga per testo da inserire
         tx = tx+100;
         contents.beginText();//Inizio riga per testo da inserire
-        contents.setFont(font, 12);
+        contents.setFont(font, fontSizeCapiColonna);
         contents.newLineAtOffset(tx, ty);
         contents.showText("Numero");
         contents.endText();//Fine riga per testo da inserire
         tx = tx+100;
         contents.beginText();//Inizio riga per testo da inserire
-        contents.setFont(font, 12);
+        contents.setFont(font, fontSizeCapiColonna);
         contents.newLineAtOffset(tx, ty);
         contents.showText("Nome Cognome");
         contents.endText();//Fine riga per testo da inserire
