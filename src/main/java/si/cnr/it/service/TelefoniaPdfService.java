@@ -77,19 +77,31 @@ public class TelefoniaPdfService {
             doc.addPage(page);
 
             PDFont font = PDType1Font.HELVETICA_BOLD;
-
+            String istitutoNome = null;
             try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
                 contents.beginText();//Inizio riga per testo da inserire
                 contents.setFont(font, fontSizeTitolo);
                 contents.newLineAtOffset(250, 750);
                 contents.showText("Telefonia Mobile - Anno 2020");
                 contents.endText();//Fine riga per testo da inserire
-                creaTitoloColonna(contents);
+
                 Iterator v = listStoricoTelefonoVista.iterator();
-                float ty = 680;
+                float ty = 700;
                 while(v.hasNext()) {
                     float tx = 100;
                     StoricoTelefono sTelefono = (StoricoTelefono) v.next();
+                    String istituto = sTelefono.getStoricotelefonoTelefono().getIntestatarioContratto();
+                    if(istitutoNome != istituto){
+                        log.debug("Entrin in CapiColonna e Titolo");
+                        contents.beginText();//Inizio riga per testo da inserire
+                        contents.setFont(font, fontSizeCapiColonna);
+                        contents.newLineAtOffset(tx, ty);
+                        contents.showText(sTelefono.getStoricotelefonoTelefono().getIntestatarioContratto());
+                        contents.endText();//Fine riga per testo da inserire
+                        ty = ty-20;
+                        creaTitoloColonna(contents,tx,ty);
+                        ty = ty-20;
+                    }
                     contents.beginText();//Inizio riga per testo da inserire
                     contents.setFont(font, fontSizeTesto);
                     contents.newLineAtOffset(tx, ty);
@@ -126,6 +138,7 @@ public class TelefoniaPdfService {
                     contents.endText();//Fine riga per testo da inserire
                     tx = tx+100;
                     ty = ty-15;
+                    istitutoNome = sTelefono.getStoricotelefonoTelefono().getIntestatarioContratto();
                 }
             }
        // }
@@ -279,11 +292,10 @@ public class TelefoniaPdfService {
         return pdfByteArray;
     }*/
 
-    private void creaTitoloColonna(PDPageContentStream contents) throws IOException {
+    private void creaTitoloColonna(PDPageContentStream contents, float tx, float ty) throws IOException {
         PDFont font = PDType1Font.HELVETICA_BOLD;
-        float ty = 700;
-        float tx = 100;
-        contents.drawLine(1,1,1,1);
+        //float ty = 700;
+        //float tx = 100;
         contents.beginText();//Inizio riga per testo da inserire
         contents.setFont(font, fontSizeCapiColonna);
         contents.newLineAtOffset(tx, ty);
