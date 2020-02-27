@@ -27,7 +27,7 @@
                 <td>{{operatore.data | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="operatore.telefonoOperatore">
-                        <a [routerLink]="['../telefono', operatore.telefonoOperatore?.id, 'view' ]" >{{operatore.telefonoOperatore?.numero}}</a>
+                        <a [routerLink]="['../telefono', operatore.telefonoOperatore?.id, 'view' ]" >{{operatore.telefonoOperatore?.numero}} - {{operatore.telefonoOperatore?.utilizzatoreUtenza}}</a>
                     </div>
                 </td>
                 <td>

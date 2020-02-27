@@ -15,14 +15,14 @@
                     </div>
                     <div class="card-body">
                         <div class="form-row">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-5">
                                 <div class="form-group">
 
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.telefono" for="field_telefono">Telefono</label>
 
                                     <select [(ngModel)]="telefonoServizi.telefono" class="form-control" name="telefono" required>
                                         <option *ngIf="!editForm.value.telefono" [ngValue]="null" selected></option>
-                                        <option *ngFor="let i of telefono; trackBy: trackTelefonoById" [ngValue]="i.id === telefonoServizi.telefono?.id ? telefonoServizi.telefono : i">{{i.numero}}</option>
+                                        <option *ngFor="let i of telefono; trackBy: trackTelefonoById" [ngValue]="i.id === telefonoServizi.telefono?.id ? telefonoServizi.telefono : i">{{i.numero}} - {{i.utilizzatoreUtenza}}</option>
                                     </select>
 
                                 </div>
@@ -33,7 +33,7 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-13">
                                 <div class="form-group">
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.servizi" for="field_servizi">Servizi</label>
                                     <select class="form-control" id="field_servizi" name="servizi" [(ngModel)]="telefonoServizi.servizi"  required>
