@@ -23,4 +23,6 @@ public interface StoricoTelefonoRepository extends JpaRepository<StoricoTelefono
     public Page<StoricoTelefono> findByVersione(String versione, Pageable pageable);
 
     public List<StoricoTelefono> findByVersione(String versione);
+
+    public List<StoricoTelefono> findByVersioneOrderByIntestatarioContratto(String versione);
 }

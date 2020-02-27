@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.common.PDPageLabelRange;
 import org.apache.pdfbox.pdmodel.common.PDPageLabels;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import si.cnr.it.repository.StoricoTelefonoRepository;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
@@ -60,7 +61,7 @@ public class TelefoniaPdfService {
     public File faiPdf() throws IOException {
         log.debug("Entra in faiPdf()");
 
-        List<StoricoTelefono> listStoricoTelefonoVista = storicoTelefonoRepository.findByVersione("FIRMATO DIRETTORE");
+        List<StoricoTelefono> listStoricoTelefonoVista = storicoTelefonoRepository.findByVersioneOrderByIntestatarioContratto("FIRMATO DIRETTORE");
 
         //String[] array = listStoricoTelefonoVista.stream().toArray(String[]::new);
         //String message2 = Arrays.toString(array);
@@ -73,20 +74,22 @@ public class TelefoniaPdfService {
 
         PDPage page = new PDPage();
 
+        PDImageXObject pdImage = PDImageXObject.createFromFile("C:/Users/Diego/Documents/lavoro/git/telefonia-mobile/src/main/webapp/content/images/CNR_logo_pdf_p.png",doc);
         //for(int p=0;p<i;p++) {
             doc.addPage(page);
 
             PDFont font = PDType1Font.HELVETICA_BOLD;
             String istitutoNome = null;
             try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+                contents.drawImage(pdImage, 20, 730);
                 contents.beginText();//Inizio riga per testo da inserire
                 contents.setFont(font, fontSizeTitolo);
-                contents.newLineAtOffset(250, 750);
+                contents.newLineAtOffset(250, 700);
                 contents.showText("Telefonia Mobile - Anno 2020");
                 contents.endText();//Fine riga per testo da inserire
 
                 Iterator v = listStoricoTelefonoVista.iterator();
-                float ty = 700;
+                float ty = 650;
                 while(v.hasNext()) {
                     float tx = 20;
                     StoricoTelefono sTelefono = (StoricoTelefono) v.next();
@@ -152,7 +155,12 @@ public class TelefoniaPdfService {
                     contents.newLineAtOffset(tx, ty);
                     contents.showText(sTelefono.getOperatore());
                     contents.endText();//Fine riga per testo da inserire
-                    tx = tx+50;
+                    tx = tx+90;
+                    contents.beginText();//Inizio riga per testo da inserire
+                    contents.setFont(font, fontSizeTesto);
+                    contents.newLineAtOffset(tx, ty);
+                    contents.showText(sTelefono.getDataModifica().toString());
+                    contents.endText();//Fine riga per testo da inserire
                     ty = ty-20;
                     tx = 20;
                     contents.beginText();//Inizio riga per testo da inserire
@@ -348,13 +356,13 @@ public class TelefoniaPdfService {
         contents.newLineAtOffset(tx, ty);
         contents.showText("Operatore");
         contents.endText();//Fine riga per testo da inserire
-        tx = tx+50;
-        /**contents.beginText();//Inizio riga per testo da inserire
+        tx = tx+90;
+        contents.beginText();//Inizio riga per testo da inserire
         contents.setFont(font, fontSizeCapiColonna);
         contents.newLineAtOffset(tx, ty);
-        contents.showText("Servizi");
+        contents.showText("Data Modifica");
         contents.endText();//Fine riga per testo da inserire
-        tx = tx+100;*/
+        //tx = tx+100;
         ty = ty-15;
     }
 }
