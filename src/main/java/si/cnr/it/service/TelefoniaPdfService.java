@@ -66,6 +66,7 @@ public class TelefoniaPdfService {
         //String[] array = listStoricoTelefonoVista.stream().toArray(String[]::new);
         //String message2 = Arrays.toString(array);
         int i = listStoricoTelefonoVista.size();
+        int num = 0;
         String filename = "vista.pdf";
 
         String message = "vediamo se si vede il testo";
