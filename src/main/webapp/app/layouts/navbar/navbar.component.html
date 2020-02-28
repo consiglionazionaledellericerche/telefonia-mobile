@@ -212,22 +212,22 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
-                    <li *ngSwitchCase="true">
+                    <!--<li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
-                            <!--<span jhiTranslate="global.menu.account.settings">-->
+                            <span jhiTranslate="global.menu.account.settings">
                                 Impostazioni
-                            <!--</span>-->
+                            </span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'clock'" [fixedWidth]="true"></fa-icon>
-                            <!--<span jhiTranslate="global.menu.account.password">-->
+                            <span jhiTranslate="global.menu.account.password">
                                 Password
-                            <!--</span>-->
+                            </span>
                         </a>
-                    </li>
+                    </li>-->
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
@@ -242,12 +242,12 @@
                             <span jhiTranslate="global.menu.account.login">Sign in</span>
                         </a>
                     </li>
-                    <li *ngSwitchCase="false">
+                    <!--<li *ngSwitchCase="false">
                         <a class="dropdown-item" routerLink="register" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'user-plus'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.account.register">Register</span>
                         </a>
-                    </li>
+                    </li>-->
                 </ul>
             </li>
         </ul>

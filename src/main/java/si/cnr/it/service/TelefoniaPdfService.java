@@ -73,6 +73,7 @@ public class TelefoniaPdfService {
         PDDocument doc = new PDDocument();
 
         PDPage page = new PDPage();
+        PDPage page2 = new PDPage();
 
         PDImageXObject pdImage = PDImageXObject.createFromFile("C:/Users/Diego/Documents/lavoro/git/telefonia-mobile/src/main/webapp/content/images/CNR_logo_pdf_p.png",doc);
         //for(int p=0;p<i;p++) {
@@ -94,6 +95,18 @@ public class TelefoniaPdfService {
                     float tx = 20;
                     StoricoTelefono sTelefono = (StoricoTelefono) v.next();
                     String istituto = sTelefono.getStoricotelefonoTelefono().getIntestatarioContratto();
+                    if(ty < 100){
+                        ty = 700;
+                        contents.close();
+                        doc.addPage(page=new PDPage());
+                        PDPageContentStream contents2 = new PDPageContentStream(doc, page);
+                        contents2.beginText();//Inizio riga per testo da inserire
+                        contents2.setFont(font, fontSizeTitolo);
+                        contents2.newLineAtOffset(250, 700);
+                        contents2.showText("Telefonia Mobile - Anno 2020");
+                        contents2.endText();//Fine riga per testo da inserire
+                        contents2.close();
+                    }
                     if(istitutoNome != istituto){
                         log.debug("Entri in CapiColonna e Titolo");
                         if(istitutoNome != null){
