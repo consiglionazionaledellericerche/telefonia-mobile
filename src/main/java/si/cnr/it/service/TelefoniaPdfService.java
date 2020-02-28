@@ -76,7 +76,7 @@ public class TelefoniaPdfService {
         PDPage page = new PDPage();
         PDPage page2 = new PDPage();
 
-        PDImageXObject pdImage = PDImageXObject.createFromFile("C:/Users/Diego/Documents/lavoro/git/telefonia-mobile/src/main/webapp/content/images/CNR_logo_pdf_p.png",doc);
+        PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/webapp/content/images/CNR_logo_pdf_p.png",doc);
         //for(int p=0;p<i;p++) {
             doc.addPage(page);
 
