@@ -33,7 +33,7 @@ public class JWTAuthenticationManager implements AuthenticationManager {
         try {
             // login ACE
             authService.getToken(principal, credentials);
-
+//todo: da vedere problema con login su test
             List<GrantedAuthority> authorities =
                     aceService.ruoliAttivi(principal).stream()
                             .filter(ruolo -> ruolo.getContesti().stream()
