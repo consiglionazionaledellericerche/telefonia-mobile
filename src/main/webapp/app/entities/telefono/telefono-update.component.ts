@@ -60,8 +60,6 @@ export class TelefonoUpdateComponent implements OnInit {
         this.telefonoService.getIstituti().subscribe(istitutiRestituiti => {
             this.istituti = istitutiRestituiti;
         });
-
-        this.telefono.cdsuo = 'pippo';
     }
 
     byteSize(field) {
@@ -78,6 +76,19 @@ export class TelefonoUpdateComponent implements OnInit {
 
     previousState() {
         window.history.back();
+    }
+
+    getIstitutoDescr(istituto: any) {
+        return (
+            istituto.cdsuo +
+            ' - ' +
+            istituto.denominazione +
+            (istituto.indirizzoPrincipale ? ' (' + istituto.indirizzoPrincipale.comune + ')' : '')
+        );
+    }
+
+    selectIstituto() {
+        this._telefono.cdsuo = this.istituti.filter(value => value.cdsuo === this._telefono.intestatarioContratto)[0]['denominazione'];
     }
 
     save() {
