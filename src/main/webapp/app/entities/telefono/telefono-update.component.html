@@ -73,12 +73,11 @@
                                     <option *ngFor="let i of istituti" [ngValue]="i.cdsuo">{{getIstitutoDescr(i)}}</option>
                                 </select>
                             </div>
-
                             <div class="form-group col-md-7">
                                 <div class="form-group">
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.utilizzatoreUtenza" for="field_utilizzatoreUtenza">Utilizzatore Utenza</label>
                                     <input type="text" class="form-control" name="utilizzatoreUtenza" id="field_utilizzatoreUtenza" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
-                                           [(ngModel)]="telefono.utilizzatoreUtenza" placeholder="search"  required/>
+                                           [(ngModel)]="telefono.utilizzatoreUtenza" placeholder="Cerca..."  required/>
                                     <div [hidden]="!(editForm.controls.utilizzatoreUtenza?.dirty && editForm.controls.utilizzatoreUtenza?.invalid)">
                                         <small class="form-text text-danger"
                                                [hidden]="!editForm.controls.utilizzatoreUtenza?.errors?.required" jhiTranslate="entity.validation.required">
@@ -88,10 +87,6 @@
                                     <span *ngIf="searching">searching...</span>
                                     <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
                                 </div>
-                                <!--<hr>-->
-                                <!--<pre>Model: {{ model | json }}</pre>-->
-                                <!--<pre>Model: {{ telefono.utenzaTelefono | json }}</pre>-->
-
                             </div>
 
                             <div class="form-group col-md-7">
