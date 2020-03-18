@@ -11,6 +11,8 @@ import it.cnr.si.service.AceService;
 import it.cnr.si.service.CacheService;
 import it.cnr.si.service.TelefonoService;
 import it.cnr.si.service.dto.anagrafica.base.PageDto;
+import it.cnr.si.service.dto.anagrafica.base.Select2Dto;
+import it.cnr.si.service.dto.anagrafica.base.Select2Item;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDtoForGerarchia;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
@@ -34,6 +36,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * REST controller for managing Telefono.
@@ -187,19 +190,20 @@ public class TelefonoResource {
     @GetMapping("/telefonos/findUtenza/{term}")
     @Timed
     public ResponseEntity<List<String>> findPersona(@PathVariable String term) {
-        List<String> result = new ArrayList<>();
-        Map<String, String> query = new HashMap<>();
-        query.put("term", term);
-        PageDto<PersonaWebDto> persone = ace.getPersone(query);
-        List<PersonaWebDto> listaPersone = persone.getItems();
-
-        for (PersonaWebDto persona : listaPersone) {
-            if (persona.getUsername() != null)
-                result.add(persona.getUsername());
-        }
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(
+            ace.getPersone(
+                Stream.of(
+                    new AbstractMap.SimpleEntry<>("page", "0"),
+                    new AbstractMap.SimpleEntry<>("offset", "20"),
+                    new AbstractMap.SimpleEntry<>("term", term)
+                ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+            )
+            .getItems()
+            .stream()
+            .filter(personaWebDto -> Optional.ofNullable(personaWebDto.getUsername()).isPresent())
+            .map(PersonaWebDto::getUsername)
+            .collect(Collectors.toList()));
     }
-
 
     //Per richiamare istituti ACE
     @GetMapping("/telefonos/getIstituti")
