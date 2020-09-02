@@ -6,7 +6,7 @@ services:
         links:
             - telefonia-mobile-postgresql:telefonia-mobile-postgresql
         extra_hosts:
-            - "ace-webapp.test.si.cnr.it:150.146.206.186"
+            - "zuul-server.test.si.cnr.it:150.146.206.186"
         environment:
             - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8787
             - SPRING_PROFILES_ACTIVE=dev,swagger
