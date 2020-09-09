@@ -60,11 +60,8 @@ export class TelefonoService {
     private convertDateFromClient(telefono: ITelefono): ITelefono {
         const copy: ITelefono = Object.assign({}, telefono, {
             dataAttivazione:
-                telefono.dataAttivazione != null && telefono.dataAttivazione.isValid()
-                    ? telefono.dataAttivazione.format(DATE_FORMAT)
-                    : null,
-            dataCessazione:
-                telefono.dataCessazione != null && telefono.dataCessazione.isValid() ? telefono.dataCessazione.format(DATE_FORMAT) : null
+                telefono.dataAttivazione != null && telefono.dataAttivazione.isValid() ? telefono.dataAttivazione.toJSON() : null,
+            dataCessazione: telefono.dataCessazione != null && telefono.dataCessazione.isValid() ? telefono.dataCessazione.toJSON() : null
         });
         return copy;
     }

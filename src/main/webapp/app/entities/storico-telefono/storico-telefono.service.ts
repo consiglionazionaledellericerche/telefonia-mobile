@@ -71,11 +71,11 @@ export class StoricoTelefonoService {
                     : null,
             dataAttivazione:
                 storicoTelefono.dataAttivazione != null && storicoTelefono.dataAttivazione.isValid()
-                    ? storicoTelefono.dataAttivazione.format(DATE_FORMAT)
+                    ? storicoTelefono.dataAttivazione.toJSON()
                     : null,
             dataCessazione:
                 storicoTelefono.dataCessazione != null && storicoTelefono.dataCessazione.isValid()
-                    ? storicoTelefono.dataCessazione.format(DATE_FORMAT)
+                    ? storicoTelefono.dataCessazione.toJSON()
                     : null
         });
         return copy;
