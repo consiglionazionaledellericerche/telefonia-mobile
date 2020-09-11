@@ -198,7 +198,7 @@ public class TelefonoResource {
                 Stream.of(
                     new AbstractMap.SimpleEntry<>("page", "0"),
                     new AbstractMap.SimpleEntry<>("offset", "20"),
-                    new AbstractMap.SimpleEntry<>("term", term)
+                    new AbstractMap.SimpleEntry<>("username", term)
                 ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
             )
             .getItems()
