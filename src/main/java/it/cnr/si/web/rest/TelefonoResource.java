@@ -13,6 +13,7 @@ import it.cnr.si.service.TelefonoService;
 import it.cnr.si.service.dto.anagrafica.base.PageDto;
 import it.cnr.si.service.dto.anagrafica.base.Select2Dto;
 import it.cnr.si.service.dto.anagrafica.base.Select2Item;
+import it.cnr.si.service.dto.anagrafica.scritture.UtenteDto;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDtoForGerarchia;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
@@ -78,6 +79,7 @@ public class TelefonoResource {
         if (telefono.getId() != null) {
             throw new BadRequestAlertException("A new telefono cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        telefonoService.controlloDate(telefono);
         Telefono result = telefonoRepository.save(telefono);
         String stato = "INSERITO";
         telefonoService.salvabackground(telefono, stato);
@@ -109,6 +111,7 @@ public class TelefonoResource {
             !telefono.getIntestatarioContratto().startsWith(sede)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+        telefonoService.controlloDate(telefono);
         Telefono result = telefonoRepository.save(telefono);
         String stato = "MODIFICATO";
         telefonoService.salvabackground(telefono, stato);
@@ -191,7 +194,7 @@ public class TelefonoResource {
     @Timed
     public ResponseEntity<List<String>> findPersona(@PathVariable String term) {
         return ResponseEntity.ok(
-            ace.getPersone(
+            ace.searchUtenti(
                 Stream.of(
                     new AbstractMap.SimpleEntry<>("page", "0"),
                     new AbstractMap.SimpleEntry<>("offset", "20"),
@@ -200,8 +203,8 @@ public class TelefonoResource {
             )
             .getItems()
             .stream()
-            .filter(personaWebDto -> Optional.ofNullable(personaWebDto.getUsername()).isPresent())
-            .map(PersonaWebDto::getUsername)
+            .filter(utenteDto -> Optional.ofNullable(utenteDto.getUsername()).isPresent())
+            .map(UtenteDto::getUsername)
             .collect(Collectors.toList()));
     }
 

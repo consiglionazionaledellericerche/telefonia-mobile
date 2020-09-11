@@ -28,4 +28,6 @@ public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
     public Page<Telefono> findByDeletedFalse(Pageable pageable);
 
     public List<Telefono> findByDeletedFalse();
+
+    public List<Telefono> findByNumero(String numero);
 }

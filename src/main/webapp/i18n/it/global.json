@@ -136,6 +136,9 @@
         "userexists": "Il nome utente è già in uso!",
         "emailexists": "L'email è già in uso!",
         "idexists": "Un(a) nuovo/a {{entityName}} non può già avere un ID",
+        "dataInizioMaggioreDataFine": "Data Inizio è maggiore di data Fine",
+        "dataErrata": "Controllare date sui contratti",
+        "dataCessazioneVecchioContratto": "Inserire data Cessazione Vecchio Contratto",
         "idnull": "Invalid ID"
     },
     "footer": "Piè di pagina"
