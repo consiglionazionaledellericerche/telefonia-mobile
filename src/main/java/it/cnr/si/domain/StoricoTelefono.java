@@ -33,10 +33,10 @@ public class StoricoTelefono implements Serializable {
 
     @NotNull
     @Column(name = "data_attivazione", nullable = false)
-    private LocalDate dataAttivazione;
+    private Instant dataAttivazione;
 
     @Column(name = "data_cessazione")
-    private LocalDate dataCessazione;
+    private Instant dataCessazione;
 
     @NotNull
     @Column(name = "intestatario_contratto", nullable = false)
@@ -91,29 +91,29 @@ public class StoricoTelefono implements Serializable {
         this.dataModifica = dataModifica;
     }
 
-    public LocalDate getDataAttivazione() {
+    public Instant getDataAttivazione() {
         return dataAttivazione;
     }
 
-    public StoricoTelefono dataAttivazione(LocalDate dataAttivazione) {
+    public StoricoTelefono dataAttivazione(Instant dataAttivazione) {
         this.dataAttivazione = dataAttivazione;
         return this;
     }
 
-    public void setDataAttivazione(LocalDate dataAttivazione) {
+    public void setDataAttivazione(Instant dataAttivazione) {
         this.dataAttivazione = dataAttivazione;
     }
 
-    public LocalDate getDataCessazione() {
+    public Instant getDataCessazione() {
         return dataCessazione;
     }
 
-    public StoricoTelefono dataCessazione(LocalDate dataCessazione) {
+    public StoricoTelefono dataCessazione(Instant dataCessazione) {
         this.dataCessazione = dataCessazione;
         return this;
     }
 
-    public void setDataCessazione(LocalDate dataCessazione) {
+    public void setDataCessazione(Instant dataCessazione) {
         this.dataCessazione = dataCessazione;
     }
 

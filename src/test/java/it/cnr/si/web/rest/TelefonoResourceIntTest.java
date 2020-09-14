@@ -29,8 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -52,11 +54,11 @@ public class TelefonoResourceIntTest {
     private static final String DEFAULT_NUMERO = "AAAAAAAAAA";
     private static final String UPDATED_NUMERO = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_DATA_ATTIVAZIONE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_ATTIVAZIONE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATA_ATTIVAZIONE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_ATTIVAZIONE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_DATA_CESSAZIONE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_CESSAZIONE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATA_CESSAZIONE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_CESSAZIONE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_INTESTATARIO_CONTRATTO = "AAAAAAAAAA";
     private static final String UPDATED_INTESTATARIO_CONTRATTO = "BBBBBBBBBB";
