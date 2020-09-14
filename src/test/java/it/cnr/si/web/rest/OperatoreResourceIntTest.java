@@ -27,8 +27,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -47,8 +49,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = TelefoniaApp.class)
 public class OperatoreResourceIntTest {
 
-    private static final LocalDate DEFAULT_DATA = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATA = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private OperatoreRepository operatoreRepository;
