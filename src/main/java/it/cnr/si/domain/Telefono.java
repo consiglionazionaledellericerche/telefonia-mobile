@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -31,10 +32,10 @@ public class Telefono implements Serializable {
 
     @NotNull
     @Column(name = "data_attivazione", nullable = false)
-    private LocalDate dataAttivazione;
+    private Instant dataAttivazione;
 
     @Column(name = "data_cessazione")
-    private LocalDate dataCessazione;
+    private Instant dataCessazione;
 
     @NotNull
     @Column(name = "intestatario_contratto", nullable = false)
@@ -88,29 +89,29 @@ public class Telefono implements Serializable {
         this.numero = numero;
     }
 
-    public LocalDate getDataAttivazione() {
+    public Instant getDataAttivazione() {
         return dataAttivazione;
     }
 
-    public Telefono dataAttivazione(LocalDate dataAttivazione) {
+    public Telefono dataAttivazione(Instant dataAttivazione) {
         this.dataAttivazione = dataAttivazione;
         return this;
     }
 
-    public void setDataAttivazione(LocalDate dataAttivazione) {
+    public void setDataAttivazione(Instant dataAttivazione) {
         this.dataAttivazione = dataAttivazione;
     }
 
-    public LocalDate getDataCessazione() {
+    public Instant getDataCessazione() {
         return dataCessazione;
     }
 
-    public Telefono dataCessazione(LocalDate dataCessazione) {
+    public Telefono dataCessazione(Instant dataCessazione) {
         this.dataCessazione = dataCessazione;
         return this;
     }
 
-    public void setDataCessazione(LocalDate dataCessazione) {
+    public void setDataCessazione(Instant dataCessazione) {
         this.dataCessazione = dataCessazione;
     }
 

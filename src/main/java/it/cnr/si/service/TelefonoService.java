@@ -38,8 +38,8 @@ public class TelefonoService {
 
     public void controlloDate(Telefono telefono){
         log.debug("Entrato in controllo Date {}", telefono);
-        LocalDate dataAttivazione = telefono.getDataAttivazione();
-        LocalDate dataCessazione = telefono.getDataCessazione();
+        Instant dataAttivazione = telefono.getDataAttivazione();
+        Instant dataCessazione = telefono.getDataCessazione();
         String risposta = "no";
         if(dataCessazione != null){
             if(dataAttivazione.isAfter(dataCessazione)){//Fare controllo che data attivazione minore di data Cessazione

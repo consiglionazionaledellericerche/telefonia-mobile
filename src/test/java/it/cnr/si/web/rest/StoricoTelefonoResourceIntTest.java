@@ -49,11 +49,11 @@ public class StoricoTelefonoResourceIntTest {
     private static final Instant DEFAULT_DATA_MODIFICA = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATA_MODIFICA = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_DATA_ATTIVAZIONE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_ATTIVAZIONE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATA_ATTIVAZIONE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_ATTIVAZIONE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_DATA_CESSAZIONE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_CESSAZIONE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATA_CESSAZIONE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_CESSAZIONE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_INTESTATARIO_CONTRATTO = "AAAAAAAAAA";
     private static final String UPDATED_INTESTATARIO_CONTRATTO = "BBBBBBBBBB";
