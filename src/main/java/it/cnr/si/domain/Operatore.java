@@ -1,6 +1,7 @@
 package it.cnr.si.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.models.auth.In;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -27,7 +29,7 @@ public class Operatore implements Serializable {
     private Long id;
 
     @Column(name = "data")
-    private LocalDate data;
+    private Instant data;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -48,16 +50,16 @@ public class Operatore implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getData() {
+    public Instant getData() {
         return data;
     }
 
-    public Operatore data(LocalDate data) {
+    public Operatore data(Instant data) {
         this.data = data;
         return this;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Instant data) {
         this.data = data;
     }
 

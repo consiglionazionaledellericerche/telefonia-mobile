@@ -51,7 +51,7 @@ export class OperatoreService {
 
     private convertDateFromClient(operatore: IOperatore): IOperatore {
         const copy: IOperatore = Object.assign({}, operatore, {
-            data: operatore.data != null && operatore.data.isValid() ? operatore.data.format(DATE_FORMAT) : null
+            data: operatore.data != null && operatore.data.isValid() ? operatore.data.toJSON() : null
         });
         return copy;
     }
