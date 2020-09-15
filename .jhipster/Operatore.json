@@ -24,7 +24,7 @@
     "fields": [
         {
             "fieldName": "data",
-            "fieldType": "Instant"
+            "fieldType": "LocalDate"
         }
     ],
     "changelogDate": "20181220072701",
