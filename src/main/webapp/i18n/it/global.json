@@ -139,7 +139,8 @@
         "dataInizioMaggioreDataFine": "Data Inizio è maggiore di data Fine",
         "dataErrata": "Controllare date sui contratti",
         "dataCessazioneVecchioContratto": "Inserire data Cessazione Vecchio Contratto",
-        "idnull": "Invalid ID"
+        "idnull": "Invalid ID",
+        "telefonoInserito": "Telefono già inserito"
     },
     "footer": "Piè di pagina"
 }
