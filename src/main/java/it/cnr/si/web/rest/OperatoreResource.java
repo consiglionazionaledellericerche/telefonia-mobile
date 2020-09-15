@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import it.cnr.si.repository.TelefonoRepository;
 import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.service.AceService;
+import it.cnr.si.service.OperatoreService;
 import it.cnr.si.service.TelefonoService;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
@@ -30,6 +31,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +48,8 @@ public class OperatoreResource {
     private TelefonoService telefonoService;
     @Autowired
     private OperatoreRepository operatoreRepository;
+    @Autowired
+    private OperatoreService operatoreService;
 
     private final Logger log = LoggerFactory.getLogger(OperatoreResource.class);
 
@@ -65,6 +69,15 @@ public class OperatoreResource {
         if (operatore.getId() != null) {
             throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        operatoreService.controlloEsisteOperatore(operatore);
+      /**  List<Operatore> op = operatoreRepository.findByTelefonoOperatore(operatore.getTelefonoOperatore());
+        Iterator i = op.iterator();
+        while (i.hasNext()) {
+            Object o = i.next();
+            if(operatore.getId().equals(((Operatore) o).getId())){
+                throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }*/
         Operatore result = operatoreRepository.save(operatore);
         telefonoService.salvabackground(operatore.getTelefonoOperatore(),"MODIFICATO OPERATORE ");
         return ResponseEntity.created(new URI("/api/operatores/" + result.getId()))
