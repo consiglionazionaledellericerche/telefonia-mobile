@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.utilizzatoreUtenza" for="field_utilizzatoreUtenza">Utilizzatore Utenza</label>
                                     <input type="text" class="form-control" name="utilizzatoreUtenza" id="field_utilizzatoreUtenza" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
-                                           [(ngModel)]="telefono.utilizzatoreUtenza" placeholder="Cerca..."  required/>
+                                           [(ngModel)]="telefono.utilizzatoreUtenza" placeholder="Cerca..." [editable]="false" required/>
                                     <div [hidden]="!(editForm.controls.utilizzatoreUtenza?.dirty && editForm.controls.utilizzatoreUtenza?.invalid)">
                                         <small class="form-text text-danger"
                                                [hidden]="!editForm.controls.utilizzatoreUtenza?.errors?.required" jhiTranslate="entity.validation.required">
