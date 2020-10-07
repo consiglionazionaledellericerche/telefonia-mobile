@@ -131,3 +131,4 @@ ace:
     url: "http://zuul-server.test.si.cnr.it/api"
     username: ${telefoniamobile.username}
     password: ${telefoniamobile.password}
+    contesto: telefonia-app

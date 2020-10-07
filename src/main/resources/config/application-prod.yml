@@ -140,3 +140,4 @@ ace:
     url: "https://api.ace.cnr.it/api"
     username: app.telefoniamobile
     password: '!TlFnMbIl#2019'
+    contesto: telefonia-app
