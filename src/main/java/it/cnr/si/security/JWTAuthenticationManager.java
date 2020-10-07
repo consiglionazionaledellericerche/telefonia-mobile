@@ -3,6 +3,7 @@ package it.cnr.si.security;
 import feign.FeignException;
 import it.cnr.si.service.AceService;
 import it.cnr.si.service.AuthService;
+import it.cnr.si.service.dto.anagrafica.enums.TipoRuolo;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
