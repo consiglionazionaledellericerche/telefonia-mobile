@@ -112,3 +112,12 @@ logging:
 # ===================================================================
 
 # application:
+telefoniamobile:
+    username: app.telefoniamobile
+    password: '!TlFnMbIl#2019'
+
+ace:
+    url: "http://zuul-server.test.si.cnr.it/api"
+    username: ${telefoniamobile.username}
+    password: ${telefoniamobile.password}
+    contesto: telefonia-app

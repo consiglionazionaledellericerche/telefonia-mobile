@@ -201,11 +201,11 @@ public class TelefonoResource {
                     new AbstractMap.SimpleEntry<>("username", term)
                 ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
             )
-            .getItems()
-            .stream()
-            .filter(utenteDto -> Optional.ofNullable(utenteDto.getUsername()).isPresent())
-            .map(UtenteDto::getUsername)
-            .collect(Collectors.toList()));
+                .getItems()
+                .stream()
+                .filter(utenteDto -> Optional.ofNullable(utenteDto.getUsername()).isPresent())
+                .map(UtenteDto::getUsername)
+                .collect(Collectors.toList()));
     }
 
     //Per richiamare istituti ACE
