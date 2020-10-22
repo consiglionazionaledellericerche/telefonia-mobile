@@ -25,6 +25,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="data_inizio" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="data_fine" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
             <column name="servizi_id" type="bigint">
                 <constraints nullable="false" />
             </column>

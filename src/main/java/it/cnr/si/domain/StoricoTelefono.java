@@ -51,9 +51,11 @@ public class StoricoTelefono implements Serializable {
     @Column(name = "cdsuo")
     private String cdsuo;
 
+    @Lob
     @Column(name = "operatore")
     private String operatore;
 
+    @Lob
     @Column(name = "servizi")
     private String servizi;
 

@@ -25,6 +25,20 @@
         {
             "fieldName": "altro",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "dataInizio",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dataFine",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20181220074906",

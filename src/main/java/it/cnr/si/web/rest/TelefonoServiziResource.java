@@ -9,6 +9,7 @@ import it.cnr.si.repository.TelefonoServiziRepository;
 import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.security.SecurityUtils;
 import it.cnr.si.service.TelefonoService;
+import it.cnr.si.service.TelefonoServiziService;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
@@ -42,6 +43,8 @@ public class TelefonoServiziResource {
     private TelefonoService telefonoService;
     @Autowired
     private TelefonoServiziRepository telefonoServiziRepository;
+    @Autowired
+    private TelefonoServiziService telefonoServiziService;
 
 //    public TelefonoServiziResource(TelefonoServiziRepository telefonoServiziRepository) {
 //        this.telefonoServiziRepository = telefonoServiziRepository;
@@ -61,6 +64,7 @@ public class TelefonoServiziResource {
         if (telefonoServizi.getId() != null) {
             throw new BadRequestAlertException("A new telefonoServizi cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        telefonoServiziService.controlloDate(telefonoServizi);
         TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
         telefonoService.salvabackground(telefonoServizi.getTelefono(), "MODIFICATO SERVIZI ");
         return ResponseEntity.created(new URI("/api/telefono-servizis/" + result.getId()))
@@ -89,7 +93,7 @@ public class TelefonoServiziResource {
             telefonoServizi.getTelefono().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-
+        telefonoServiziService.controlloDate(telefonoServizi);
         TelefonoServizi result = telefonoServiziRepository.save(telefonoServizi);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, telefonoServizi.getId().toString()))

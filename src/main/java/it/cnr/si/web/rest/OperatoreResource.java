@@ -69,7 +69,8 @@ public class OperatoreResource {
         if (operatore.getId() != null) {
             throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        operatoreService.controlloEsisteOperatore(operatore);
+        operatoreService.controlloDate(operatore);
+      //  operatoreService.controlloEsisteOperatore(operatore); //Non serve perchè va bene 1 a N
       /**  List<Operatore> op = operatoreRepository.findByTelefonoOperatore(operatore.getTelefonoOperatore());
         Iterator i = op.iterator();
         while (i.hasNext()) {
@@ -106,6 +107,7 @@ public class OperatoreResource {
             operatore.getTelefonoOperatore().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+        operatoreService.controlloDate(operatore);
         Operatore result = operatoreRepository.save(operatore);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, operatore.getId().toString()))

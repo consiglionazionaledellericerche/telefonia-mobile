@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -128,9 +129,9 @@ public class TelefonoService {
         while (iTS.hasNext()) {
             TelefonoServizi tS = iTS.next();
             if (servizi.equals("")) {
-                servizi = tS.getServizi().getNome();
+                servizi = "Dal:"+tS.getDataInizio() + ";Al:" + tS.getDataFine() + " ("+tS.getServizi().getNome()+")";
             } else {
-                servizi = servizi + ";" + tS.getServizi().getNome();
+                servizi = servizi + ";--- Dal:"+tS.getDataInizio() + ";Al:" + tS.getDataFine() + " ("+tS.getServizi().getNome()+")";
             }
         }
         storicoTelefono.setServizi(servizi);
@@ -142,9 +143,9 @@ public class TelefonoService {
         while (iO.hasNext()) {
             Operatore o = iO.next();
             if (operatore.equals("")) {
-                operatore = o.getData() + " (" + o.getListaOperatori().getNome() + ")";
+                operatore = "Dal:"+o.getData() + ";Al:" + o.getDataFine() + " (Operatore:" + o.getListaOperatori().getNome()+ ", NumeroContratto:"+o.getNumeroContratto()+")";
             } else {
-                operatore = operatore + ";" + o.getData() + " (" + o.getListaOperatori().getNome();
+                operatore = operatore + "; --- Dal:" + o.getData() + ";Al:" + o.getDataFine() + " (Operatore:" + o.getListaOperatori().getNome()+ ", NumeroContratto:"+o.getNumeroContratto()+");";
             }
         }
         storicoTelefono.setOperatore(operatore);
@@ -163,6 +164,7 @@ public class TelefonoService {
                 validazione.setValidazioneTelefono(telefono);
                 validazione.setDataModifica(LocalDate.now());
                 validazione.setStampa(valStoricoTelefono);
+                validazione.setDataValidazione(ZonedDateTime.now());
                 Validazione resultValidazione = validazioneRepository.save(validazione);
             }
         }

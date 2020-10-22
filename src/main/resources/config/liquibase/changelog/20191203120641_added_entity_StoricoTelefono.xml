@@ -49,11 +49,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="operatore" type="varchar(255)">
+            <column name="operatore" type="text">
                 <constraints nullable="true" />
             </column>
 
-            <column name="servizi" type="varchar(255)">
+            <column name="servizi" type="text">
                 <constraints nullable="true" />
             </column>
 

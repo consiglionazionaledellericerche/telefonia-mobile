@@ -23,6 +23,8 @@ export class TelefonoServiziUpdateComponent implements OnInit {
     servizis: IServizi[];
 
     telefonos: ITelefono[];
+    dataInizioDp: any;
+    dataFineDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -49,7 +51,6 @@ export class TelefonoServiziUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-
         this.telefonoServiziService.findTelefono().subscribe(telefonoRestituiti => {
             this.telefono = telefonoRestituiti;
         });

@@ -25,6 +25,25 @@
         {
             "fieldName": "data",
             "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dataFine",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "numeroContratto",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "contratto",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20181220072701",

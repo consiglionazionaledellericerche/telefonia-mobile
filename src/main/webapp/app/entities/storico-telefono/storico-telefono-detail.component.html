@@ -3,7 +3,7 @@
         <div *ngIf="storicoTelefono">
             <h2><span jhiTranslate="telefoniaApp.storicoTelefono.detail.title">Storico Telefono</span> {{storicoTelefono.id}}</h2>
             <hr>
-            <button class="btn btn-print" onclick="window.print();">Stampa</button>
+            <button class="btn btn-outline-danger ml-1" onclick="window.print();">Stampa</button>
             <br>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -23,10 +23,10 @@
                 <dd>
                     <span>{{storicoTelefono.intestatarioContratto}}</span>
                 </dd>
-                <dt><span jhiTranslate="telefoniaApp.storicoTelefono.numeroContratto">Numero Contratto</span></dt>
+                <!--<dt><span jhiTranslate="telefoniaApp.storicoTelefono.numeroContratto">Numero Contratto</span></dt>
                 <dd>
                     <span>{{storicoTelefono.numeroContratto}}</span>
-                </dd>
+                </dd>-->
                 <dt><span jhiTranslate="telefoniaApp.storicoTelefono.utilizzatoreUtenza">Utilizzatore Utenza</span></dt>
                 <dd>
                     <span>{{storicoTelefono.utilizzatoreUtenza}}</span>
@@ -64,7 +64,7 @@
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
-            <button class="btn btn-print" onclick="window.print();">Stampa</button>
+            <button class="btn btn-outline-danger ml-1" onclick="window.print();">Stampa</button>
             <!--<button type="button"
                     [routerLink]="['/storico-telefono', storicoTelefono.id, 'edit']"
                     class="btn btn-primary">

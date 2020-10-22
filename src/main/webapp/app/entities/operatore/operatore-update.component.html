@@ -30,7 +30,7 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-5">
                                 <div class="form-group">
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.listaOperatori" for="field_listaOperatori">Lista Operatori</label>
                                     <select class="form-control" id="field_listaOperatori" name="listaOperatori" [(ngModel)]="operatore.listaOperatori"  required>
@@ -45,7 +45,16 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="form-group col-md-3">
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-primary mt-1">
+                    <div class="card-header text-white bg-primary">
+                        Contratto Telefonico Operatore
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
                                 <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.data" for="field_data">Data</label>
                                 <div class="input-group">
                                     <input id="field_data" type="text" class="form-control" name="data" ngbDatepicker  #dataDp="ngbDatepicker" [(ngModel)]="operatore.data"
@@ -53,6 +62,57 @@
                                     <span class="input-group-append">
                                         <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                                     </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.dataFine" for="field_dataFine">Data Fine</label>
+                                    <div class="input-group">
+                                        <input id="field_dataFine" type="text" class="form-control" name="dataFine" ngbDatepicker  #dataFineDp="ngbDatepicker" [(ngModel)]="operatore.dataFine"
+                                        />
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="dataFineDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.numeroContratto" for="field_numeroContratto">Numero Contratto</label>
+                                    <input type="text" class="form-control" name="numeroContratto" id="field_numeroContratto"
+                                           [(ngModel)]="operatore.numeroContratto" required/>
+                                    <div [hidden]="!(editForm.controls.numeroContratto?.dirty && editForm.controls.numeroContratto?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.numeroContratto?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.contratto" for="field_contratto">Contratto</label>
+                                    <div>
+                                        <div *ngIf="operatore.contratto" class="form-text text-danger clearfix">
+                                            <a class="pull-left" (click)="openFile(operatore.contrattoContentType, operatore.contratto)" jhiTranslate="entity.action.open">open</a><br>
+                                            <span class="pull-left">{{operatore.contrattoContentType}}, {{byteSize(operatore.contratto)}}</span>
+                                            <button type="button" (click)="operatore.contratto=null;operatore.contrattoContentType=null;"
+                                                    class="btn btn-secondary btn-xs pull-right">
+                                                <fa-icon [icon]="'times'"></fa-icon>
+                                            </button>
+                                        </div>
+                                        <input type="file" id="file_contratto" (change)="setFileData($event, operatore, 'contratto', false)" jhiTranslate="entity.action.addblob"/>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="contratto" id="field_contratto"
+                                           [(ngModel)]="operatore.contratto" required/>
+                                    <input type="hidden" class="form-control" name="contrattoContentType" id="field_contrattoContentType"
+                                           [(ngModel)]="operatore.contrattoContentType" />
+                                    <div [hidden]="!(editForm.controls.contratto?.dirty && editForm.controls.contratto?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.contratto?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
