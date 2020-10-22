@@ -51,19 +51,22 @@ export class OperatoreService {
 
     private convertDateFromClient(operatore: IOperatore): IOperatore {
         const copy: IOperatore = Object.assign({}, operatore, {
-            data: operatore.data != null && operatore.data.isValid() ? operatore.data.toJSON() : null
+            data: operatore.data != null && operatore.data.isValid() ? operatore.data.toJSON() : null,
+            dataFine: operatore.dataFine != null && operatore.dataFine.isValid() ? operatore.dataFine.toJSON() : null
         });
         return copy;
     }
 
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
         res.body.data = res.body.data != null ? moment(res.body.data) : null;
+        res.body.dataFine = res.body.dataFine != null ? moment(res.body.dataFine) : null;
         return res;
     }
 
     private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         res.body.forEach((operatore: IOperatore) => {
             operatore.data = operatore.data != null ? moment(operatore.data) : null;
+            operatore.dataFine = operatore.dataFine != null ? moment(operatore.dataFine) : null;
         });
         return res;
     }

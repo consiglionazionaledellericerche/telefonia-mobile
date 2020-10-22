@@ -41,8 +41,7 @@ public class Telefono implements Serializable {
     @Column(name = "intestatario_contratto", nullable = false)
     private String intestatarioContratto;
 
-    @NotNull
-    @Column(name = "numero_contratto", nullable = false)
+    @Column(name = "numero_contratto")
     private String numeroContratto;
 
     @NotNull
@@ -61,10 +60,10 @@ public class Telefono implements Serializable {
 
 
     @Lob
-    @Column(name = "contratto", nullable = false)
+    @Column(name = "contratto")
     private byte[] contratto;
 
-    @Column(name = "contratto_content_type", nullable = false)
+    @Column(name = "contratto_content_type")
     private String contrattoContentType;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

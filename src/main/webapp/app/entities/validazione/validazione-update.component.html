@@ -81,9 +81,9 @@
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.validazione.dataModifica" for="field_dataModifica">Data Modifica</label>
                                     <div class="input-group">
                                         <input id="field_dataModifica" type="text" class="form-control" name="dataModifica" ngbDatepicker  #dataModificaDp="ngbDatepicker" [(ngModel)]="validazione.dataModifica"
-                                               required/>
+                                               required readonly/>
                                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dataModificaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <!--<button type="button" class="btn btn-secondary" (click)="dataModificaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>-->
                         </span>
                                     </div>
                                     <div [hidden]="!(editForm.controls.dataModifica?.dirty && editForm.controls.dataModifica?.invalid)">
@@ -136,11 +136,11 @@
 
 
             </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+            <div class="row mt-2" align="center">
+                <button type="button" id="cancel-save" class="btn btn-secondary col-md-5"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary col-md-5 ml-auto">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

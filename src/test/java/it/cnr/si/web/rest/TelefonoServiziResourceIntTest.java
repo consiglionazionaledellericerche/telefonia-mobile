@@ -28,6 +28,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -48,6 +52,12 @@ public class TelefonoServiziResourceIntTest {
 
     private static final String DEFAULT_ALTRO = "AAAAAAAAAA";
     private static final String UPDATED_ALTRO = "BBBBBBBBBB";
+
+    private static final Instant DEFAULT_DATA_INIZIO = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_INIZIO = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_DATA_FINE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_FINE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private TelefonoServiziRepository telefonoServiziRepository;
@@ -89,7 +99,9 @@ public class TelefonoServiziResourceIntTest {
      */
     public static TelefonoServizi createEntity(EntityManager em) {
         TelefonoServizi telefonoServizi = new TelefonoServizi()
-            .altro(DEFAULT_ALTRO);
+            .altro(DEFAULT_ALTRO)
+            .dataInizio(DEFAULT_DATA_INIZIO)
+            .dataFine(DEFAULT_DATA_FINE);
         // Add required entity
         Servizi servizi = ServiziResourceIntTest.createEntity(em);
         em.persist(servizi);
@@ -158,7 +170,9 @@ public class TelefonoServiziResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(telefonoServizi.getId().intValue())))
-            .andExpect(jsonPath("$.[*].altro").value(hasItem(DEFAULT_ALTRO.toString())));
+            .andExpect(jsonPath("$.[*].altro").value(hasItem(DEFAULT_ALTRO.toString())))
+            .andExpect(jsonPath("$.[*].dataInizio").value(hasItem(DEFAULT_DATA_INIZIO.toString())))
+            .andExpect(jsonPath("$.[*].dataFine").value(hasItem(DEFAULT_DATA_FINE.toString())));
     }
 
     @Test
@@ -172,7 +186,9 @@ public class TelefonoServiziResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(telefonoServizi.getId().intValue()))
-            .andExpect(jsonPath("$.altro").value(DEFAULT_ALTRO.toString()));
+            .andExpect(jsonPath("$.altro").value(DEFAULT_ALTRO.toString()))
+            .andExpect(jsonPath("$.dataInizio").value(DEFAULT_DATA_INIZIO.toString()))
+            .andExpect(jsonPath("$.dataFine").value(DEFAULT_DATA_FINE.toString()));
     }
 
     @Test

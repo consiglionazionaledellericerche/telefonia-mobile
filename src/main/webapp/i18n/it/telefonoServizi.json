@@ -17,6 +17,8 @@
                 "title": "Telefono Servizi"
             },
             "altro": "Altro",
+            "dataInizio": "Data Inizio",
+            "dataFine": "Data Fine",
             "servizi": "Servizi",
             "telefono": "Telefono"
         }

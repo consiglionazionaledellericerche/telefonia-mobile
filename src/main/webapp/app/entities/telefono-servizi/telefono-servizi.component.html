@@ -16,6 +16,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <!--<th jhiSortBy="altro"><span jhiTranslate="telefoniaApp.telefonoServizi.altro">Altro</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="dataInizio"><span jhiTranslate="telefoniaApp.telefonoServizi.dataInizio">Data Inizio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dataFine"><span jhiTranslate="telefoniaApp.telefonoServizi.dataFine">Data Fine</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="servizi.nome"><span jhiTranslate="telefoniaApp.telefonoServizi.servizi">Servizi</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="telefono.numero"><span jhiTranslate="telefoniaApp.telefonoServizi.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -25,6 +27,8 @@
             <tr *ngFor="let telefonoServizi of telefonoServizis ;trackBy: trackId">
                 <td><a [routerLink]="['/telefono-servizi', telefonoServizi.id, 'view' ]">{{telefonoServizi.id}}</a></td>
                 <!--<td>{{telefonoServizi.altro}}</td>-->
+                <td>{{telefonoServizi.dataInizio | date:'mediumDate'}}</td>
+                <td>{{telefonoServizi.dataFine | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="telefonoServizi.servizi">
                         <a [routerLink]="['../servizi', telefonoServizi.servizi?.id, 'view' ]" >{{telefonoServizi.servizi?.nome}}</a>
@@ -32,7 +36,7 @@
                 </td>
                 <td>
                     <div *ngIf="telefonoServizi.telefono">
-                        <a [routerLink]="['../telefono', telefonoServizi.telefono?.id, 'view' ]" >{{telefonoServizi.telefono?.numero}} - {{telefonoServizi.telefono?.utilizzatoreUtenza}}</a>
+                        <a [routerLink]="['../telefono', telefonoServizi.telefono?.id, 'view' ]" >{{telefonoServizi.telefono?.numero}}</a>
                     </div>
                 </td>
                 <td class="text-right">

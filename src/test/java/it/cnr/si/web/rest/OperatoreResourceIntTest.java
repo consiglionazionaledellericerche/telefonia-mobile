@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -50,7 +51,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class OperatoreResourceIntTest {
 
     private static final Instant DEFAULT_DATA = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_DATA = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant UPDATED_DATA = Instant.ofEpochMilli(0L);
+
+    private static final Instant DEFAULT_DATA_FINE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATA_FINE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_NUMERO_CONTRATTO = "AAAAAAAAAA";
+    private static final String UPDATED_NUMERO_CONTRATTO = "BBBBBBBBBB";
+
+    private static final byte[] DEFAULT_CONTRATTO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_CONTRATTO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_CONTRATTO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_CONTRATTO_CONTENT_TYPE = "image/png";
 
     @Autowired
     private OperatoreRepository operatoreRepository;
@@ -92,7 +104,11 @@ public class OperatoreResourceIntTest {
      */
     public static Operatore createEntity(EntityManager em) {
         Operatore operatore = new Operatore()
-            .data(DEFAULT_DATA);
+            .data(DEFAULT_DATA)
+            .dataFine(DEFAULT_DATA_FINE)
+            .numeroContratto(DEFAULT_NUMERO_CONTRATTO)
+            .contratto(DEFAULT_CONTRATTO)
+            .contrattoContentType(DEFAULT_CONTRATTO_CONTENT_TYPE);
         // Add required entity
         Telefono telefono = TelefonoResourceIntTest.createEntity(em);
         em.persist(telefono);
@@ -161,7 +177,11 @@ public class OperatoreResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(operatore.getId().intValue())))
-            .andExpect(jsonPath("$.[*].data").value(hasItem(DEFAULT_DATA.toString())));
+            .andExpect(jsonPath("$.[*].data").value(hasItem(DEFAULT_DATA.toString())))
+            .andExpect(jsonPath("$.[*].dataFine").value(hasItem(DEFAULT_DATA_FINE.toString())))
+            .andExpect(jsonPath("$.[*].numeroContratto").value(hasItem(DEFAULT_NUMERO_CONTRATTO.toString())))
+            .andExpect(jsonPath("$.[*].contrattoContentType").value(hasItem(DEFAULT_CONTRATTO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].contratto").value(hasItem(Base64Utils.encodeToString(DEFAULT_CONTRATTO))));
     }
 
     @Test
@@ -175,7 +195,11 @@ public class OperatoreResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(operatore.getId().intValue()))
-            .andExpect(jsonPath("$.data").value(DEFAULT_DATA.toString()));
+            .andExpect(jsonPath("$.data").value(DEFAULT_DATA.toString()))
+            .andExpect(jsonPath("$.dataFine").value(DEFAULT_DATA_FINE.toString()))
+            .andExpect(jsonPath("$.numeroContratto").value(DEFAULT_NUMERO_CONTRATTO.toString()))
+            .andExpect(jsonPath("$.contrattoContentType").value(DEFAULT_CONTRATTO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.contratto").value(Base64Utils.encodeToString(DEFAULT_CONTRATTO)));
     }
 
     @Test

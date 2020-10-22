@@ -9,6 +9,21 @@
                 <dd>
                     <span>{{operatore.data}}</span>
                 </dd>
+                <dt><span jhiTranslate="telefoniaApp.operatore.dataFine">Data Fine</span></dt>
+                <dd>
+                    <span>{{operatore.dataFine}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.operatore.numeroContratto">Numero Contratto</span></dt>
+                <dd>
+                    <span>{{operatore.numeroContratto}}</span>
+                </dd>
+                <dt><span jhiTranslate="telefoniaApp.operatore.contratto">Contratto</span></dt>
+                <dd>
+                    <div *ngIf="operatore.contratto">
+                        <a (click)="openFile(operatore.contrattoContentType, operatore.contratto)" jhiTranslate="entity.action.open">open</a>
+                        {{operatore.contrattoContentType}}, {{byteSize(operatore.contratto)}}
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="telefoniaApp.operatore.telefonoOperatore">Telefono Operatore</span></dt>
                 <dd>
                     <div *ngIf="operatore.telefonoOperatore">

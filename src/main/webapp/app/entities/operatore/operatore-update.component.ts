@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IOperatore } from 'app/shared/model/operatore.model';
 import { OperatoreService } from './operatore.service';
@@ -23,8 +23,10 @@ export class OperatoreUpdateComponent implements OnInit {
 
     listaoperatoris: IListaOperatori[];
     dataDp: any;
+    dataFineDp: any;
 
     constructor(
+        private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private operatoreService: OperatoreService,
         private telefonoService: TelefonoService,
@@ -52,6 +54,18 @@ export class OperatoreUpdateComponent implements OnInit {
         this.operatoreService.findTelefono().subscribe(telefonoRestituiti => {
             this.telefono = telefonoRestituiti;
         });
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     previousState() {

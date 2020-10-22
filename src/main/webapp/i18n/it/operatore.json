@@ -16,7 +16,10 @@
             "detail": {
                 "title": "Telefono Operatore"
             },
-            "data": "Data",
+            "data": "Data Inizio",
+            "dataFine": "Data Fine",
+            "numeroContratto": "Numero Contratto",
+            "contratto": "Contratto",
             "telefonoOperatore": "Telefono",
             "listaOperatori": "Operatore"
         }

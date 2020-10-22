@@ -53,21 +53,45 @@
                                 <input type="text" class="form-control" name="altro" id="field_altro"
                                        [(ngModel)]="telefonoServizi.altro" />
                             </div>-->
+                            <div class="form-group col-md-5">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.dataInizio" for="field_dataInizio">Data Inizio</label>
+                                    <div class="input-group">
+                                        <input id="field_dataInizio" type="text" class="form-control" name="dataInizio" ngbDatepicker  #dataInizioDp="ngbDatepicker" [(ngModel)]="telefonoServizi.dataInizio"
+                                               required/>
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="dataInizioDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                        </span>
+                                    </div>
+                                    <div [hidden]="!(editForm.controls.dataInizio?.dirty && editForm.controls.dataInizio?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.dataInizio?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-5">
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.dataFine" for="field_dataFine">Data Fine</label>
+                                    <div class="input-group">
+                                        <input id="field_dataFine" type="text" class="form-control" name="dataFine" ngbDatepicker  #dataFineDp="ngbDatepicker" [(ngModel)]="telefonoServizi.dataFine"
+                                               required/>
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="dataFineDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                        </span>
+                                    </div>
+                                    <div [hidden]="!(editForm.controls.dataFine?.dirty && editForm.controls.dataFine?.invalid)">
+                                        <small class="form-text text-danger"
+                                               [hidden]="!editForm.controls.dataFine?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
-                <!--<div class="form-group">-->
-                    <!--<label class="form-control-label" jhiTranslate="telefoniaApp.telefonoServizi.telefono" for="field_telefono">Telefono</label>-->
-                    <!--<select class="form-control" id="field_telefono" name="telefono" [(ngModel)]="telefonoServizi.telefono"  required>-->
-                        <!--<option *ngIf="!editForm.value.telefono" [ngValue]="null" selected></option>-->
-                        <!--<option [ngValue]="telefonoOption.id === telefonoServizi.telefono?.id ? telefonoServizi.telefono : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}}</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-
             </div>
             <div class="row mt-2">
                 <button type="button" id="cancel-save" class="btn btn-outline-secondary col-md-5"  (click)="previousState()">

@@ -31,6 +31,21 @@ public class Operatore implements Serializable {
     @Column(name = "data")
     private Instant data;
 
+    @Column(name = "data_fine")
+    private Instant dataFine;
+
+    @NotNull
+    @Column(name = "numero_contratto", nullable = false)
+    private String numeroContratto;
+
+
+    @Lob
+    @Column(name = "contratto", nullable = false)
+    private byte[] contratto;
+
+    @Column(name = "contratto_content_type", nullable = false)
+    private String contrattoContentType;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
@@ -61,6 +76,58 @@ public class Operatore implements Serializable {
 
     public void setData(Instant data) {
         this.data = data;
+    }
+
+    public Instant getDataFine() {
+        return dataFine;
+    }
+
+    public Operatore dataFine(Instant dataFine) {
+        this.dataFine = dataFine;
+        return this;
+    }
+
+    public void setDataFine(Instant dataFine) {
+        this.dataFine = dataFine;
+    }
+
+    public String getNumeroContratto() {
+        return numeroContratto;
+    }
+
+    public Operatore numeroContratto(String numeroContratto) {
+        this.numeroContratto = numeroContratto;
+        return this;
+    }
+
+    public void setNumeroContratto(String numeroContratto) {
+        this.numeroContratto = numeroContratto;
+    }
+
+    public byte[] getContratto() {
+        return contratto;
+    }
+
+    public Operatore contratto(byte[] contratto) {
+        this.contratto = contratto;
+        return this;
+    }
+
+    public void setContratto(byte[] contratto) {
+        this.contratto = contratto;
+    }
+
+    public String getContrattoContentType() {
+        return contrattoContentType;
+    }
+
+    public Operatore contrattoContentType(String contrattoContentType) {
+        this.contrattoContentType = contrattoContentType;
+        return this;
+    }
+
+    public void setContrattoContentType(String contrattoContentType) {
+        this.contrattoContentType = contrattoContentType;
     }
 
     public Telefono getTelefonoOperatore() {
@@ -115,6 +182,10 @@ public class Operatore implements Serializable {
         return "Operatore{" +
             "id=" + getId() +
             ", data='" + getData() + "'" +
+            ", dataFine='" + getDataFine() + "'" +
+            ", numeroContratto='" + getNumeroContratto() + "'" +
+            ", contratto='" + getContratto() + "'" +
+            ", contrattoContentType='" + getContrattoContentType() + "'" +
             "}";
     }
 }

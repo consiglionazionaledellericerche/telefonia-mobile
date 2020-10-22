@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -28,6 +30,14 @@ public class TelefonoServizi implements Serializable {
     @Column(name = "altro")
     private String altro;
 
+    @NotNull
+    @Column(name = "data_inizio", nullable = false)
+    private Instant dataInizio;
+
+    @NotNull
+    @Column(name = "data_fine", nullable = false)
+    private Instant dataFine;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
@@ -36,7 +46,7 @@ public class TelefonoServizi implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("")
-            private Telefono telefono;
+    private Telefono telefono;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -58,6 +68,32 @@ public class TelefonoServizi implements Serializable {
 
     public void setAltro(String altro) {
         this.altro = altro;
+    }
+
+    public Instant getDataInizio() {
+        return dataInizio;
+    }
+
+    public TelefonoServizi dataInizio(Instant dataInizio) {
+        this.dataInizio = dataInizio;
+        return this;
+    }
+
+    public void setDataInizio(Instant dataInizio) {
+        this.dataInizio = dataInizio;
+    }
+
+    public Instant getDataFine() {
+        return dataFine;
+    }
+
+    public TelefonoServizi dataFine(Instant dataFine) {
+        this.dataFine = dataFine;
+        return this;
+    }
+
+    public void setDataFine(Instant dataFine) {
+        this.dataFine = dataFine;
     }
 
     public Servizi getServizi() {
@@ -112,6 +148,8 @@ public class TelefonoServizi implements Serializable {
         return "TelefonoServizi{" +
             "id=" + getId() +
             ", altro='" + getAltro() + "'" +
+            ", dataInizio='" + getDataInizio() + "'" +
+            ", dataFine='" + getDataFine() + "'" +
             "}";
     }
 }

@@ -13,6 +13,7 @@ import it.cnr.si.service.TelefonoService;
 import it.cnr.si.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -255,6 +256,7 @@ public class TelefonoResourceIntTest {
     }
 
     @Test
+    @Ignore
     @Transactional
     public void checkNumeroContrattoIsRequired() throws Exception {
         int databaseSizeBeforeTest = telefonoRepository.findAll().size();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JhiDataUtils } from 'ng-jhipster';
 
 import { IOperatore } from 'app/shared/model/operatore.model';
 
@@ -10,7 +11,7 @@ import { IOperatore } from 'app/shared/model/operatore.model';
 export class OperatoreDetailComponent implements OnInit {
     operatore: IOperatore;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(private dataUtils: JhiDataUtils, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ operatore }) => {
@@ -18,6 +19,13 @@ export class OperatoreDetailComponent implements OnInit {
         });
     }
 
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
     previousState() {
         window.history.back();
     }
