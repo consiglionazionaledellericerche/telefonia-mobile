@@ -30,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
@@ -38,6 +39,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static ch.qos.logback.core.encoder.ByteArrayUtil.hexStringToByteArray;
 
 /**
  * REST controller for managing Telefono.
@@ -80,6 +83,10 @@ public class TelefonoResource {
             throw new BadRequestAlertException("A new telefono cannot already have an ID", ENTITY_NAME, "idexists");
         }
         telefonoService.controlloDate(telefono);
+        telefono.setNumeroContratto("");
+        byte[] b = hexStringToByteArray("e04fd020ea3a6910a2d808002b30309d");
+        telefono.setContratto(b);
+        telefono.setContrattoContentType("");
         Telefono result = telefonoRepository.save(telefono);
         String stato = "INSERITO";
         telefonoService.salvabackground(telefono, stato);
@@ -112,6 +119,10 @@ public class TelefonoResource {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         telefonoService.controlloDate(telefono);
+        telefono.setNumeroContratto("");
+        byte[] b = hexStringToByteArray("e04fd020ea3a6910a2d808002b30309d");
+        telefono.setContratto(b);
+        telefono.setContrattoContentType("");
         Telefono result = telefonoRepository.save(telefono);
         String stato = "MODIFICATO";
         telefonoService.salvabackground(telefono, stato);

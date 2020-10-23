@@ -74,7 +74,8 @@
         <dropDefaultValue tableName="storico_telefono" columnName="data_modifica" columnDataType="datetime"/>
 
     </changeSet>
-    <changeSet id="20191203120641-2" author="valerio.diego">
+    <changeSet id="20191203120641-3" author="valerio.diego">
+        <addNotNullConstraint tableName="storico_telefono" columnName="data_attivazione" columnDataType="date"/>
         <modifyDataType tableName="storico_telefono" columnName="data_attivazione" newDataType="datetime"/>
         <modifyDataType tableName="storico_telefono" columnName="data_cessazione" newDataType="datetime"/>
         <modifyDataType tableName="storico_telefono" columnName="servizi" newDataType="text"/>
