@@ -69,6 +69,8 @@
 
     </changeSet>
     <changeSet author="valerio.diego" id="20181220071847-2">
+        <modifyDataType tableName="telefono" columnName="data_attivazione" newDataType="datetime"/>
+        <modifyDataType tableName="telefono" columnName="data_cessazione" newDataType="datetime"/>
         <addNotNullConstraint tableName="telefono" columnName="numero_contratto" columnDataType="varchar(255)"/>
         <addNotNullConstraint tableName="telefono" columnName="contratto" columnDataType="longblob"/>
         <addNotNullConstraint tableName="telefono" columnName="contratto_content_type" columnDataType="varchar(255)"/>

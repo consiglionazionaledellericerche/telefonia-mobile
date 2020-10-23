@@ -38,16 +38,20 @@
 
     </changeSet>
     <changeSet id="20181220072701-2" author="valerio.diego">
+        <modifyDataType tableName="operatore" columnName="data" newDataType="datetime"/>
         <addColumn tableName="operatore">
             <column name="data_fine" type="datetime">
                 <constraints nullable="true" />
             </column>
+
             <column name="numero_contratto" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+
             <column name="contratto" type="longblob">
                 <constraints nullable="true" />
             </column>
+
             <column name="contratto_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
