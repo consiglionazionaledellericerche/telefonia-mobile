@@ -43,13 +43,13 @@
                 <constraints nullable="true" />
             </column>
             <column name="numero_contratto" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="contratto" type="longblob">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="contratto_content_type" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
         </addColumn>
     </changeSet>
