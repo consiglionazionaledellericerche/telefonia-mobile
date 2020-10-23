@@ -35,9 +35,8 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
-    </changeSet>
 
+    </changeSet>
     <changeSet id="20181220072701-2" author="valerio.diego">
         <addColumn tableName="operatore">
             <column name="data_fine" type="datetime">

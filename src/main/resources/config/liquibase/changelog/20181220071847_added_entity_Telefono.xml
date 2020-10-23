@@ -25,11 +25,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="data_attivazione" type="datetime">
+            <column name="data_attivazione" type="date">
                 <constraints nullable="false" />
             </column>
 
-            <column name="data_cessazione" type="datetime">
+            <column name="data_cessazione" type="date">
                 <constraints nullable="true" />
             </column>
 
@@ -68,7 +68,6 @@
         </createTable>
 
     </changeSet>
-
     <changeSet author="valerio.diego" id="20181220071847-2">
         <addNotNullConstraint tableName="telefono" columnName="numero_contratto" columnDataType="varchar(255)"/>
         <addNotNullConstraint tableName="telefono" columnName="contratto" columnDataType="longblob"/>
