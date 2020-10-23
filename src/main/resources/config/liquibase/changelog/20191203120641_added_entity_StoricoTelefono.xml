@@ -49,11 +49,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="operatore" type="text">
+            <column name="operatore" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="servizi" type="text">
+            <column name="servizi" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -73,6 +73,11 @@
         </createTable>
         <dropDefaultValue tableName="storico_telefono" columnName="data_modifica" columnDataType="datetime"/>
         
+    </changeSet>
+
+    <changeSet id="20191203120641-2" author="valerio.diego">
+        <modifyDataType tableName="storico_telefono" columnName="servizi" newDataType="text"/>
+        <modifyDataType tableName="storico_telefono" columnName="operatore" newDataType="text"/>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

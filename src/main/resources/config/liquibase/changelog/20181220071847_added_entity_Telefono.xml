@@ -38,7 +38,7 @@
             </column>
 
             <column name="numero_contratto" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="cdsuo" type="varchar(255)">
@@ -58,15 +58,21 @@
             </column>
 
             <column name="contratto" type="longblob">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="contratto_content_type" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
+    </changeSet>
+
+    <changeSet author="valerio.diego" id="20181220071847-2">
+        <addNotNullConstraint tableName="telefono" columnName="numero_contratto" columnDataType="varchar(255)"/>
+        <addNotNullConstraint tableName="telefono" columnName="contratto" columnDataType="longblob"/>
+        <addNotNullConstraint tableName="telefono" columnName="contratto_content_type" columnDataType="varchar(255)"/>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

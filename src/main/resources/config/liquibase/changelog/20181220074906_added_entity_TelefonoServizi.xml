@@ -25,14 +25,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="data_inizio" type="datetime">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="data_fine" type="datetime">
-                <constraints nullable="false" />
-            </column>
-
             <column name="servizi_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -44,6 +36,18 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
+    </changeSet>
+
+    <changeSet id="20181220074906-2" author="valerio.diego">
+        <addColumn tableName="telefono_servizi">
+            <column name="data_inizio" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="data_fine" type="datetime">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
