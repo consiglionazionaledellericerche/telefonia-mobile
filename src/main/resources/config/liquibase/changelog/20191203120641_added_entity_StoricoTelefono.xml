@@ -25,11 +25,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="data_attivazione" type="datetime">
+            <column name="data_attivazione" type="date">
                 <constraints nullable="false" />
             </column>
 
-            <column name="data_cessazione" type="datetime">
+            <column name="data_cessazione" type="date">
                 <constraints nullable="true" />
             </column>
 
