@@ -38,7 +38,7 @@
         
     </changeSet>
 
-    <changeSet id="20181220074906-2" author="valerio.diego">
+    <changeSet id="20181220074906-3" author="valerio.diego">
         <addColumn tableName="telefono_servizi">
             <column name="data_inizio" type="datetime">
                 <constraints nullable="false" />
