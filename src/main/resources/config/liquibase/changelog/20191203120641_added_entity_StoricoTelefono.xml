@@ -75,6 +75,8 @@
 
     </changeSet>
     <changeSet id="20191203120641-2" author="valerio.diego">
+        <modifyDataType tableName="storico_telefono" columnName="data_attivazione" newDataType="datetime"/>
+        <modifyDataType tableName="storico_telefono" columnName="data_cessazione" newDataType="datetime"/>
         <modifyDataType tableName="storico_telefono" columnName="servizi" newDataType="text"/>
         <modifyDataType tableName="storico_telefono" columnName="operatore" newDataType="text"/>
     </changeSet>
