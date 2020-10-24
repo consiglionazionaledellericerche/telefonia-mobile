@@ -35,17 +35,17 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
 
     <changeSet id="20181220074906-3" author="valerio.diego">
         <addColumn tableName="telefono_servizi">
             <column name="data_inizio" type="datetime">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="data_fine" type="datetime">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
         </addColumn>
     </changeSet>
