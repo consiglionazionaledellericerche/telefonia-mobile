@@ -51,10 +51,7 @@ export class ValidazioneService {
 
     private convertDateFromClient(validazione: IValidazione): IValidazione {
         const copy: IValidazione = Object.assign({}, validazione, {
-            dataModifica:
-                validazione.dataModifica != null && validazione.dataModifica.isValid()
-                    ? validazione.dataModifica.format(DATE_FORMAT)
-                    : null,
+            dataModifica: validazione.dataModifica != null && validazione.dataModifica.isValid() ? validazione.dataModifica.toJSON() : null,
             dataValidazione:
                 validazione.dataValidazione != null && validazione.dataValidazione.isValid() ? validazione.dataValidazione.toJSON() : null
         });
