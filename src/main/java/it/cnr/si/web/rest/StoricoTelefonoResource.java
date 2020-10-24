@@ -82,7 +82,7 @@ public class StoricoTelefonoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/storico-telefonos")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<StoricoTelefono> createStoricoTelefono(@Valid @RequestBody StoricoTelefono storicoTelefono) throws URISyntaxException {
         log.debug("REST request to save StoricoTelefono : {}", storicoTelefono);
@@ -105,7 +105,7 @@ public class StoricoTelefonoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/storico-telefonos")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<StoricoTelefono> updateStoricoTelefono(@Valid @RequestBody StoricoTelefono storicoTelefono) throws URISyntaxException {
         log.debug("REST request to update StoricoTelefono : {}", storicoTelefono);
@@ -125,7 +125,7 @@ public class StoricoTelefonoResource {
      * @return the ResponseEntity with status 200 (OK) and the list of storicoTelefonos in body
      */
     @GetMapping("/storico-telefonos")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<List<StoricoTelefono>> getAllStoricoTelefonos(Pageable pageable) {
         log.debug("REST request to get a page of StoricoTelefonos");
@@ -141,7 +141,7 @@ public class StoricoTelefonoResource {
      * @return the ResponseEntity with status 200 (OK) and with body the storicoTelefono, or with status 404 (Not Found)
      */
     @GetMapping("/storico-telefonos/{id}")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<StoricoTelefono> getStoricoTelefono(@PathVariable Long id) {
         log.debug("REST request to get StoricoTelefono : {}", id);
@@ -156,7 +156,7 @@ public class StoricoTelefonoResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/storico-telefonos/{id}")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<Void> deleteStoricoTelefono(@PathVariable Long id) {
         log.debug("REST request to delete StoricoTelefono : {}", id);

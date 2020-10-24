@@ -52,7 +52,7 @@ public class ServiziResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/servizis")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<Servizi> createServizi(@Valid @RequestBody Servizi servizi) throws URISyntaxException {
         log.debug("REST request to save Servizi : {}", servizi);
@@ -75,7 +75,7 @@ public class ServiziResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/servizis")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<Servizi> updateServizi(@Valid @RequestBody Servizi servizi) throws URISyntaxException {
         log.debug("REST request to update Servizi : {}", servizi);
@@ -124,7 +124,7 @@ public class ServiziResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/servizis/{id}")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<Void> deleteServizi(@PathVariable Long id) {
         log.debug("REST request to delete Servizi : {}", id);
