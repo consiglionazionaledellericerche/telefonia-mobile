@@ -103,7 +103,7 @@ public class OperatoreResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         String sede = SecurityUtils.getCdS();
-        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN) ||
+        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
             operatore.getTelefonoOperatore().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -127,7 +127,7 @@ public class OperatoreResource {
         String sede = SecurityUtils.getCdS();
 
         Page<Operatore> page;
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN))
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             page = operatoreRepository.findAllActive(false,pageable);
         else
             page = operatoreRepository.findByIntestatarioContrattoStartsWith(sede.concat("%"),false, pageable);
@@ -171,7 +171,7 @@ public class OperatoreResource {
     public ResponseEntity<List<Telefono>> findTelefono() {
         List<Telefono> telefoni;
         String sede = SecurityUtils.getCdS();
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN))
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             telefoni = telefonoRepository.findByDeletedFalse();
         else
             telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede,false);

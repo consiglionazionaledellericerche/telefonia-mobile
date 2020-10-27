@@ -114,7 +114,7 @@ public class TelefonoResource {
         }
 
         String sede = SecurityUtils.getCdS();
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN) &&
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) &&
             !telefono.getIntestatarioContratto().startsWith(sede)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -143,7 +143,7 @@ public class TelefonoResource {
         log.debug("REST request to get a page of Telefonos");
         String sede = SecurityUtils.getCdS();
         Page<Telefono> telefoni;
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             telefoni = telefonoRepository.findByDeletedFalse(pageable);
         } else {
             telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede, false, pageable);
@@ -167,7 +167,7 @@ public class TelefonoResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         String sede = SecurityUtils.getCdS();
-        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN) ||
+        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
             telefono.get().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -190,7 +190,7 @@ public class TelefonoResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         String sede = SecurityUtils.getCdS();
-        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN) || telefono.get().getIntestatarioContratto().startsWith(sede))) {
+        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || telefono.get().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         Telefono tel = telefono.get();
@@ -228,7 +228,7 @@ public class TelefonoResource {
             .stream()
             .filter(entitaOrganizzativa -> Optional.ofNullable(entitaOrganizzativa.getCdsuo()).isPresent())
             .filter(entitaOrganizzativaWebDto -> {
-                if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN)) {
+                if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
                     return true;
                 } else {
                     return entitaOrganizzativaWebDto.getCdsuo().startsWith(sede);

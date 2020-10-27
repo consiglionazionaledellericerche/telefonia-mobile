@@ -169,7 +169,7 @@ public class StoricoTelefonoResource {
     ///Visualizza query per anno
 
     @GetMapping("/storico-telefonos/vista")
-    @Secured(AuthoritiesConstants.SUPERUSER)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<List<StoricoTelefono>> getVista(Pageable pageable) throws IOException, PrinterException, URISyntaxException {
         log.debug("REST request to get a page of Storico Telefono getVista");
