@@ -89,7 +89,7 @@ public class TelefonoServiziResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         String sede = SecurityUtils.getCdS();
-        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN) ||
+        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
             telefonoServizi.getTelefono().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -113,7 +113,7 @@ public class TelefonoServiziResource {
         String sede = SecurityUtils.getCdS();
 
         Page<TelefonoServizi> page;
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN))
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             page = telefonoServiziRepository.findAllActive(false, pageable);
         else
             page = telefonoServiziRepository.findByIntestatarioContrattoStartsWith(sede.concat("%"), false, pageable);
@@ -152,7 +152,7 @@ public class TelefonoServiziResource {
 
         String sede = SecurityUtils.getCdS();
 
-        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN) ||
+        if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
             telefonoServizi.get().getTelefono().getIntestatarioContratto().startsWith(sede))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -168,7 +168,7 @@ public class TelefonoServiziResource {
     public ResponseEntity<List<Telefono>> findTelefono() {
         String sede = SecurityUtils.getCdS();
         List<Telefono> telefoni;
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN))
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             telefoni = telefonoRepository.findByDeletedFalse();
         else
             telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede.concat("%"), false);
