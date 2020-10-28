@@ -6,6 +6,7 @@ import it.cnr.si.domain.Validazione;
 import it.cnr.si.repository.ValidazioneRepository;
 import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.security.SecurityUtils;
+import it.cnr.si.service.AceService;
 import it.cnr.si.service.TelefonoService;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import it.cnr.si.web.rest.util.HeaderUtil;
@@ -34,6 +35,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ValidazioneResource {
+
+    @Autowired
+    private AceService ace;
 
     private static final String ENTITY_NAME = "validazione";
     private final Logger log = LoggerFactory.getLogger(ValidazioneResource.class);
@@ -140,5 +144,21 @@ public class ValidazioneResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
-
+    /**
+     * VALIDAZIONE  /valida/:id : valida the "id" validazione.
+     *
+     * @param id the id of the validazione to delete
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @GetMapping("/validaziones/valida/{id}")
+    @Timed
+    public ResponseEntity<Void> valida(@PathVariable Long id) {
+        log.debug("REST request to valida: {}", id);
+        Validazione validazione = validazioneRepository.findById(id).get();
+        String user = ace.getUtente(SecurityUtils.getCurrentUserLogin().get()).getUsername();
+        validazione.setUserDirettore(user);
+        validazione.setDataValidazione(ZonedDateTime.now());
+        validazioneRepository.save(validazione);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
+    }
 }
