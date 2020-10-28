@@ -191,17 +191,26 @@ public class OperatoreResource {
 
         Page<Operatore> pageOperatore = operatoreRepository.findAllActive(false,pageable);
         List<Operatore> listOperatore =  new ArrayList<>();
+        String annoInizio = null;
+        String annoFine = null;
         for (Operatore operatore : pageOperatore.getContent()) {
-            String annoInizio = operatore.getData().toString();
-            String annoFine = operatore.getDataFine().toString();
-            annoInizio = annoInizio.substring(0,4);
-            annoFine = annoFine.substring(0,4);
+            annoInizio = operatore.getData().toString();
+            log.debug("annoFine: {}",annoFine);
+            annoInizio = annoInizio.substring(0, 4);
             int annoIni = parseInt(annoInizio);
-            int annoFin = parseInt(annoFine);
-            if(anno<annoIni || anno>annoFin) {
+            if(operatore.getDataFine() == null){
+                if(annoIni<=anno){
+                    listOperatore.add(operatore);
+                }
             }
-            else{
-                listOperatore.add(operatore);
+            else {
+                annoFine = operatore.getDataFine().toString();
+                annoFine = annoFine.substring(0, 4);
+                int annoFin = parseInt(annoFine);
+                if (anno < annoIni || anno > annoFin) {
+                } else {
+                    listOperatore.add(operatore);
+                }
             }
         }
         final Page<Operatore> page = new PageImpl<>(listOperatore, pageable,listOperatore.size());
