@@ -9,6 +9,7 @@
         </button>
     </h2>
     <div *jhiHasAnyAuthority="['ROLE_ADMIN']">
+        Cerca per Anno
     <input type="text" name="anno" [(ngModel)]="anno"> <button jhiTranslate="telefoniaApp.operatore.cerca" (click)="telefonoAnno(anno)" class="btn btn-danger btn-sm">
         <span class="d-none d-md-inline" jhiTranslate="entity.action.noComplete">no Completata</span>
     </button>
