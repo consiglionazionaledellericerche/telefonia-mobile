@@ -138,4 +138,11 @@ export class OperatoreComponent implements OnInit, OnDestroy {
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
+    telefonoAnno(anno: number) {
+        this.operatoreService.telefonoAnno(anno).subscribe(response => {
+            console.log(response), this.paginateOperatores(response.body, response.headers);
+            // this.loadAll();
+        });
+    }
 }

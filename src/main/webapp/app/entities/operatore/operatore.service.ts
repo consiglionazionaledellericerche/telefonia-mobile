@@ -73,4 +73,9 @@ export class OperatoreService {
     findTelefono() {
         return this.http.get<any>(`${this.resourceUrl}/findTelefono`);
     }
+
+    telefonoAnno(anno: number): Observable<HttpResponse<any>> {
+        console.log('entriiiii');
+        return this.http.get<any>(`${this.resourceUrl}/telefoniAnno/${anno}`, { observe: 'response' });
+    }
 }

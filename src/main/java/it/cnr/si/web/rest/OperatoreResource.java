@@ -21,6 +21,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,12 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * REST controller for managing Operatore.
@@ -177,5 +181,31 @@ public class OperatoreResource {
             telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede,false);
 
         return ResponseEntity.ok(telefoni);
+    }
+
+    //Per fare visualizzazione Annua telefoni attivi
+    @GetMapping("/operatores/telefoniAnno/{anno}")
+    @Timed
+    public ResponseEntity<List<Operatore>> getTelefonoAnno(Pageable pageable,@PathVariable int anno) {
+        log.debug("REST request to get a page of Operatores");
+
+        Page<Operatore> pageOperatore = operatoreRepository.findAllActive(false,pageable);
+        List<Operatore> listOperatore =  new ArrayList<>();
+        for (Operatore operatore : pageOperatore.getContent()) {
+            String annoInizio = operatore.getData().toString();
+            String annoFine = operatore.getDataFine().toString();
+            annoInizio = annoInizio.substring(0,4);
+            annoFine = annoFine.substring(0,4);
+            int annoIni = parseInt(annoInizio);
+            int annoFin = parseInt(annoFine);
+            if(anno<annoIni || anno>annoFin) {
+            }
+            else{
+                listOperatore.add(operatore);
+            }
+        }
+        final Page<Operatore> page = new PageImpl<>(listOperatore, pageable,listOperatore.size());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/operatores");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }
