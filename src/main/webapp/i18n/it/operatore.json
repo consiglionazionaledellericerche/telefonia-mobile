@@ -21,7 +21,8 @@
             "numeroContratto": "Numero Contratto",
             "contratto": "Contratto",
             "telefonoOperatore": "Telefono",
-            "listaOperatori": "Operatore"
+            "listaOperatori": "Operatore",
+            "cerca": "Cerca"
         }
     }
 }
