@@ -29,6 +29,7 @@ export class OperatoreComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    anno: number;
 
     constructor(
         private operatoreService: OperatoreService,
