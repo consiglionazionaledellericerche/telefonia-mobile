@@ -110,7 +110,7 @@ jhipster:
 
 telefoniamobile:
     username: app.telefoniamobile
-    password: '!TlFnMbIl#2019'
+    password: 'changeme'
 
 ace:
     url: "http://zuul-server.test.si.cnr.it/api"

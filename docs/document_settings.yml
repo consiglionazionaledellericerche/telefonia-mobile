@@ -1,0 +1,12 @@
+---
+document:
+  name: "Telefonia Mobile"
+  description: "Sistema per l’inserimento delle utenze della Telefonia Mobile del Consiglio Nazionale delle Ricerhe"
+  github_user: consiglionazionaledellericerche
+  github_repo: telefonia-mobile
+  github_version: master/docs
+  downloads:
+    - type: pdf
+      url: Manuale-Telefonia-Mobile.pdf
+    - type: epub
+      url: Manuale-Telefonia-Mobile.epub
