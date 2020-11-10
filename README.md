@@ -1,4 +1,6 @@
 # Telefonia Mobile
+_Sistema per l’inserimento delle utenze della Telefonia Mobile del Consiglio Nazionale delle Ricerche_
+
 This application was generated using JHipster 5.3.4, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.3.4](https://www.jhipster.tech/documentation-archive/v5.3.4).
 
 ## Development
