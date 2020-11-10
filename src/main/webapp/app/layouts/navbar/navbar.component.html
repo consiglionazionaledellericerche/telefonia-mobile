@@ -44,7 +44,7 @@
                 </a>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li  *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li  *ngSwitchCase="true" *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a *jhiHasAnyAuthority="'ROLE_SUPERUSER'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon [icon]="'users-cog'"></fa-icon>
@@ -54,7 +54,7 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
-                    <li *jhiHasAnyAuthority="'ROLE_SUPERUSER'">
+                    <li>
                         <a class="dropdown-item" routerLink="servizi" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'toolbox'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.servizi">-->
@@ -62,7 +62,7 @@
                             <!--</span>-->
                         </a>
                     </li>
-                    <li *jhiHasAnyAuthority="'ROLE_SUPERUSER'">
+                    <li>
                         <a class="dropdown-item" routerLink="lista-operatori" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'money-check-alt'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.listaOperatori">-->
@@ -70,7 +70,7 @@
                             <!--</span>-->
                         </a>
                     </li>
-                    <li *jhiHasAnyAuthority="'ROLE_SUPERUSER'">
+                    <li>
                         <a class="dropdown-item" routerLink="storico-telefono" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'history'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.storicoTelefono">-->
@@ -78,7 +78,7 @@
                             <!--</span>-->
                         </a>
                     </li>
-                    <li *jhiHasAnyAuthority="'ROLE_SUPERUSER'">
+                    <li>
                         <a class="dropdown-item" routerLink="storico-telefono/vista" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'file-pdf'" class="text-danger" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.storicoTelefono">-->
