@@ -48,10 +48,12 @@ public class CacheService {
     public List<NodeDto> getGerarchiaUffici() {
         return aceService.getGerarchiaUffici();
     }
+
     @Cacheable(ACE_SEDE_LAVORO)
     public List<EntitaOrganizzativaWebDto> getSediDiLavoro() {
         return aceService.entitaOrganizzativaFind(null, null, null, LocalDate.now(), 44).getItems();
     }
+
     @Scheduled(cron = "0 0 1 * * ?")
     public void evictAllcachesAtIntervals() {
         evictAllCaches();

@@ -18,7 +18,6 @@
 package it.cnr.si.repository;
 
 import it.cnr.si.domain.Authority;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

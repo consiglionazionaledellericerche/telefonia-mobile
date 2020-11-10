@@ -18,25 +18,21 @@
 package it.cnr.si.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import it.cnr.si.repository.TelefonoRepository;
-import it.cnr.si.security.AuthoritiesConstants;
-import it.cnr.si.service.AceService;
-import it.cnr.si.service.OperatoreService;
-import it.cnr.si.service.TelefonoService;
-import it.cnr.si.web.rest.util.HeaderUtil;
-import it.cnr.si.web.rest.util.PaginationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.jhipster.web.util.ResponseUtil;
 import it.cnr.si.domain.Operatore;
 import it.cnr.si.domain.Telefono;
 import it.cnr.si.repository.OperatoreRepository;
 import it.cnr.si.repository.TelefonoRepository;
+import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.security.SecurityUtils;
+import it.cnr.si.service.OperatoreService;
+import it.cnr.si.service.TelefonoService;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -48,9 +44,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +57,8 @@ import static java.lang.Integer.parseInt;
 @RequestMapping("/api")
 public class OperatoreResource {
 
+    private static final String ENTITY_NAME = "operatore";
+    private final Logger log = LoggerFactory.getLogger(OperatoreResource.class);
     @Autowired
     private TelefonoRepository telefonoRepository;
     @Autowired
@@ -71,10 +67,6 @@ public class OperatoreResource {
     private OperatoreRepository operatoreRepository;
     @Autowired
     private OperatoreService operatoreService;
-
-    private final Logger log = LoggerFactory.getLogger(OperatoreResource.class);
-
-    private static final String ENTITY_NAME = "operatore";
 
     /**
      * POST  /operatores : Create a new operatore.
@@ -91,17 +83,17 @@ public class OperatoreResource {
             throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
         }
         operatoreService.controlloDate(operatore);
-      //  operatoreService.controlloEsisteOperatore(operatore); //Non serve perchè va bene 1 a N
-      /**  List<Operatore> op = operatoreRepository.findByTelefonoOperatore(operatore.getTelefonoOperatore());
-        Iterator i = op.iterator();
-        while (i.hasNext()) {
-            Object o = i.next();
-            if(operatore.getId().equals(((Operatore) o).getId())){
-                throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }*/
+        //  operatoreService.controlloEsisteOperatore(operatore); //Non serve perchè va bene 1 a N
+        /**  List<Operatore> op = operatoreRepository.findByTelefonoOperatore(operatore.getTelefonoOperatore());
+         Iterator i = op.iterator();
+         while (i.hasNext()) {
+         Object o = i.next();
+         if(operatore.getId().equals(((Operatore) o).getId())){
+         throw new BadRequestAlertException("A new operatore cannot already have an ID", ENTITY_NAME, "idexists");
+         }
+         }*/
         Operatore result = operatoreRepository.save(operatore);
-        telefonoService.salvabackground(operatore.getTelefonoOperatore(),"MODIFICATO OPERATORE ");
+        telefonoService.salvabackground(operatore.getTelefonoOperatore(), "MODIFICATO OPERATORE ");
         return ResponseEntity.created(new URI("/api/operatores/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -149,9 +141,9 @@ public class OperatoreResource {
 
         Page<Operatore> page;
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
-            page = operatoreRepository.findAllActive(false,pageable);
+            page = operatoreRepository.findAllActive(false, pageable);
         else
-            page = operatoreRepository.findByIntestatarioContrattoStartsWith(sede.concat("%"),false, pageable);
+            page = operatoreRepository.findByIntestatarioContrattoStartsWith(sede.concat("%"), false, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/operatores");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -195,7 +187,7 @@ public class OperatoreResource {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             telefoni = telefonoRepository.findByDeletedFalse();
         else
-            telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede,false);
+            telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede, false);
 
         return ResponseEntity.ok(telefoni);
     }
@@ -203,24 +195,23 @@ public class OperatoreResource {
     //Per fare visualizzazione Annua telefoni attivi
     @GetMapping("/operatores/telefoniAnno/{anno}")
     @Timed
-    public ResponseEntity<List<Operatore>> getTelefonoAnno(Pageable pageable,@PathVariable int anno) {
+    public ResponseEntity<List<Operatore>> getTelefonoAnno(Pageable pageable, @PathVariable int anno) {
         log.debug("REST request to get a page of Operatores");
 
-        Page<Operatore> pageOperatore = operatoreRepository.findAllActive(false,pageable);
-        List<Operatore> listOperatore =  new ArrayList<>();
+        Page<Operatore> pageOperatore = operatoreRepository.findAllActive(false, pageable);
+        List<Operatore> listOperatore = new ArrayList<>();
         String annoInizio = null;
         String annoFine = null;
         for (Operatore operatore : pageOperatore.getContent()) {
             annoInizio = operatore.getData().toString();
-            log.debug("annoFine: {}",annoFine);
+            log.debug("annoFine: {}", annoFine);
             annoInizio = annoInizio.substring(0, 4);
             int annoIni = parseInt(annoInizio);
-            if(operatore.getDataFine() == null){
-                if(annoIni<=anno){
+            if (operatore.getDataFine() == null) {
+                if (annoIni <= anno) {
                     listOperatore.add(operatore);
                 }
-            }
-            else {
+            } else {
                 annoFine = operatore.getDataFine().toString();
                 annoFine = annoFine.substring(0, 4);
                 int annoFin = parseInt(annoFine);
@@ -230,7 +221,7 @@ public class OperatoreResource {
                 }
             }
         }
-        final Page<Operatore> page = new PageImpl<>(listOperatore, pageable,listOperatore.size());
+        final Page<Operatore> page = new PageImpl<>(listOperatore, pageable, listOperatore.size());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/operatores");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

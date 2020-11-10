@@ -18,7 +18,6 @@
 package it.cnr.si.config.audit;
 
 import it.cnr.si.domain.PersistentAuditEvent;
-
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;

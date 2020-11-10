@@ -17,7 +17,6 @@
 
 package it.cnr.si.security;
 
-import it.cnr.si.repository.UserRepository;
 import it.cnr.si.domain.User;
 import it.cnr.si.repository.UserRepository;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
@@ -31,7 +30,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**

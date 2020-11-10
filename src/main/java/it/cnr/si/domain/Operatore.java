@@ -18,16 +18,13 @@
 package it.cnr.si.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.models.auth.In;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -86,17 +83,21 @@ public class Operatore implements Serializable {
         return data;
     }
 
+    public void setData(Instant data) {
+        this.data = data;
+    }
+
     public Operatore data(Instant data) {
         this.data = data;
         return this;
     }
 
-    public void setData(Instant data) {
-        this.data = data;
-    }
-
     public Instant getDataFine() {
         return dataFine;
+    }
+
+    public void setDataFine(Instant dataFine) {
+        this.dataFine = dataFine;
     }
 
     public Operatore dataFine(Instant dataFine) {
@@ -104,12 +105,12 @@ public class Operatore implements Serializable {
         return this;
     }
 
-    public void setDataFine(Instant dataFine) {
-        this.dataFine = dataFine;
-    }
-
     public String getNumeroContratto() {
         return numeroContratto;
+    }
+
+    public void setNumeroContratto(String numeroContratto) {
+        this.numeroContratto = numeroContratto;
     }
 
     public Operatore numeroContratto(String numeroContratto) {
@@ -117,12 +118,12 @@ public class Operatore implements Serializable {
         return this;
     }
 
-    public void setNumeroContratto(String numeroContratto) {
-        this.numeroContratto = numeroContratto;
-    }
-
     public byte[] getContratto() {
         return contratto;
+    }
+
+    public void setContratto(byte[] contratto) {
+        this.contratto = contratto;
     }
 
     public Operatore contratto(byte[] contratto) {
@@ -130,12 +131,12 @@ public class Operatore implements Serializable {
         return this;
     }
 
-    public void setContratto(byte[] contratto) {
-        this.contratto = contratto;
-    }
-
     public String getContrattoContentType() {
         return contrattoContentType;
+    }
+
+    public void setContrattoContentType(String contrattoContentType) {
+        this.contrattoContentType = contrattoContentType;
     }
 
     public Operatore contrattoContentType(String contrattoContentType) {
@@ -143,12 +144,12 @@ public class Operatore implements Serializable {
         return this;
     }
 
-    public void setContrattoContentType(String contrattoContentType) {
-        this.contrattoContentType = contrattoContentType;
-    }
-
     public Telefono getTelefonoOperatore() {
         return telefonoOperatore;
+    }
+
+    public void setTelefonoOperatore(Telefono telefono) {
+        this.telefonoOperatore = telefono;
     }
 
     public Operatore telefonoOperatore(Telefono telefono) {
@@ -156,21 +157,17 @@ public class Operatore implements Serializable {
         return this;
     }
 
-    public void setTelefonoOperatore(Telefono telefono) {
-        this.telefonoOperatore = telefono;
-    }
-
     public ListaOperatori getListaOperatori() {
         return listaOperatori;
+    }
+
+    public void setListaOperatori(ListaOperatori listaOperatori) {
+        this.listaOperatori = listaOperatori;
     }
 
     public Operatore listaOperatori(ListaOperatori listaOperatori) {
         this.listaOperatori = listaOperatori;
         return this;
-    }
-
-    public void setListaOperatori(ListaOperatori listaOperatori) {
-        this.listaOperatori = listaOperatori;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

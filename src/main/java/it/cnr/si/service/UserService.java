@@ -24,29 +24,19 @@ import it.cnr.si.repository.AuthorityRepository;
 import it.cnr.si.repository.UserRepository;
 import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.security.SecurityUtils;
+import it.cnr.si.service.dto.UserDTO;
 import it.cnr.si.service.util.RandomUtil;
 import it.cnr.si.web.rest.errors.EmailAlreadyUsedException;
 import it.cnr.si.web.rest.errors.InvalidPasswordException;
 import it.cnr.si.web.rest.errors.LoginAlreadyUsedException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import it.cnr.si.config.Constants;
-import it.cnr.si.domain.Authority;
-import it.cnr.si.domain.User;
-import it.cnr.si.repository.AuthorityRepository;
-import it.cnr.si.repository.UserRepository;
-import it.cnr.si.security.AuthoritiesConstants;
-import it.cnr.si.security.SecurityUtils;
-import it.cnr.si.service.dto.UserDTO;
-import it.cnr.si.service.util.RandomUtil;
-import it.cnr.si.web.rest.errors.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -152,9 +142,10 @@ public class UserService {
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
-    private boolean removeNonActivatedUser(User existingUser){
-        if(existingUser.getActivated()) {
-             return false;
+
+    private boolean removeNonActivatedUser(User existingUser) {
+        if (existingUser.getActivated()) {
+            return false;
         }
         userRepository.delete(existingUser);
         userRepository.flush();
@@ -197,10 +188,10 @@ public class UserService {
      * Update basic information (first name, last name, email, language) for the current user.
      *
      * @param firstName first name of user
-     * @param lastName last name of user
-     * @param email email id of user
-     * @param langKey language key
-     * @param imageUrl image URL of user
+     * @param lastName  last name of user
+     * @param email     email id of user
+     * @param langKey   language key
+     * @param imageUrl  image URL of user
      */
     public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
@@ -296,8 +287,9 @@ public class UserService {
         u.setAuthorities(SecurityContextHolder.getContext().getAuthentication()
             .getAuthorities()
             .stream()
-            .map(auth -> {Authority a = new Authority();
-                a.setName(((GrantedAuthority) auth).getAuthority());
+            .map(auth -> {
+                Authority a = new Authority();
+                a.setName(auth.getAuthority());
                 return a;
             })
             .collect(Collectors.toSet()));

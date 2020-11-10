@@ -17,25 +17,21 @@
 
 package it.cnr.si.service;
 
-import it.cnr.si.domain.*;
+import it.cnr.si.domain.Operatore;
 import it.cnr.si.repository.*;
-import it.cnr.si.security.SecurityUtils;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class OperatoreService {
-    private final Logger log = LoggerFactory.getLogger(OperatoreService.class);
-
     private static final String ENTITY_NAME = "operatore";
-
+    private final Logger log = LoggerFactory.getLogger(OperatoreService.class);
     private final TelefonoRepository telefonoRepository;
     private final TelefonoServiziRepository telefonoServiziRepository;
     private final OperatoreRepository operatoreRepository;
@@ -52,34 +48,33 @@ public class OperatoreService {
         this.telefonoRepository = telefonoRepository;
     }
 
-    public void controlloEsisteOperatore(Operatore operatore){
+    public void controlloEsisteOperatore(Operatore operatore) {
         List<Operatore> op = operatoreRepository.findByTelefonoOperatore(operatore.getTelefonoOperatore());
         Iterator i = op.iterator();
         while (i.hasNext()) {
             Object o = i.next();
-            if(operatore.getTelefonoOperatore().getId().equals(((Operatore) o).getTelefonoOperatore().getId())){
+            if (operatore.getTelefonoOperatore().getId().equals(((Operatore) o).getTelefonoOperatore().getId())) {
                 throw new BadRequestAlertException("Telefono già inserito", ENTITY_NAME, "telefonoInserito");
             }
         }
     }
 
 
-    public void controlloDate(Operatore operatore){
+    public void controlloDate(Operatore operatore) {
         log.debug("Entrato in controllo Date {}", operatore);
         Instant data = operatore.getData();
         Instant dataFine = operatore.getDataFine();
         String risposta = "no";
-        if(dataFine != null){
-            if(data.isAfter(dataFine)){//Fare controllo che data attivazione minore di data Cessazione
+        if (dataFine != null) {
+            if (data.isAfter(dataFine)) {//Fare controllo che data attivazione minore di data Cessazione
                 throw new BadRequestAlertException("Data Inizio è maggiore di data Fine", ENTITY_NAME, "dataInizioMaggioreDataFine");
             }
         }
 
         List<Operatore> telefoniNumeroUguale = operatoreRepository.findByTelefonoOperatore(operatore.getTelefonoOperatore());
-        if(telefoniNumeroUguale == null || telefoniNumeroUguale.isEmpty()) {
+        if (telefoniNumeroUguale == null || telefoniNumeroUguale.isEmpty()) {
             //vuol dire che non esiste nessun Telefono
-        }
-        else{
+        } else {
             /**
              * Creare iterator per telefoniNumeroUguale
              */
@@ -87,16 +82,15 @@ public class OperatoreService {
             while (i.hasNext()) {
                 Object t = i.next();
                 //pensare se si è in modifica e sta provando a modificare un qualcosa di già inserito
-                log.debug("idOperatore {}",operatore.getId());
-                log.debug("idOperatore Iterator {}",((Operatore) t).getId());
+                log.debug("idOperatore {}", operatore.getId());
+                log.debug("idOperatore Iterator {}", ((Operatore) t).getId());
                 Long idOperatore = operatore.getId();
-                if (idOperatore == null){
+                if (idOperatore == null) {
                     idOperatore = 0L;
                 }
                 if (idOperatore.equals(((Operatore) t).getId())) {
-                }
-                else{
-                    if(((Operatore) t).getDataFine() == null){
+                } else {
+                    if (((Operatore) t).getDataFine() == null) {
                         throw new BadRequestAlertException("Inserire data Cessazione Vecchio Contratto", ENTITY_NAME, "dataCessazioneVecchioContratto");
                     }
                     if (dataFine != null) {
@@ -114,8 +108,7 @@ public class OperatoreService {
                          *
                          * o data attivazione è dopo data cessazione altro contratto e data cessazione è dopo data cessazione altro contratto
                          */
-                    }
-                    else {
+                    } else {
                         if (data.isBefore(((Operatore) t).getData())) {
                             risposta = "si";
                         }

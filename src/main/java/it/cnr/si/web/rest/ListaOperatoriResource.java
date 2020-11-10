@@ -18,15 +18,12 @@
 package it.cnr.si.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import it.cnr.si.repository.ListaOperatoriRepository;
-import it.cnr.si.web.rest.util.HeaderUtil;
-import it.cnr.si.web.rest.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import it.cnr.si.domain.ListaOperatori;
 import it.cnr.si.repository.ListaOperatoriRepository;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +46,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ListaOperatoriResource {
 
-    private final Logger log = LoggerFactory.getLogger(ListaOperatoriResource.class);
-
     private static final String ENTITY_NAME = "listaOperatori";
-
+    private final Logger log = LoggerFactory.getLogger(ListaOperatoriResource.class);
     private final ListaOperatoriRepository listaOperatoriRepository;
 
     public ListaOperatoriResource(ListaOperatoriRepository listaOperatoriRepository) {

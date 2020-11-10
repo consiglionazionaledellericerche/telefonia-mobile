@@ -22,8 +22,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -94,17 +93,21 @@ public class Validazione implements Serializable {
         return dataModifica;
     }
 
+    public void setDataModifica(LocalDate dataModifica) {
+        this.dataModifica = dataModifica;
+    }
+
     public Validazione dataModifica(LocalDate dataModifica) {
         this.dataModifica = dataModifica;
         return this;
     }
 
-    public void setDataModifica(LocalDate dataModifica) {
-        this.dataModifica = dataModifica;
-    }
-
     public String getDescrizione() {
         return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
     public Validazione descrizione(String descrizione) {
@@ -112,12 +115,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
     public byte[] getDocumentoFirmato() {
         return documentoFirmato;
+    }
+
+    public void setDocumentoFirmato(byte[] documentoFirmato) {
+        this.documentoFirmato = documentoFirmato;
     }
 
     public Validazione documentoFirmato(byte[] documentoFirmato) {
@@ -125,12 +128,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setDocumentoFirmato(byte[] documentoFirmato) {
-        this.documentoFirmato = documentoFirmato;
-    }
-
     public String getDocumentoFirmatoContentType() {
         return documentoFirmatoContentType;
+    }
+
+    public void setDocumentoFirmatoContentType(String documentoFirmatoContentType) {
+        this.documentoFirmatoContentType = documentoFirmatoContentType;
     }
 
     public Validazione documentoFirmatoContentType(String documentoFirmatoContentType) {
@@ -138,12 +141,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setDocumentoFirmatoContentType(String documentoFirmatoContentType) {
-        this.documentoFirmatoContentType = documentoFirmatoContentType;
-    }
-
     public ZonedDateTime getDataValidazione() {
         return dataValidazione;
+    }
+
+    public void setDataValidazione(ZonedDateTime dataValidazione) {
+        this.dataValidazione = dataValidazione;
     }
 
     public Validazione dataValidazione(ZonedDateTime dataValidazione) {
@@ -151,12 +154,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setDataValidazione(ZonedDateTime dataValidazione) {
-        this.dataValidazione = dataValidazione;
-    }
-
     public String getUserDirettore() {
         return userDirettore;
+    }
+
+    public void setUserDirettore(String userDirettore) {
+        this.userDirettore = userDirettore;
     }
 
     public Validazione userDirettore(String userDirettore) {
@@ -164,12 +167,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setUserDirettore(String userDirettore) {
-        this.userDirettore = userDirettore;
-    }
-
     public String getIpValidazione() {
         return ipValidazione;
+    }
+
+    public void setIpValidazione(String ipValidazione) {
+        this.ipValidazione = ipValidazione;
     }
 
     public Validazione ipValidazione(String ipValidazione) {
@@ -177,12 +180,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setIpValidazione(String ipValidazione) {
-        this.ipValidazione = ipValidazione;
-    }
-
     public String getIdFlusso() {
         return idFlusso;
+    }
+
+    public void setIdFlusso(String idFlusso) {
+        this.idFlusso = idFlusso;
     }
 
     public Validazione idFlusso(String idFlusso) {
@@ -190,12 +193,12 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setIdFlusso(String idFlusso) {
-        this.idFlusso = idFlusso;
-    }
-
     public Telefono getValidazioneTelefono() {
         return validazioneTelefono;
+    }
+
+    public void setValidazioneTelefono(Telefono telefono) {
+        this.validazioneTelefono = telefono;
     }
 
     public Validazione validazioneTelefono(Telefono telefono) {
@@ -203,21 +206,17 @@ public class Validazione implements Serializable {
         return this;
     }
 
-    public void setValidazioneTelefono(Telefono telefono) {
-        this.validazioneTelefono = telefono;
-    }
-
     public StoricoTelefono getStampa() {
         return stampa;
+    }
+
+    public void setStampa(StoricoTelefono storicoTelefono) {
+        this.stampa = storicoTelefono;
     }
 
     public Validazione stampa(StoricoTelefono storicoTelefono) {
         this.stampa = storicoTelefono;
         return this;
-    }
-
-    public void setStampa(StoricoTelefono storicoTelefono) {
-        this.stampa = storicoTelefono;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -62,7 +62,7 @@ public final class SecurityUtils {
 
     public static String getCdS() {
         return getSede()
-            .flatMap(entitaOrganizzativa ->  Optional.ofNullable(entitaOrganizzativa.getCdsuo()))
+            .flatMap(entitaOrganizzativa -> Optional.ofNullable(entitaOrganizzativa.getCdsuo()))
             .filter(s -> s.length() > 3)
             .map(s -> s.substring(0, 3))
             .orElse("");

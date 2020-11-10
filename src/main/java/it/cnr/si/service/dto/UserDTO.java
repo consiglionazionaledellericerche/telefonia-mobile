@@ -20,15 +20,11 @@ package it.cnr.si.service.dto;
 import it.cnr.si.config.Constants;
 import it.cnr.si.domain.Authority;
 import it.cnr.si.domain.User;
-import it.cnr.si.config.Constants;
-
-import it.cnr.si.domain.Authority;
-import it.cnr.si.domain.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,15 +68,6 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
-
-    public String getIstituto() {
-        return istituto;
-    }
-
-    public void setIstituto(String istituto) {
-        this.istituto = istituto;
-    }
-
     private String istituto;
 
     public UserDTO() {
@@ -103,6 +90,14 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+    }
+
+    public String getIstituto() {
+        return istituto;
+    }
+
+    public void setIstituto(String istituto) {
+        this.istituto = istituto;
     }
 
     public Long getId() {

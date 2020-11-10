@@ -22,11 +22,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -78,17 +76,21 @@ public class TelefonoServizi implements Serializable {
         return altro;
     }
 
+    public void setAltro(String altro) {
+        this.altro = altro;
+    }
+
     public TelefonoServizi altro(String altro) {
         this.altro = altro;
         return this;
     }
 
-    public void setAltro(String altro) {
-        this.altro = altro;
-    }
-
     public Instant getDataInizio() {
         return dataInizio;
+    }
+
+    public void setDataInizio(Instant dataInizio) {
+        this.dataInizio = dataInizio;
     }
 
     public TelefonoServizi dataInizio(Instant dataInizio) {
@@ -96,12 +98,12 @@ public class TelefonoServizi implements Serializable {
         return this;
     }
 
-    public void setDataInizio(Instant dataInizio) {
-        this.dataInizio = dataInizio;
-    }
-
     public Instant getDataFine() {
         return dataFine;
+    }
+
+    public void setDataFine(Instant dataFine) {
+        this.dataFine = dataFine;
     }
 
     public TelefonoServizi dataFine(Instant dataFine) {
@@ -109,12 +111,12 @@ public class TelefonoServizi implements Serializable {
         return this;
     }
 
-    public void setDataFine(Instant dataFine) {
-        this.dataFine = dataFine;
-    }
-
     public Servizi getServizi() {
         return servizi;
+    }
+
+    public void setServizi(Servizi servizi) {
+        this.servizi = servizi;
     }
 
     public TelefonoServizi servizi(Servizi servizi) {
@@ -122,21 +124,17 @@ public class TelefonoServizi implements Serializable {
         return this;
     }
 
-    public void setServizi(Servizi servizi) {
-        this.servizi = servizi;
-    }
-
     public Telefono getTelefono() {
         return telefono;
+    }
+
+    public void setTelefono(Telefono telefono) {
+        this.telefono = telefono;
     }
 
     public TelefonoServizi telefono(Telefono telefono) {
         this.telefono = telefono;
         return this;
-    }
-
-    public void setTelefono(Telefono telefono) {
-        this.telefono = telefono;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

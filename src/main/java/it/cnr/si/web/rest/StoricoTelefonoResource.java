@@ -17,23 +17,8 @@
 
 package it.cnr.si.web.rest;
 
-import ch.qos.logback.core.net.server.Client;
 import com.codahale.metrics.annotation.Timed;
-//import org.apache.pdfbox.exceptions.COSVisitorException;
-import it.cnr.si.repository.StoricoTelefonoRepository;
-import it.cnr.si.web.rest.util.HeaderUtil;
-import it.cnr.si.web.rest.util.PaginationUtil;
-import org.apache.commons.io.IOUtils;
-import org.apache.pdfbox.pdmodel.PDDocument;
-//import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
-import org.hibernate.service.spi.InjectService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
-import rst.pdfbox.layout.elements.ControlElement;
-import rst.pdfbox.layout.elements.Document;
-import rst.pdfbox.layout.elements.Paragraph;
+import io.github.jhipster.web.util.ResponseUtil;
 import it.cnr.si.domain.StoricoTelefono;
 import it.cnr.si.repository.StoricoTelefonoRepository;
 import it.cnr.si.security.AuthoritiesConstants;
@@ -41,33 +26,26 @@ import it.cnr.si.service.TelefoniaPdfService;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.xml.ws.Response;
-import java.awt.*;
 import java.awt.print.PrinterException;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.List;
-
-import static org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD;
 
 /**
  * REST controller for managing StoricoTelefono.
@@ -76,17 +54,14 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD;
 @RequestMapping("/api")
 public class StoricoTelefonoResource {
 
+    private static final String ENTITY_NAME = "storicoTelefono";
+    private final Logger log = LoggerFactory.getLogger(StoricoTelefonoResource.class);
+    private final StoricoTelefonoRepository storicoTelefonoRepository;
     @Autowired
     private TelefoniaPdfService telefoniaPdfService;
 
-    private final Logger log = LoggerFactory.getLogger(StoricoTelefonoResource.class);
-
-    private static final String ENTITY_NAME = "storicoTelefono";
-
-    private final StoricoTelefonoRepository storicoTelefonoRepository;
-
     public StoricoTelefonoResource(StoricoTelefonoRepository storicoTelefonoRepository
-                                   ) {
+    ) {
         this.storicoTelefonoRepository = storicoTelefonoRepository;
 
     }
@@ -196,20 +171,20 @@ public class StoricoTelefonoResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-   @RequestMapping(value = "/storico-telefonos/pdf", method = RequestMethod.GET, produces = "application/json")
-   @ResponseBody
-   @Timed
-   public ResponseEntity<Map<String, Object>> getPdf() throws IOException, PrinterException, URISyntaxException {
+    @RequestMapping(value = "/storico-telefonos/pdf", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @Timed
+    public ResponseEntity<Map<String, Object>> getPdf() throws IOException, PrinterException, URISyntaxException {
 
-       Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
-       File file = telefoniaPdfService.faiPdf();
-       byte[] content = Files.readAllBytes(Paths.get(file.toURI()));
+        File file = telefoniaPdfService.faiPdf();
+        byte[] content = Files.readAllBytes(Paths.get(file.toURI()));
 
-       String encoded = Base64.getEncoder().encodeToString(content);
+        String encoded = Base64.getEncoder().encodeToString(content);
 
-       result.put("b64", encoded);
+        result.put("b64", encoded);
 
-       return new ResponseEntity<>(result, HttpStatus.OK);
-   }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

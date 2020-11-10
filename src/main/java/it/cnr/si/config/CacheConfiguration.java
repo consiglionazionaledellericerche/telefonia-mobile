@@ -17,20 +17,21 @@
 
 package it.cnr.si.config;
 
-import java.time.Duration;
-
+import io.github.jhipster.config.JHipsterProperties;
+import io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory;
 import it.cnr.si.domain.*;
 import it.cnr.si.repository.UserRepository;
 import it.cnr.si.service.CacheService;
-import org.ehcache.config.builders.*;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.jsr107.Eh107Configuration;
-
-import io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory;
-import io.github.jhipster.config.JHipsterProperties;
-
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.time.Duration;
 
 @Configuration
 @EnableCaching

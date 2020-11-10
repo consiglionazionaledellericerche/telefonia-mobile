@@ -26,6 +26,8 @@ import java.util.Collection;
 
 public class ACEAuthentication extends UsernamePasswordAuthenticationToken implements Authentication {
 
+    private final EntitaOrganizzativaWebDto sede;
+
     public ACEAuthentication(Object principal, Object credentials, EntitaOrganizzativaWebDto sede) {
         super(principal, credentials);
         this.sede = sede;
@@ -35,8 +37,6 @@ public class ACEAuthentication extends UsernamePasswordAuthenticationToken imple
         super(principal, credentials, authorities);
         this.sede = sede;
     }
-
-    private EntitaOrganizzativaWebDto sede;
 
     public EntitaOrganizzativaWebDto getSede() {
         return sede;

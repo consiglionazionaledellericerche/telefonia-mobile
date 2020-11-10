@@ -53,13 +53,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ValidazioneResource {
 
-    @Autowired
-    private AceService ace;
-
     private static final String ENTITY_NAME = "validazione";
     private final Logger log = LoggerFactory.getLogger(ValidazioneResource.class);
     private final ValidazioneRepository validazioneRepository;
     private final TelefonoService telefonoService;
+    @Autowired
+    private AceService ace;
 
     public ValidazioneResource(ValidazioneRepository validazioneRepository, TelefonoService telefonoService) {
         this.validazioneRepository = validazioneRepository;

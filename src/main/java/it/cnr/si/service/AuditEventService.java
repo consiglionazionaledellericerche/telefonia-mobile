@@ -19,8 +19,6 @@ package it.cnr.si.service;
 
 import it.cnr.si.config.audit.AuditEventConverter;
 import it.cnr.si.repository.PersistenceAuditEventRepository;
-import it.cnr.si.config.audit.AuditEventConverter;
-import it.cnr.si.repository.PersistenceAuditEventRepository;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

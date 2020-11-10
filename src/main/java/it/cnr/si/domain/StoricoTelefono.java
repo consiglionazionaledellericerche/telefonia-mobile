@@ -22,11 +22,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -101,17 +99,21 @@ public class StoricoTelefono implements Serializable {
         return dataModifica;
     }
 
+    public void setDataModifica(Instant dataModifica) {
+        this.dataModifica = dataModifica;
+    }
+
     public StoricoTelefono dataModifica(Instant dataModifica) {
         this.dataModifica = dataModifica;
         return this;
     }
 
-    public void setDataModifica(Instant dataModifica) {
-        this.dataModifica = dataModifica;
-    }
-
     public Instant getDataAttivazione() {
         return dataAttivazione;
+    }
+
+    public void setDataAttivazione(Instant dataAttivazione) {
+        this.dataAttivazione = dataAttivazione;
     }
 
     public StoricoTelefono dataAttivazione(Instant dataAttivazione) {
@@ -119,12 +121,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setDataAttivazione(Instant dataAttivazione) {
-        this.dataAttivazione = dataAttivazione;
-    }
-
     public Instant getDataCessazione() {
         return dataCessazione;
+    }
+
+    public void setDataCessazione(Instant dataCessazione) {
+        this.dataCessazione = dataCessazione;
     }
 
     public StoricoTelefono dataCessazione(Instant dataCessazione) {
@@ -132,12 +134,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setDataCessazione(Instant dataCessazione) {
-        this.dataCessazione = dataCessazione;
-    }
-
     public String getIntestatarioContratto() {
         return intestatarioContratto;
+    }
+
+    public void setIntestatarioContratto(String intestatarioContratto) {
+        this.intestatarioContratto = intestatarioContratto;
     }
 
     public StoricoTelefono intestatarioContratto(String intestatarioContratto) {
@@ -145,12 +147,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setIntestatarioContratto(String intestatarioContratto) {
-        this.intestatarioContratto = intestatarioContratto;
-    }
-
     public String getNumeroContratto() {
         return numeroContratto;
+    }
+
+    public void setNumeroContratto(String numeroContratto) {
+        this.numeroContratto = numeroContratto;
     }
 
     public StoricoTelefono numeroContratto(String numeroContratto) {
@@ -158,12 +160,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setNumeroContratto(String numeroContratto) {
-        this.numeroContratto = numeroContratto;
-    }
-
     public String getUtilizzatoreUtenza() {
         return utilizzatoreUtenza;
+    }
+
+    public void setUtilizzatoreUtenza(String utilizzatoreUtenza) {
+        this.utilizzatoreUtenza = utilizzatoreUtenza;
     }
 
     public StoricoTelefono utilizzatoreUtenza(String utilizzatoreUtenza) {
@@ -171,12 +173,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setUtilizzatoreUtenza(String utilizzatoreUtenza) {
-        this.utilizzatoreUtenza = utilizzatoreUtenza;
-    }
-
     public String getCdsuo() {
         return cdsuo;
+    }
+
+    public void setCdsuo(String cdsuo) {
+        this.cdsuo = cdsuo;
     }
 
     public StoricoTelefono cdsuo(String cdsuo) {
@@ -184,12 +186,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setCdsuo(String cdsuo) {
-        this.cdsuo = cdsuo;
-    }
-
     public String getOperatore() {
         return operatore;
+    }
+
+    public void setOperatore(String operatore) {
+        this.operatore = operatore;
     }
 
     public StoricoTelefono operatore(String operatore) {
@@ -197,12 +199,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setOperatore(String operatore) {
-        this.operatore = operatore;
-    }
-
     public String getServizi() {
         return servizi;
+    }
+
+    public void setServizi(String servizi) {
+        this.servizi = servizi;
     }
 
     public StoricoTelefono servizi(String servizi) {
@@ -210,12 +212,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setServizi(String servizi) {
-        this.servizi = servizi;
-    }
-
     public String getUserModifica() {
         return userModifica;
+    }
+
+    public void setUserModifica(String userModifica) {
+        this.userModifica = userModifica;
     }
 
     public StoricoTelefono userModifica(String userModifica) {
@@ -223,12 +225,12 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setUserModifica(String userModifica) {
-        this.userModifica = userModifica;
-    }
-
     public String getVersione() {
         return versione;
+    }
+
+    public void setVersione(String versione) {
+        this.versione = versione;
     }
 
     public StoricoTelefono versione(String versione) {
@@ -236,21 +238,17 @@ public class StoricoTelefono implements Serializable {
         return this;
     }
 
-    public void setVersione(String versione) {
-        this.versione = versione;
-    }
-
     public Telefono getStoricotelefonoTelefono() {
         return storicotelefonoTelefono;
+    }
+
+    public void setStoricotelefonoTelefono(Telefono telefono) {
+        this.storicotelefonoTelefono = telefono;
     }
 
     public StoricoTelefono storicotelefonoTelefono(Telefono telefono) {
         this.storicotelefonoTelefono = telefono;
         return this;
-    }
-
-    public void setStoricotelefonoTelefono(Telefono telefono) {
-        this.storicotelefonoTelefono = telefono;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -49,6 +49,7 @@ public class TelefoniaPdfService {
     float fontSizeIstituti = 10;
     float fontSizeCapiColonna = 10;
     float fontSizeTesto = 8;
+
     public TelefoniaPdfService(StoricoTelefonoRepository storicoTelefonoRepository
     ) {
         this.storicoTelefonoRepository = storicoTelefonoRepository;

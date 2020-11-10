@@ -18,7 +18,7 @@
 package it.cnr.si.repository;
 
 import it.cnr.si.domain.Servizi;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 

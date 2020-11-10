@@ -28,16 +28,13 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class TelefonoService {
-    private final Logger log = LoggerFactory.getLogger(TelefonoService.class);
-
     private static final String ENTITY_NAME = "telefono";
-
+    private final Logger log = LoggerFactory.getLogger(TelefonoService.class);
     private final TelefonoRepository telefonoRepository;
     private final TelefonoServiziRepository telefonoServiziRepository;
     private final OperatoreRepository operatoreRepository;
@@ -54,22 +51,21 @@ public class TelefonoService {
         this.telefonoRepository = telefonoRepository;
     }
 
-    public void controlloDate(Telefono telefono){
+    public void controlloDate(Telefono telefono) {
         log.debug("Entrato in controllo Date {}", telefono);
         Instant dataAttivazione = telefono.getDataAttivazione();
         Instant dataCessazione = telefono.getDataCessazione();
         String risposta = "no";
-        if(dataCessazione != null){
-            if(dataAttivazione.isAfter(dataCessazione)){//Fare controllo che data attivazione minore di data Cessazione
+        if (dataCessazione != null) {
+            if (dataAttivazione.isAfter(dataCessazione)) {//Fare controllo che data attivazione minore di data Cessazione
                 throw new BadRequestAlertException("Data Inizio è maggiore di data Fine", ENTITY_NAME, "dataInizioMaggioreDataFine");
             }
         }
 
         List<Telefono> telefoniNumeroUguale = telefonoRepository.findByNumero(telefono.getNumero());
-        if(telefoniNumeroUguale == null || telefoniNumeroUguale.isEmpty()) {
+        if (telefoniNumeroUguale == null || telefoniNumeroUguale.isEmpty()) {
             //vuol dire che non esiste nessun Telefono
-        }
-        else{
+        } else {
             /**
              * Creare iterator per telefoniNumeroUguale
              */
@@ -77,16 +73,15 @@ public class TelefonoService {
             while (i.hasNext()) {
                 Object t = i.next();
                 //pensare se si è in modifica e sta provando a modificare un qualcosa di già inserito
-                log.debug("idTelefono {}",telefono.getId());
-                log.debug("idTelefono Iterator {}",((Telefono) t).getId());
+                log.debug("idTelefono {}", telefono.getId());
+                log.debug("idTelefono Iterator {}", ((Telefono) t).getId());
                 Long idTelefono = telefono.getId();
-                if (idTelefono == null){
+                if (idTelefono == null) {
                     idTelefono = 0L;
                 }
                 if (idTelefono.equals(((Telefono) t).getId())) {
-                }
-                else{
-                    if(((Telefono) t).getDataCessazione() == null){
+                } else {
+                    if (((Telefono) t).getDataCessazione() == null) {
                         throw new BadRequestAlertException("Inserire data Cessazione Vecchio Contratto", ENTITY_NAME, "dataCessazioneVecchioContratto");
                     }
                     if (dataCessazione != null) {
@@ -99,13 +94,12 @@ public class TelefonoService {
                         if (risposta.equals("no")) {
                             throw new BadRequestAlertException("Controllare date sui contratti", ENTITY_NAME, "dataErrata");
                         }
-                      /**
-                       * Fare controllo che data Attivazione è prima di data attivazione altro contratto e data cessazzione è prima di altro contratto
-                       *
-                       * o data attivazione è dopo data cessazione altro contratto e data cessazione è dopo data cessazione altro contratto
-                       */
-                  }
-                  else {
+                        /**
+                         * Fare controllo che data Attivazione è prima di data attivazione altro contratto e data cessazzione è prima di altro contratto
+                         *
+                         * o data attivazione è dopo data cessazione altro contratto e data cessazione è dopo data cessazione altro contratto
+                         */
+                    } else {
                         if (dataAttivazione.isBefore(((Telefono) t).getDataAttivazione())) {
                             risposta = "si";
                         }
@@ -115,12 +109,12 @@ public class TelefonoService {
                         if (risposta.equals("no")) {
                             throw new BadRequestAlertException("Controllare date sui contratti", ENTITY_NAME, "dataErrata");
                         }
-                  }
-              }
+                    }
+                }
             }
         }
-            //Controllo se dataAttivazione è maggiore della
-            // data di cessazione degli altri contratti se ci sono
+        //Controllo se dataAttivazione è maggiore della
+        // data di cessazione degli altri contratti se ci sono
     }
 
     public void salvabackground(Telefono telefono, String stato) {
@@ -146,9 +140,9 @@ public class TelefonoService {
         while (iTS.hasNext()) {
             TelefonoServizi tS = iTS.next();
             if (servizi.equals("")) {
-                servizi = "Dal:"+tS.getDataInizio() + ";Al:" + tS.getDataFine() + " ("+tS.getServizi().getNome()+")";
+                servizi = "Dal:" + tS.getDataInizio() + ";Al:" + tS.getDataFine() + " (" + tS.getServizi().getNome() + ")";
             } else {
-                servizi = servizi + ";--- Dal:"+tS.getDataInizio() + ";Al:" + tS.getDataFine() + " ("+tS.getServizi().getNome()+")";
+                servizi = servizi + ";--- Dal:" + tS.getDataInizio() + ";Al:" + tS.getDataFine() + " (" + tS.getServizi().getNome() + ")";
             }
         }
         storicoTelefono.setServizi(servizi);
@@ -160,9 +154,9 @@ public class TelefonoService {
         while (iO.hasNext()) {
             Operatore o = iO.next();
             if (operatore.equals("")) {
-                operatore = "Dal:"+o.getData() + ";Al:" + o.getDataFine() + " (Operatore:" + o.getListaOperatori().getNome()+ ", NumeroContratto:"+o.getNumeroContratto()+")";
+                operatore = "Dal:" + o.getData() + ";Al:" + o.getDataFine() + " (Operatore:" + o.getListaOperatori().getNome() + ", NumeroContratto:" + o.getNumeroContratto() + ")";
             } else {
-                operatore = operatore + "; --- Dal:" + o.getData() + ";Al:" + o.getDataFine() + " (Operatore:" + o.getListaOperatori().getNome()+ ", NumeroContratto:"+o.getNumeroContratto()+");";
+                operatore = operatore + "; --- Dal:" + o.getData() + ";Al:" + o.getDataFine() + " (Operatore:" + o.getListaOperatori().getNome() + ", NumeroContratto:" + o.getNumeroContratto() + ");";
             }
         }
         storicoTelefono.setOperatore(operatore);

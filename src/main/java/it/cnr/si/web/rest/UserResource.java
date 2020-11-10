@@ -17,7 +17,8 @@
 
 package it.cnr.si.web.rest;
 
-import it.cnr.si.repository.UserRepository;
+import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
 import it.cnr.si.config.Constants;
 import it.cnr.si.domain.User;
 import it.cnr.si.repository.UserRepository;
@@ -30,9 +31,6 @@ import it.cnr.si.web.rest.errors.EmailAlreadyUsedException;
 import it.cnr.si.web.rest.errors.LoginAlreadyUsedException;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
-import com.codahale.metrics.annotation.Timed;
-import io.github.jhipster.web.util.ResponseUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -46,7 +44,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing users.
@@ -100,7 +99,7 @@ public class UserResource {
      *
      * @param userDTO the user to create
      * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @throws URISyntaxException       if the Location URI syntax is incorrect
      * @throws BadRequestAlertException 400 (Bad Request) if the login or email is already in use
      */
     @PostMapping("/users")
@@ -120,7 +119,7 @@ public class UserResource {
             User newUser = userService.createUser(userDTO);
             mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-                .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
+                .headers(HeaderUtil.createAlert("userManagement.created", newUser.getLogin()))
                 .body(newUser);
         }
     }
@@ -203,6 +202,6 @@ public class UserResource {
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("userManagement.deleted", login)).build();
     }
 }

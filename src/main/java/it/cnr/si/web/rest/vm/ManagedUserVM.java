@@ -18,6 +18,7 @@
 package it.cnr.si.web.rest.vm;
 
 import it.cnr.si.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 /**

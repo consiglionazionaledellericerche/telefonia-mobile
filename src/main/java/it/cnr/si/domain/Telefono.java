@@ -21,11 +21,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -96,17 +94,21 @@ public class Telefono implements Serializable {
         return numero;
     }
 
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
     public Telefono numero(String numero) {
         this.numero = numero;
         return this;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
     public Instant getDataAttivazione() {
         return dataAttivazione;
+    }
+
+    public void setDataAttivazione(Instant dataAttivazione) {
+        this.dataAttivazione = dataAttivazione;
     }
 
     public Telefono dataAttivazione(Instant dataAttivazione) {
@@ -114,12 +116,12 @@ public class Telefono implements Serializable {
         return this;
     }
 
-    public void setDataAttivazione(Instant dataAttivazione) {
-        this.dataAttivazione = dataAttivazione;
-    }
-
     public Instant getDataCessazione() {
         return dataCessazione;
+    }
+
+    public void setDataCessazione(Instant dataCessazione) {
+        this.dataCessazione = dataCessazione;
     }
 
     public Telefono dataCessazione(Instant dataCessazione) {
@@ -127,12 +129,12 @@ public class Telefono implements Serializable {
         return this;
     }
 
-    public void setDataCessazione(Instant dataCessazione) {
-        this.dataCessazione = dataCessazione;
-    }
-
     public String getIntestatarioContratto() {
         return intestatarioContratto;
+    }
+
+    public void setIntestatarioContratto(String intestatarioContratto) {
+        this.intestatarioContratto = intestatarioContratto;
     }
 
     public Telefono intestatarioContratto(String intestatarioContratto) {
@@ -140,12 +142,12 @@ public class Telefono implements Serializable {
         return this;
     }
 
-    public void setIntestatarioContratto(String intestatarioContratto) {
-        this.intestatarioContratto = intestatarioContratto;
-    }
-
     public String getNumeroContratto() {
         return numeroContratto;
+    }
+
+    public void setNumeroContratto(String numeroContratto) {
+        this.numeroContratto = numeroContratto;
     }
 
     public Telefono numeroContratto(String numeroContratto) {
@@ -153,21 +155,17 @@ public class Telefono implements Serializable {
         return this;
     }
 
-    public void setNumeroContratto(String numeroContratto) {
-        this.numeroContratto = numeroContratto;
-    }
-
     public String getCdsuo() {
         return cdsuo;
+    }
+
+    public void setCdsuo(String cdsuo) {
+        this.cdsuo = cdsuo;
     }
 
     public Telefono cdsuo(String cdsuo) {
         this.cdsuo = cdsuo;
         return this;
-    }
-
-    public void setCdsuo(String cdsuo) {
-        this.cdsuo = cdsuo;
     }
 
     public Boolean isDeleted() {
@@ -187,17 +185,21 @@ public class Telefono implements Serializable {
         return deletedNote;
     }
 
+    public void setDeletedNote(String deletedNote) {
+        this.deletedNote = deletedNote;
+    }
+
     public Telefono deletedNote(String deletedNote) {
         this.deletedNote = deletedNote;
         return this;
     }
 
-    public void setDeletedNote(String deletedNote) {
-        this.deletedNote = deletedNote;
-    }
-
     public String getUtilizzatoreUtenza() {
         return utilizzatoreUtenza;
+    }
+
+    public void setUtilizzatoreUtenza(String utilizzatoreUtenza) {
+        this.utilizzatoreUtenza = utilizzatoreUtenza;
     }
 
     public Telefono utilizzatoreUtenza(String utilizzatoreUtenza) {
@@ -205,12 +207,12 @@ public class Telefono implements Serializable {
         return this;
     }
 
-    public void setUtilizzatoreUtenza(String utilizzatoreUtenza) {
-        this.utilizzatoreUtenza = utilizzatoreUtenza;
-    }
-
     public byte[] getContratto() {
         return contratto;
+    }
+
+    public void setContratto(byte[] contratto) {
+        this.contratto = contratto;
     }
 
     public Telefono contratto(byte[] contratto) {
@@ -218,21 +220,17 @@ public class Telefono implements Serializable {
         return this;
     }
 
-    public void setContratto(byte[] contratto) {
-        this.contratto = contratto;
-    }
-
     public String getContrattoContentType() {
         return contrattoContentType;
+    }
+
+    public void setContrattoContentType(String contrattoContentType) {
+        this.contrattoContentType = contrattoContentType;
     }
 
     public Telefono contrattoContentType(String contrattoContentType) {
         this.contrattoContentType = contrattoContentType;
         return this;
-    }
-
-    public void setContrattoContentType(String contrattoContentType) {
-        this.contrattoContentType = contrattoContentType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

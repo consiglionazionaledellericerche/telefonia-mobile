@@ -17,10 +17,9 @@
 
 package it.cnr.si.web.rest;
 
+import io.github.jhipster.web.util.ResponseUtil;
 import it.cnr.si.service.AuditEventService;
 import it.cnr.si.web.rest.util.PaginationUtil;
-
-import io.github.jhipster.web.util.ResponseUtil;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,7 +62,7 @@ public class AuditResource {
      * GET  /audits : get a page of AuditEvents between the fromDate and toDate.
      *
      * @param fromDate the start of the time period of AuditEvents to get
-     * @param toDate the end of the time period of AuditEvents to get
+     * @param toDate   the end of the time period of AuditEvents to get
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of AuditEvents in body
      */

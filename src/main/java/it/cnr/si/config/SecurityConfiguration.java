@@ -21,12 +21,9 @@ import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.security.JWTAuthenticationManager;
 import it.cnr.si.security.jwt.JWTConfigurer;
 import it.cnr.si.security.jwt.TokenProvider;
-import org.springframework.context.annotation.ComponentScan;
-import it.cnr.si.security.*;
-import it.cnr.si.security.jwt.*;
-
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -114,14 +111,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
             .authenticationEntryPoint(problemSupport)
             .accessDeniedHandler(problemSupport)
-        .and()
+            .and()
             .headers()
             .frameOptions()
             .disable()
-        .and()
+            .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+            .and()
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
@@ -132,7 +129,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-        .and()
+            .and()
             .apply(securityConfigurerAdapter());
 
     }

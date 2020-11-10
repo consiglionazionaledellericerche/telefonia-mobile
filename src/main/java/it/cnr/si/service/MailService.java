@@ -17,15 +17,8 @@
 
 package it.cnr.si.service;
 
-import it.cnr.si.domain.User;
-import it.cnr.si.domain.User;
-
 import io.github.jhipster.config.JHipsterProperties;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import javax.mail.internet.MimeMessage;
-
+import it.cnr.si.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -36,6 +29,10 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+
 /**
  * Service for sending emails.
  * <p>
@@ -44,12 +41,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 @Service
 public class MailService {
 
-    private final Logger log = LoggerFactory.getLogger(MailService.class);
-
     private static final String USER = "user";
-
     private static final String BASE_URL = "baseUrl";
-
+    private final Logger log = LoggerFactory.getLogger(MailService.class);
     private final JHipsterProperties jHipsterProperties;
 
     private final JavaMailSender javaMailSender;
@@ -59,7 +53,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+                       MessageSource messageSource, SpringTemplateEngine templateEngine) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
