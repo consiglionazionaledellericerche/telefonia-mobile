@@ -45,7 +45,7 @@
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li  *jhiHasAnyAuthority="'ROLE_ADMIN'"  ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="'ROLE_SUPERUSER'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon [icon]="'users-cog'"></fa-icon>
                         <!--<span jhiTranslate="global.menu.entities.main">-->
@@ -138,7 +138,7 @@
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
-            <li ngbDropdown *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li ngbDropdown *jhiHasAnyAuthority="'MANAGER_CONTESTO'" class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                 <span>
                     <fa-icon [icon]="'user-plus'"></fa-icon>
