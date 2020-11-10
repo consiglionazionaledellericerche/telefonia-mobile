@@ -23,7 +23,7 @@ source_parsers = {
 }
 
 project = 'Telefonia Mobile'
-release = '0.0.1'
+release = '1.0.2'
 author = u'Consiglio Nazionale delle Ricerche'
 
 show_authors = True
