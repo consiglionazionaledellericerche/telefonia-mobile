@@ -128,7 +128,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item" *jhiHasAnyAuthority="'ROLE_SUPERUSER'" routerLink="validazione" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" *jhiHasAnyAuthority="['ROLE_SUPERUSER', 'ROLE_ADMIN']" routerLink="validazione" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'check-double'" [fixedWidth]="true"></fa-icon>
                             <!--<span jhiTranslate="global.menu.entities.validazione">-->
                                 Validazione Direttore
