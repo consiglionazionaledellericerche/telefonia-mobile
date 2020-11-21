@@ -30,6 +30,8 @@ import it.cnr.si.service.TelefonoService;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDtoForGerarchia;
 import it.cnr.si.service.dto.anagrafica.scritture.UtenteDto;
+import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleEntitaOrganizzativaWebDto;
+import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleUtenteWebDto;
 import it.cnr.si.web.rest.errors.BadRequestAlertException;
 import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
@@ -225,17 +227,16 @@ public class TelefonoResource {
                     new AbstractMap.SimpleEntry<>("username", term)
                 ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
             )
-                .getItems()
                 .stream()
                 .filter(utenteDto -> Optional.ofNullable(utenteDto.getUsername()).isPresent())
-                .map(UtenteDto::getUsername)
+                .map(SimpleUtenteWebDto::getUsername)
                 .collect(Collectors.toList()));
     }
 
     //Per richiamare istituti ACE
     @GetMapping("/telefonos/getIstituti")
     @Timed
-    public ResponseEntity<List<EntitaOrganizzativaWebDto>> findIstituto() {
+    public ResponseEntity<List<SimpleEntitaOrganizzativaWebDto>> findIstituto() {
         String sede = SecurityUtils.getCdS();
         return ResponseEntity.ok(cacheService.getSediDiLavoro()
             .stream()

@@ -35,13 +35,35 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li *ngSwitchCase="false" class="nav-item">
                 <a class="nav-link text-warning" href="https://consiglionazionaledellericerche.github.io/telefonia-mobile" target="_help">
                     <span>
                         <fa-icon [icon]="'info-circle'"></fa-icon>
                         <span jhiTranslate="global.menu.help">Help</span>
                     </span>
                 </a>
+            </li>
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="help-menu">
+                    <span>
+                        <fa-icon [icon]="'info-circle'"></fa-icon>
+                        <span jhiTranslate="global.menu.help">Help</span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item" href="https://consiglionazionaledellericerche.github.io/telefonia-mobile" target="_help">
+                            <fa-icon [icon]="'book'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.guide">Help</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="helpdesk/new" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'info-circle'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.helpdesk">Nuova segnalazione</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li  *jhiHasAnyAuthority="'ROLE_ADMIN'"  ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
