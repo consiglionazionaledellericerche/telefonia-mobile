@@ -155,3 +155,13 @@ ace:
     username: ${telefoniamobile.username}
     password: ${telefoniamobile.password}
     contesto: telefonia-app
+
+oil:
+    url: "http://helpwildfly.si.cnr.it:8080/rest"
+    username: missioni1
+    password: 'changeit'
+    instance: HDSiper
+    default:
+        categoria:
+            id: 1
+            descrizione: "Cat Desc"
