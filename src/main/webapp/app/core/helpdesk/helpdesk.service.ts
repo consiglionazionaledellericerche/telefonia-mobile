@@ -17,8 +17,8 @@ export class HelpDeskService {
         return this.http.post<IProblem>(this.resourceUrl, problem, {
             observe: 'response',
             params: {
-                allegatoContentType: allegatoContentType,
-                allegatoFileName: allegatoFileName
+                'allegatoContentType': allegatoContentType,
+                'allegatoFileName': allegatoFileName
             }
         });
     }
@@ -27,8 +27,8 @@ export class HelpDeskService {
         return this.http.put<IProblem>(this.resourceUrl, problem, {
             observe: 'response',
             params: {
-                allegatoContentType: allegatoContentType,
-                allegatoFileName: allegatoFileName
+                'allegatoContentType': allegatoContentType,
+                'allegatoFileName': allegatoFileName
             }
         });
     }
