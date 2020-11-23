@@ -24,41 +24,41 @@
                 <div class="form-group" [hidden]="!problem.idSegnalazione">
                     <label for="idSegnalazione" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="idSegnalazione" name="idSegnalazione"
-                        [(ngModel)]="problem.idSegnalazione" readonly />
+                           [(ngModel)]="problem.idSegnalazione" readonly />
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label class="form-control-label" for="field_firstName">Nome</label>
                         <input type="text" class="form-control" name="firstName" id="field_firstName"
-                            [(ngModel)]="problem.firstName" readonly/>
+                               [(ngModel)]="problem.firstName" readonly/>
                     </div>
                     <div class="form-group col">
                         <label class="form-control-label" for="field_familyName">Cognome</label>
                         <input type="text" class="form-control" name="familyName" id="field_familyName"
-                            [(ngModel)]="problem.familyName" readonly/>
-                    </div>                        
+                               [(ngModel)]="problem.familyName" readonly/>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_email">EMail</label>
                     <input type="text" class="form-control" name="email" id="field_email"
-                        [(ngModel)]="problem.email" readonly/>
+                           [(ngModel)]="problem.email" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_oggetto">Oggetto</label>
                     <input type="text" class="form-control" name="oggetto" id="field_oggetto"
-                        [(ngModel)]="problem.titolo" required/>
+                           [(ngModel)]="problem.titolo" required/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_descrizione">Messaggio</label>
                     <textarea type="text" class="form-control" rows=4 name="descrizione" id="field_descrizione"
-                        [(ngModel)]="problem.descrizione" required></textarea>
+                              [(ngModel)]="problem.descrizione" required></textarea>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_allegato">Allegato</label>
                     <div>
                         <div *ngIf="problem.allegato" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(problem.allegatoContentType, problem.allegato)" jhiTranslate="entity.action.open">open</a><br>
-                            <span class="pull-left">{{problem.allegatoContentType}}, {{byteSize(problem.allegato)}}</span>
+                            <a class="pull-left" (click)="openFile(allegatoContentType, problem.allegato)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{allegatoContentType}}, {{byteSize(problem.allegato)}}</span>
                             <button type="button" (click)="problem.allegato=null;problem.allegatoContentType=null;"
                                     class="btn btn-secondary btn-xs pull-right">
                                 <fa-icon [icon]="'times'"></fa-icon>
@@ -69,7 +69,7 @@
                     <input type="hidden" class="form-control" name="allegato" id="field_allegato"
                            [(ngModel)]="problem.allegato"/>
                     <input type="hidden" class="form-control" name="allegatoContentType" id="field_allegatoContentType"
-                           [(ngModel)]="problem.allegatoContentType" />
+                           [(ngModel)]="allegatoContentType" />
                 </div>
             </div>
             <div>
