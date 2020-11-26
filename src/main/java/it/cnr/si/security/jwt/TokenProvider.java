@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import it.cnr.si.security.ACEAuthentication;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
 import it.cnr.si.service.dto.anagrafica.letture.PersonaWebDto;
@@ -143,7 +144,8 @@ public class TokenProvider {
         entitaOrganizzativaWebDto.setCdsuo(mapSede.get("cdsuo"));
         entitaOrganizzativaWebDto.setIdnsip(mapSede.get("idnsip"));
 
-        final ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
         return new ACEAuthentication(
             principal,
             mapper.convertValue(claims.get(UTENTE), SimpleUtenteWebDto.class),
