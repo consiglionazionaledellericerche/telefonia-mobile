@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import it.cnr.si.security.ACEAuthentication;
 import it.cnr.si.service.dto.anagrafica.letture.EntitaOrganizzativaWebDto;
@@ -116,7 +117,12 @@ public class TokenProvider {
                 Optional.ofNullable(authentication)
                     .filter(ACEAuthentication.class::isInstance)
                     .map(ACEAuthentication.class::cast)
-                    .map(ACEAuthentication::getUtente)
+                    .map(aceAuthentication -> {
+                        SimpleUtenteWebDto utente = aceAuthentication.getUtente();
+                        utente.getPersona().setDataCessazione(null);
+                        utente.getPersona().setDataPrevistaCessazione(null);
+                        return utente;
+                    })
                     .orElse(null)
             )
             .signWith(key, SignatureAlgorithm.HS512)
@@ -144,8 +150,7 @@ public class TokenProvider {
         entitaOrganizzativaWebDto.setCdsuo(mapSede.get("cdsuo"));
         entitaOrganizzativaWebDto.setIdnsip(mapSede.get("idnsip"));
 
-        final ObjectMapper mapper = new ObjectMapper()
-            .registerModule(new JavaTimeModule());
+        ObjectMapper mapper = new ObjectMapper();
         return new ACEAuthentication(
             principal,
             mapper.convertValue(claims.get(UTENTE), SimpleUtenteWebDto.class),
