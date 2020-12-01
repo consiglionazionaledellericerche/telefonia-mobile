@@ -84,7 +84,8 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>-->
-                        <button [disabled]="validazione.userDirettore != null" *jhiHasAnyAuthority="['ROLE_SUPERUSERS','ROLE_ADMIN']" class="btn btn-danger btn-sm" (click)="valida(validazione.id)">
+                        <button [disabled]="validazione.userDirettore != null" *jhiHasAnyAuthority="['ROLE_SUPERUSER','ROLE_ADMIN']" class="btn btn-danger btn-sm" (click)="valida(validazione.id)">
+                            <fa-icon [icon]="'check-double'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.valida">Valida</span>
                         </button>
                         <!--<button type="submit"
