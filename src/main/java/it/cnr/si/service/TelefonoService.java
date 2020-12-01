@@ -62,7 +62,7 @@ public class TelefonoService {
             }
         }
 
-        List<Telefono> telefoniNumeroUguale = telefonoRepository.findByNumero(telefono.getNumero());
+        List<Telefono> telefoniNumeroUguale = telefonoRepository.findByNumeroAndDeletedFalse(telefono.getNumero());
         if (telefoniNumeroUguale == null || telefoniNumeroUguale.isEmpty()) {
             //vuol dire che non esiste nessun Telefono
         } else {

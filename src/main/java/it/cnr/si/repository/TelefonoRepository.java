@@ -43,4 +43,6 @@ public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
     List<Telefono> findByDeletedFalse();
 
     List<Telefono> findByNumero(String numero);
+
+    List<Telefono> findByNumeroAndDeletedFalse(String numero);
 }
