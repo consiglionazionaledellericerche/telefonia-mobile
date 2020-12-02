@@ -181,9 +181,8 @@ deploydockprod01:
     when: manual
     script:
         - echo "Deploy telefonia to dockprod01"
-        - sshremote $SSH_CONNECT_DOCPROD01 "cd /sites/docker-telefonia-mobile/"
         - echo "starting service"
-        - sshremote $SSH_CONNECT_DOCPROD01 "docker-compose pull; docker-compose down --remove-orphans; docker-compose up -d;"
+        - sshremote $SSH_CONNECT_DOCPROD01 "cd /sites/docker-telefonia-mobile/; docker-compose pull; docker-compose down --remove-orphans; docker-compose up -d;"
     environment:
         name: dockprod01
         url: http://dockprod01.cedrc.cnr.it:3680
@@ -196,9 +195,8 @@ deploydockprod02:
     when: manual
     script:
         - echo "Deploy telefonia to dockprod02"
-        - sshremote $SSH_CONNECT_DOCPROD02 "cd /sites/docker-telefonia-mobile/"
         - echo "starting service"
-        - sshremote $SSH_CONNECT_DOCPROD02 "docker-compose pull; docker-compose down --remove-orphans; docker-compose up -d;"
+        - sshremote $SSH_CONNECT_DOCPROD02 "cd /sites/docker-telefonia-mobile/; docker-compose pull; docker-compose down --remove-orphans; docker-compose up -d;"
     environment:
         name: dockprod02
         url: http://dockprod02.cedrc.cnr.it:3680
