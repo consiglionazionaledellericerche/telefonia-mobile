@@ -27,7 +27,7 @@
 
     <groupId>it.cnr.si</groupId>
     <artifactId>telefonia-mobile</artifactId>
-    <version>1.0.17-SNAPSHOT</version>
+    <version>1.0.18-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Telefonia</name>
 
