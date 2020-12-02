@@ -173,9 +173,6 @@ perform-maven-release-maven-central:
       - master
   when: manual
 
-  - docker push $DOCKER_HUB_ORGANIZATION/$CI_PROJECT_NAME:latest
-
-
 deploydockprod01:
     stage: deploy_prod_container
     image: scolagreco/alpine-ssh:latest
