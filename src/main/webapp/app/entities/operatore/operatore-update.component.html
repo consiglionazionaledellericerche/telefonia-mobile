@@ -37,7 +37,7 @@
                                     <label class="form-control-label" jhiTranslate="telefoniaApp.operatore.telefonoOperatore" for="field_telefonoOperatore">Telefono Operatore</label>
                                     <select class="form-control" id="field_telefonoOperatore" name="telefonoOperatore" [(ngModel)]="operatore.telefonoOperatore"  required>
                                         <option *ngIf="!editForm.value.telefonoOperatore" [ngValue]="null" selected></option>
-                                        <option [ngValue]="telefonoOption.id === operatore.telefonoOperatore?.id ? operatore.telefonoOperatore : telefonoOption" *ngFor="let telefonoOption of telefonos; trackBy: trackTelefonoById">{{telefonoOption.numero}} - {{telefonoOption.utilizzatoreUtenza}}</option>
+                                        <option [ngValue]="telefonoOption.id === operatore.telefonoOperatore?.id ? operatore.telefonoOperatore : telefonoOption" *ngFor="let telefonoOption of telefono; trackBy: trackTelefonoById">{{telefonoOption.numero}} - {{telefonoOption.utilizzatoreUtenza}}</option>
                                     </select>
                                 </div>
                                 <div [hidden]="!(editForm.controls.telefonoOperatore?.dirty && editForm.controls.telefonoOperatore?.invalid)">
