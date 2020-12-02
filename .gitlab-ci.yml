@@ -7,6 +7,7 @@ stages:
   - build
   - catapult
   - release
+  - deploy_prod_container
 
 variables:
   MAVEN_OPTS: "-Djava.awt.headless=true -Dsonar.host.url=$SONAR_HOST_URL"
@@ -171,3 +172,36 @@ perform-maven-release-maven-central:
     refs:
       - master
   when: manual
+
+  - docker push $DOCKER_HUB_ORGANIZATION/$CI_PROJECT_NAME:latest
+
+
+deploydockprod01:
+    stage: deploy_prod_container
+    image: scolagreco/alpine-ssh:latest
+    only:
+        - tags
+    when: manual
+    script:
+        - echo "Deploy telefonia to dockprod01"
+        - sshremote $SSH_CONNECT_DOCPROD01 "cd /sites/docker-telefonia-mobile/"
+        - echo "starting service"
+        - sshremote $SSH_CONNECT_DOCPROD01 "docker-compose pull; docker-compose down --remove-orphans; docker-compose up -d;"
+    environment:
+        name: dockprod01
+        url: http://dockprod01.cedrc.cnr.it:3680
+
+deploydockprod02:
+    stage: deploy_prod_container
+    image: scolagreco/alpine-ssh:latest
+    only:
+        - tags
+    when: manual
+    script:
+        - echo "Deploy telefonia to dockprod02"
+        - sshremote $SSH_CONNECT_DOCPROD02 "cd /sites/docker-telefonia-mobile/"
+        - echo "starting service"
+        - sshremote $SSH_CONNECT_DOCPROD02 "docker-compose pull; docker-compose down --remove-orphans; docker-compose up -d;"
+    environment:
+        name: dockprod02
+        url: http://dockprod02.cedrc.cnr.it:3680
