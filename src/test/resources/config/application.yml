@@ -156,6 +156,10 @@ ace:
     password: ${telefoniamobile.password}
     contesto: telefonia-app
 
+authJWT:
+    username: ace
+    password: thisissecret
+
 oil:
     url: "http://helpwildfly.si.cnr.it:8080/rest"
     username: missioni1

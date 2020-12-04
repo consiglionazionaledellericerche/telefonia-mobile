@@ -329,6 +329,7 @@ public class TelefonoResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser(username = DomainUserDetailsServiceIntTest.ACE_USER_ADMIN, roles = {"USER", "ADMIN"})
     public void getAllTelefonos() throws Exception {
         // Initialize the database
         telefonoRepository.saveAndFlush(telefono);
@@ -353,6 +354,7 @@ public class TelefonoResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser(username = DomainUserDetailsServiceIntTest.ACE_USER_ADMIN, roles = {"USER", "ADMIN"})
     public void getTelefono() throws Exception {
         // Initialize the database
         telefonoRepository.saveAndFlush(telefono);
