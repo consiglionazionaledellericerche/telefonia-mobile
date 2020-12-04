@@ -120,12 +120,12 @@ public class ValidazioneResource {
     @Timed
     public ResponseEntity<List<Validazione>> getAllValidaziones(Pageable pageable) {
         log.debug("REST request to get a page of Validaziones");
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
         Page<Validazione> page;
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             page = validazioneRepository.findAll(pageable);
         } else {
-            page = validazioneRepository.findByValidazioneTelefonoIntestatarioContrattoStartsWith(sede.concat("%"), pageable);
+            page = validazioneRepository.findByValidazioneTelefonoIntestatarioContrattoIn(cdSUO, pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/validaziones");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

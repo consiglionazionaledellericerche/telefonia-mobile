@@ -105,9 +105,9 @@ public class TelefonoServiziResource {
         if (telefonoServizi.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
         if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
-            telefonoServizi.getTelefono().getIntestatarioContratto().startsWith(sede))) {
+            cdSUO.contains(telefonoServizi.getTelefono().getIntestatarioContratto()))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         telefonoServiziService.controlloDate(telefonoServizi);
@@ -127,13 +127,13 @@ public class TelefonoServiziResource {
     @Timed
     public ResponseEntity<List<TelefonoServizi>> getAllTelefonoServizis(Pageable pageable) {
         log.debug("REST request to get a page of TelefonoServizis");
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
 
         Page<TelefonoServizi> page;
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             page = telefonoServiziRepository.findAllActive(false, pageable);
         else
-            page = telefonoServiziRepository.findByIntestatarioContrattoStartsWith(sede.concat("%"), false, pageable);
+            page = telefonoServiziRepository.findByIntestatarioContrattoIn(cdSUO, false, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/telefono-servizis");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -167,10 +167,10 @@ public class TelefonoServiziResource {
         if (!telefonoServizi.isPresent())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
 
         if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
-            telefonoServizi.get().getTelefono().getIntestatarioContratto().startsWith(sede))) {
+            cdSUO.contains(telefonoServizi.get().getTelefono().getIntestatarioContratto()))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
@@ -183,12 +183,12 @@ public class TelefonoServiziResource {
     @GetMapping("/telefono-servizis/findTelefono")
     @Timed
     public ResponseEntity<List<Telefono>> findTelefono() {
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
         List<Telefono> telefoni;
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             telefoni = telefonoRepository.findByDeletedFalse();
         else
-            telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede.concat("%"), false);
+            telefoni = telefonoRepository.findByIntestatarioContrattoInAndDeleted(cdSUO, false);
         return ResponseEntity.ok(telefoni);
     }
 

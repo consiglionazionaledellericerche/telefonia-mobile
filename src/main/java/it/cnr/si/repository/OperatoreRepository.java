@@ -36,8 +36,8 @@ import java.util.List;
 @Repository
 public interface OperatoreRepository extends JpaRepository<Operatore, Long> {
 
-    @Query("SELECT op FROM Operatore op where op.telefonoOperatore.intestatarioContratto like :intestatarioContratto AND op.telefonoOperatore.deleted =:deleted ")
-    Page<Operatore> findByIntestatarioContrattoStartsWith(@Param("intestatarioContratto") String intestatarioContratto, @Param("deleted") boolean deleted, Pageable pageable);
+    @Query("SELECT op FROM Operatore op where op.telefonoOperatore.intestatarioContratto in :intestatarioContratto AND op.telefonoOperatore.deleted =:deleted ")
+    Page<Operatore> findByIntestatarioContrattoIn(@Param("intestatarioContratto") List<String> intestatarioContratto, @Param("deleted") boolean deleted, Pageable pageable);
 
     @Query("SELECT op FROM Operatore op where op.telefonoOperatore.deleted =:deleted ")
     Page<Operatore> findAllActive(@Param("deleted") boolean deleted, Pageable pageable);

@@ -34,9 +34,9 @@ import java.util.List;
 public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
 
 
-    Page<Telefono> findByIntestatarioContrattoStartsWithAndDeleted(String intestatarioContratto, Boolean deleted, Pageable pageable);
+    Page<Telefono> findByIntestatarioContrattoInAndDeleted(List<String> intestatarioContratto, Boolean deleted, Pageable pageable);
 
-    List<Telefono> findByIntestatarioContrattoStartsWithAndDeleted(String intestatarioContratto, Boolean deleted);
+    List<Telefono> findByIntestatarioContrattoInAndDeleted(List<String> intestatarioContratto, Boolean deleted);
 
     Page<Telefono> findByDeletedFalse(Pageable pageable);
 

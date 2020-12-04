@@ -115,9 +115,9 @@ public class OperatoreResource {
         if (operatore.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
         if (!(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) ||
-            operatore.getTelefonoOperatore().getIntestatarioContratto().startsWith(sede))) {
+            cdSUO.contains(operatore.getTelefonoOperatore().getIntestatarioContratto()))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         operatoreService.controlloDate(operatore);
@@ -137,13 +137,13 @@ public class OperatoreResource {
     @Timed
     public ResponseEntity<List<Operatore>> getAllOperatores(Pageable pageable) {
         log.debug("REST request to get a page of Operatores");
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
 
         Page<Operatore> page;
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             page = operatoreRepository.findAllActive(false, pageable);
         else
-            page = operatoreRepository.findByIntestatarioContrattoStartsWith(sede.concat("%"), false, pageable);
+            page = operatoreRepository.findByIntestatarioContrattoIn(cdSUO, false, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/operatores");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -183,11 +183,11 @@ public class OperatoreResource {
     @Timed
     public ResponseEntity<List<Telefono>> findTelefono() {
         List<Telefono> telefoni;
-        String sede = SecurityUtils.getCdS();
+        List<String> cdSUO = SecurityUtils.getCdSUO();
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
             telefoni = telefonoRepository.findByDeletedFalse();
         else
-            telefoni = telefonoRepository.findByIntestatarioContrattoStartsWithAndDeleted(sede, false);
+            telefoni = telefonoRepository.findByIntestatarioContrattoInAndDeleted(cdSUO, false);
 
         return ResponseEntity.ok(telefoni);
     }
