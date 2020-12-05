@@ -175,6 +175,8 @@ public class ValidazioneResource {
         validazione.setUserDirettore(user);
         validazione.setDataValidazione(ZonedDateTime.now());
         validazioneRepository.save(validazione);
+        telefonoService.salvabackground(validazione.getValidazioneTelefono(), "FIRMATO DIRETTORE");
+
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
     }
 }
