@@ -81,7 +81,6 @@ public class JWTAuthenticationManager implements AuthenticationManager {
         List<BossDto> bossDtos = aceService.ruoliUtenteAttivi(principal);
         authorities.addAll(
             bossDtos.stream()
-                .filter(bossDto -> bossDto.getRuolo().getContesto().getSigla().equals(contestoACE))
                 .filter(bossDto -> {
                     return !(bossDto.getEntitaOrganizzativa() != null && bossDto.getRuolo().getTipoRuolo().equals(TipoRuolo.ROLE_ADMIN));
                 })
@@ -92,14 +91,12 @@ public class JWTAuthenticationManager implements AuthenticationManager {
                 .collect(Collectors.toList()));
 
         Stream<SimpleEntitaOrganizzativaWebDto> entitaOrganizzativaAssegnata = bossDtos.stream()
-            .filter(bossDto -> bossDto.getRuolo().getContesto().getSigla().equals(contestoACE))
             .filter(bossDto -> Optional.ofNullable(bossDto.getEntitaOrganizzativa()).isPresent())
             .map(bossDto -> bossDto.getEntitaOrganizzativa());
 
         if (bossDtos.isEmpty()) {
             authorities.addAll(
                 aceService.ruoliAttivi(principal).stream()
-                    .filter(ruoloWebDto -> ruoloWebDto.getContesto().getSigla().equals(contestoACE))
                     .map(a -> new SimpleGrantedAuthority(
                         Optional.ofNullable(a.getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER))
                     )
