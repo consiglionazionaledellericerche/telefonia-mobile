@@ -220,7 +220,11 @@ public class UserService {
 
         List list = new ArrayList();
         try {
-            list = (List) ((Map) ((Map) details.get("contexts")).get("telefonia-app")).get("roles");
+            Map context = (Map) ((Map) details.get("contexts")).get("telefonia-app");
+            if(context != null) {
+                list = (List) context.get("roles");
+            }
+
         } catch (Exception e) {
             // TODO: inserire log....
             e.printStackTrace();
