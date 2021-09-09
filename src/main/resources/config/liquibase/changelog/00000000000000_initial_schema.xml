@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (C) 2020 Consiglio Nazionale delle Ricerche
-  ~
-  ~                 This program is free software: you can redistribute it and/or modify
-  ~                 it under the terms of the GNU Affero General Public License as
-  ~                 published by the Free Software Foundation, either version 3 of the
-  ~                 License, or (at your option) any later version.
-  ~
-  ~                 This program is distributed in the hope that it will be useful,
-  ~                 but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~                 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  ~                 GNU Affero General Public License for more details.
-  ~
-  ~                 You should have received a copy of the GNU Affero General Public License
-  ~                 along with this program. If not, see https://www.gnu.org/licenses/
-  -->
-
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
@@ -36,13 +19,12 @@
     -->
     <changeSet id="00000000000001" author="jhipster">
         <createTable tableName="jhi_user">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="varchar(100)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="varchar(50)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_login"/>
             </column>
-            <column name="password_hash" type="varchar(60)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
             <column name="email" type="varchar(254)">
@@ -53,16 +35,11 @@
                 <constraints nullable="false" />
             </column>
             <column name="lang_key" type="varchar(6)"/>
-            <column name="activation_key" type="varchar(20)"/>
-            <column name="reset_key" type="varchar(20)"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp" defaultValueDate="${now}">
                 <constraints nullable="false"/>
-            </column>
-            <column name="reset_date" type="timestamp">
-                <constraints nullable="true"/>
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
@@ -75,7 +52,7 @@
         </createTable>
 
         <createTable tableName="jhi_user_authority">
-            <column name="user_id" type="bigint">
+            <column name="user_id" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="authority_name" type="varchar(50)">
@@ -97,9 +74,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addNotNullConstraint   columnName="password_hash"
-                                columnDataType="varchar(60)"
-                                tableName="jhi_user"/>
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"

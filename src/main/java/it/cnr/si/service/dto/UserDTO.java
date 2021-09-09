@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  */
 public class UserDTO {
 
-    private Long id;
+    private String id;
 
     @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
@@ -100,11 +100,11 @@ public class UserDTO {
         this.istituto = istituto;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

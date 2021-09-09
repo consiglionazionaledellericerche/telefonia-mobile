@@ -17,7 +17,6 @@
 
 package it.cnr.si.web.rest;
 
-import it.cnr.si.repository.PersistenceAuditEventRepository;
 import it.cnr.si.TelefoniaApp;
 import it.cnr.si.config.audit.AuditEventConverter;
 import it.cnr.si.domain.PersistentAuditEvent;

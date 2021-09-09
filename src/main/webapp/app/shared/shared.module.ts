@@ -3,11 +3,11 @@ import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstr
 
 import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import { NgbDateCustomParserFormatter } from './util/datecustom-adapter';
-import { TelefoniaSharedLibsModule, TelefoniaSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
+import { TelefoniaSharedLibsModule, TelefoniaSharedCommonModule, HasAnyAuthorityDirective } from './';
 
 @NgModule({
     imports: [TelefoniaSharedLibsModule, TelefoniaSharedCommonModule],
-    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
+    declarations: [HasAnyAuthorityDirective],
     providers: [
         {
             provide: NgbDateAdapter,
@@ -19,8 +19,8 @@ import { TelefoniaSharedLibsModule, TelefoniaSharedCommonModule, JhiLoginModalCo
         }
     ],
 
-    entryComponents: [JhiLoginModalComponent],
-    exports: [TelefoniaSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
+    entryComponents: [],
+    exports: [TelefoniaSharedCommonModule, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TelefoniaSharedModule {}

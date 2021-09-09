@@ -1,36 +1,13 @@
-/*
- * Copyright (C) 2020 Consiglio Nazionale delle Ricerche
- *
- *                 This program is free software: you can redistribute it and/or modify
- *                 it under the terms of the GNU Affero General Public License as
- *                 published by the Free Software Foundation, either version 3 of the
- *                 License, or (at your option) any later version.
- *
- *                 This program is distributed in the hope that it will be useful,
- *                 but WITHOUT ANY WARRANTY; without even the implied warranty of
- *                 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *                 GNU Affero General Public License for more details.
- *
- *                 You should have received a copy of the GNU Affero General Public License
- *                 along with this program. If not, see https://www.gnu.org/licenses/
- */
-
 package it.cnr.si.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import io.github.jhipster.web.util.ResponseUtil;
 import it.cnr.si.config.Constants;
-import it.cnr.si.domain.User;
-import it.cnr.si.repository.UserRepository;
 import it.cnr.si.security.AuthoritiesConstants;
-import it.cnr.si.service.MailService;
 import it.cnr.si.service.UserService;
 import it.cnr.si.service.dto.UserDTO;
-import it.cnr.si.web.rest.errors.BadRequestAlertException;
-import it.cnr.si.web.rest.errors.EmailAlreadyUsedException;
-import it.cnr.si.web.rest.errors.LoginAlreadyUsedException;
-import it.cnr.si.web.rest.util.HeaderUtil;
 import it.cnr.si.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -41,11 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing users.
@@ -79,76 +52,9 @@ public class UserResource {
 
     private final UserService userService;
 
-    private final UserRepository userRepository;
-
-    private final MailService mailService;
-
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    public UserResource(UserService userService) {
 
         this.userService = userService;
-        this.userRepository = userRepository;
-        this.mailService = mailService;
-    }
-
-    /**
-     * POST  /users  : Creates a new user.
-     * <p>
-     * Creates a new user if the login and email are not already used, and sends an
-     * mail with an activation link.
-     * The user needs to be activated on creation.
-     *
-     * @param userDTO the user to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
-     * @throws URISyntaxException       if the Location URI syntax is incorrect
-     * @throws BadRequestAlertException 400 (Bad Request) if the login or email is already in use
-     */
-    @PostMapping("/users")
-    @Timed
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
-        log.debug("REST request to save User : {}", userDTO);
-
-        if (userDTO.getId() != null) {
-            throw new BadRequestAlertException("A new user cannot already have an ID", "userManagement", "idexists");
-            // Lowercase the user login before comparing with database
-        } else if (userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).isPresent()) {
-            throw new LoginAlreadyUsedException();
-        } else if (userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).isPresent()) {
-            throw new EmailAlreadyUsedException();
-        } else {
-            User newUser = userService.createUser(userDTO);
-            mailService.sendCreationEmail(newUser);
-            return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-                .headers(HeaderUtil.createAlert("userManagement.created", newUser.getLogin()))
-                .body(newUser);
-        }
-    }
-
-    /**
-     * PUT /users : Updates an existing User.
-     *
-     * @param userDTO the user to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated user
-     * @throws EmailAlreadyUsedException 400 (Bad Request) if the email is already in use
-     * @throws LoginAlreadyUsedException 400 (Bad Request) if the login is already in use
-     */
-    @PutMapping("/users")
-    @Timed
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
-        log.debug("REST request to update User : {}", userDTO);
-        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
-        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
-            throw new EmailAlreadyUsedException();
-        }
-        existingUser = userRepository.findOneByLogin(userDTO.getLogin().toLowerCase());
-        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
-            throw new LoginAlreadyUsedException();
-        }
-        Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
-
-        return ResponseUtil.wrapOrNotFound(updatedUser,
-            HeaderUtil.createAlert("userManagement.updated", userDTO.getLogin()));
     }
 
     /**
@@ -188,20 +94,5 @@ public class UserResource {
         return ResponseUtil.wrapOrNotFound(
             userService.getUserWithAuthoritiesByLogin(login)
                 .map(UserDTO::new));
-    }
-
-    /**
-     * DELETE /users/:login : delete the "login" User.
-     *
-     * @param login the login of the user to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @Timed
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Void> deleteUser(@PathVariable String login) {
-        log.debug("REST request to delete User: {}", login);
-        userService.deleteUser(login);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("userManagement.deleted", login)).build();
     }
 }
