@@ -231,14 +231,10 @@ ui bootstrap tweaks
     }
 }
 
-.spinner-border {
-    display: inline-block;
+#apploader.spinner-border {
     width: 4rem;
     height: 4rem;
-    /* vertical-align: -.125em;; */
     border: 0.5em solid currentColor;
     border-right-color: transparent;
-    border-radius: 50%;
-    animation: 0.75s linear infinite spinner-border;
     opacity: 0.5;
 }
