@@ -225,16 +225,9 @@ ui bootstrap tweaks
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
 
-@keyframes spinner-border {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 #apploader.spinner-border {
     width: 4rem;
     height: 4rem;
-    border: 0.5em solid currentColor;
-    border-right-color: transparent;
+    border-width: 0.5em;
     opacity: 0.5;
 }
