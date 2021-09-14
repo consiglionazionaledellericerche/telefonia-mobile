@@ -3,12 +3,12 @@
   "short_name": "Telefonia",
   "icons": [
       {
-          "src": "./content/images/sim192.png",
+          "src": "./content/images/logo192.png",
           "sizes": "192x192",
           "type": "image/png"
       },
       {
-          "src": "./content/images/sim512.png",
+          "src": "./content/images/logo512.png",
           "sizes": "512x512",
           "type": "image/png"
       }
