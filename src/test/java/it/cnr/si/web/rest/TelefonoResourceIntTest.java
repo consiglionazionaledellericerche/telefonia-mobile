@@ -18,12 +18,9 @@
 package it.cnr.si.web.rest;
 
 import it.cnr.si.TelefoniaApp;
-import it.cnr.si.repository.*;
-import it.cnr.si.TelefoniaApp;
 
 import it.cnr.si.domain.Telefono;
 import it.cnr.si.repository.TelefonoRepository;
-import it.cnr.si.security.DomainUserDetailsServiceIntTest;
 import it.cnr.si.service.AceService;
 import it.cnr.si.service.CacheService;
 import it.cnr.si.service.TelefonoService;

@@ -98,7 +98,7 @@ public class UserServiceIntTest {
     @Test
     @Transactional
     public void assertThatAnonymousUserIsNotGet() {
-        user.setId(Constants.ANONYMOUS_USER);
+        user.setId(1L);
         user.setLogin(Constants.ANONYMOUS_USER);
         if (!userRepository.findOneByLogin(Constants.ANONYMOUS_USER).isPresent()) {
             userRepository.saveAndFlush(user);
@@ -114,7 +114,7 @@ public class UserServiceIntTest {
     @Test
     @Transactional
     public void assertThatUserLocaleIsCorrectlySetFromAuthenticationDetails() {
-        user.setId(Constants.ANONYMOUS_USER);
+        user.setId(1L);
         user.setLogin(Constants.ANONYMOUS_USER);
 
         Map<String, Object> userDetails = new HashMap<>();
@@ -125,6 +125,7 @@ public class UserServiceIntTest {
         userDetails.put("email", user.getEmail());
         userDetails.put("picture", user.getImageUrl());
         userDetails.put("locale", "en_US");
+        userDetails.put("username_cnr", "nome.cognome");
 
         OAuth2Authentication authentication = createMockOAuth2AuthenticationWithDetails(userDetails);
 
@@ -133,6 +134,7 @@ public class UserServiceIntTest {
         assertEquals("User langkey is not corretly set.", userDTO.getLangKey(), "en");
 
         userDetails.put("locale", "it-IT");
+        userDetails.put("username_cnr", "nome.cognome");
         authentication = createMockOAuth2AuthenticationWithDetails(userDetails);
 
         userDTO = userService.getUserFromAuthentication(authentication);

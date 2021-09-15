@@ -18,7 +18,6 @@
 package it.cnr.si.web.rest;
 
 import it.cnr.si.TelefoniaApp;
-import it.cnr.si.security.DomainUserDetailsServiceIntTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import it.cnr.si.TelefoniaApp;
 
@@ -26,7 +25,6 @@ import it.cnr.si.domain.Operatore;
 import it.cnr.si.domain.Telefono;
 import it.cnr.si.domain.ListaOperatori;
 import it.cnr.si.repository.OperatoreRepository;
-import it.cnr.si.security.DomainUserDetailsServiceIntTest;
 import it.cnr.si.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

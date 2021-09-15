@@ -1,7 +1,8 @@
 # ===================================================================
 # Spring Boot configuration.
 #
-# This configuration is used for unit/integration tests.
+# This configuration will be overridden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
 #
 # More information on profiles: https://www.jhipster.tech/profiles/
 # More information on configuration properties: https://www.jhipster.tech/common-application-properties/
@@ -13,48 +14,72 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+management:
+    endpoints:
+        web:
+            base-path: /management
+            exposure:
+                include: ["configprops", "env", "health", "info", "threaddump", "logfile" ]
+    endpoint:
+        health:
+            show-details: when_authorized
+    info:
+        git:
+            mode: full
+    health:
+        mail:
+            enabled: false # When using the MailService, configure an SMTP server and set this to true
+    metrics:
+        enabled: false # http://micrometer.io/ is disabled by default, as we use http://metrics.dropwizard.io/ instead
 
 spring:
-    application:
-        name: telefonia
-    cache:
-        type: simple
+    profiles:
+        active: dev
+        include:
+            - swagger
+            # Uncomment to activate TLS for the dev profile
+            #- tls
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false # we use Webpack dev server + BrowserSync for livereload
+    jackson:
+        serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:telefonia;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-        name:
-        username:
+        url: jdbc:h2:file:./target/h2db/db/telefonia;DB_CLOSE_DELAY=-1
+        username: telefoniamobile
         password:
         hikari:
             auto-commit: false
+    h2:
+        console:
+            enabled: false
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedH2Dialect
         database: H2
-        open-in-view: false
-        show-sql: false
-        hibernate:
-            ddl-auto: none
-            naming:
-                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true
             hibernate.connection.provider_disables_autocommit: true
-            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto: validate
+            hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
     liquibase:
         contexts: test
     mail:
         host: localhost
+        port: 25
+        username:
+        password:
     messages:
-        basename: i18n/messages
-    mvc:
-        favicon:
-            enabled: false
+        cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
-        mode: HTML
+        cache: false
+    application:
+        name: telefonia
 
 security:
     oauth2:
@@ -69,12 +94,16 @@ security:
             user-info-uri: http://DO_NOT_CALL:9080/auth/realms/jhipster/protocol/openid-connect/userinfo
 
 server:
-    port: 10344
-    address: localhost
+    servlet:
+        session:
+            cookie:
+                http-only: true
+    port: 8080
 
+# Properties to be exposed on the /info management endpoint
 info:
-    project:
-        version: #project.version#
+    # Comma separated list of profiles that will trigger the ribbon to show
+    display-ribbon-on-profiles: "dev"
 
 # ===================================================================
 # JHipster specific properties
@@ -83,6 +112,13 @@ info:
 # ===================================================================
 
 jhipster:
+    http:
+        version: V_1_1 # To use HTTP/2 you will need to activate TLS (see application-tls.yml)
+    cache: # Cache configuration
+        ehcache: # Ehcache configuration
+            time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
+            max-entries: 100 # Number of objects in each cache entry
+
     async:
         core-pool-size: 1
         max-pool-size: 50
@@ -113,3 +149,26 @@ jhipster:
 # ===================================================================
 
 # application:
+telefoniamobile:
+    username: app.telefoniamobile
+    password: 'changeit'
+
+ace:
+    url: "http://zuul-server.test.si.cnr.it/api"
+    username: ${telefoniamobile.username}
+    password: ${telefoniamobile.password}
+    contesto: telefonia-app
+
+authJWT:
+    username: ace
+    password: thisissecret
+
+oil:
+    url: "http://helpwildfly.si.cnr.it:8080/rest"
+    username: missioni1
+    password: 'changeit'
+    instance: HDSiper
+    default:
+        categoria:
+            id: 1
+            descrizione: "Cat Desc"

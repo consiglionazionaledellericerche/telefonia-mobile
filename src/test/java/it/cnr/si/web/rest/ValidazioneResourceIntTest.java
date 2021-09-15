@@ -19,7 +19,6 @@ package it.cnr.si.web.rest;
 
 import it.cnr.si.TelefoniaApp;
 import it.cnr.si.repository.ValidazioneRepository;
-import it.cnr.si.security.DomainUserDetailsServiceIntTest;
 import it.cnr.si.service.TelefonoService;
 import org.hamcrest.Matchers;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -29,7 +28,6 @@ import it.cnr.si.domain.Validazione;
 import it.cnr.si.domain.Telefono;
 import it.cnr.si.domain.StoricoTelefono;
 import it.cnr.si.repository.ValidazioneRepository;
-import it.cnr.si.security.DomainUserDetailsServiceIntTest;
 import it.cnr.si.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
