@@ -50,18 +50,14 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    private final SiperService siperService;
-
     private final AceService aceService;
 
     @Value("#{'${ace.contesto}'.split(',')}")
     private List<String> contestoACE;
 
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository,
-                       SiperService siperService, AceService aceService) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, AceService aceService) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
-        this.siperService = siperService;
         this.aceService = aceService;
     }
 
