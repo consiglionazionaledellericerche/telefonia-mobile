@@ -1,16 +1,24 @@
 package it.cnr.si.service;
 
+import feign.FeignException;
 import it.cnr.si.config.Constants;
 import it.cnr.si.domain.Authority;
 import it.cnr.si.domain.User;
 import it.cnr.si.repository.AuthorityRepository;
 import it.cnr.si.repository.UserRepository;
+import it.cnr.si.security.ACEAuthentication;
 import it.cnr.si.security.AuthoritiesConstants;
 import it.cnr.si.security.SecurityUtils;
 import it.cnr.si.service.dto.UserDTO;
 
+import it.cnr.si.service.dto.anagrafica.enums.TipoAppartenenza;
+import it.cnr.si.service.dto.anagrafica.enums.TipoRuolo;
+import it.cnr.si.service.dto.anagrafica.scritture.BossDto;
+import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleEntitaOrganizzativaWebDto;
+import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleUtenteWebDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,9 +49,15 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository) {
+    private final AceService aceService;
+
+    @Value("#{'${ace.contesto}'.split(',')}")
+    private List<String> contestoACE;
+
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, AceService aceService) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.aceService = aceService;
     }
 
     /**
@@ -158,28 +173,7 @@ public class UserService {
         return token;
     }
 
-    @SuppressWarnings("unchecked")
-    private static Set<Authority> extractAuthorities(OAuth2Authentication authentication, Map<String, Object> details) {
-        Set<Authority> userAuthorities;
-        // get roles from details
-        if (details.get("roles") != null) {
-            userAuthorities = extractAuthorities((List<String>) details.get("roles"));
-            // if roles don't exist, try groups
-        } else if (details.get("groups") != null) {
-            userAuthorities = extractAuthorities((List<String>) details.get("groups"));
-        } else {
-            userAuthorities = authoritiesFromStringStream(
-                authentication.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-            );
-        }
-        // convert Authorities to GrantedAuthorities
-        userAuthorities.addAll(authoritiesFromStringStream(getRoles(details).stream()));
-
-        return userAuthorities;
-    }
-
-    private static List<String> getRoles(Map<String, Object> details) {
+    private  List<String> getRoles(Map<String, Object> details) {
 
         List list = new ArrayList();
         try {
@@ -191,6 +185,62 @@ public class UserService {
             // TODO: inserire log....
             e.printStackTrace();
         }
+
+        //---
+        String principal = ((String) details.get("username_cnr")).toLowerCase();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        List<BossDto> bossDtos = aceService.ruoliUtenteAttivi(principal);
+        authorities.addAll(
+            bossDtos.stream()
+                .filter(bossDto -> contestoACE.contains(bossDto.getRuolo().getContesto().getSigla()))
+                .filter(bossDto -> {
+                    return !(bossDto.getEntitaOrganizzativa() != null && bossDto.getRuolo().getTipoRuolo().equals(TipoRuolo.ROLE_ADMIN));
+                })
+                .map(a -> new SimpleGrantedAuthority(
+                    Optional.ofNullable(a.getRuolo().getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER))
+                )
+                .distinct()
+                .collect(Collectors.toList()));
+
+        Stream<SimpleEntitaOrganizzativaWebDto> entitaOrganizzativaAssegnata = bossDtos.stream()
+            .filter(bossDto -> contestoACE.contains(bossDto.getRuolo().getContesto().getSigla()))
+            .filter(bossDto -> Optional.ofNullable(bossDto.getEntitaOrganizzativa()).isPresent())
+            .map(bossDto -> bossDto.getEntitaOrganizzativa());
+
+        if (bossDtos.isEmpty()) {
+            authorities.addAll(
+                aceService.ruoliAttivi(principal).stream()
+                    .filter(ruoloWebDto -> contestoACE.contains(ruoloWebDto.getContesto().getSigla()))
+                    .map(a -> new SimpleGrantedAuthority(
+                        Optional.ofNullable(a.getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER))
+                    )
+                    .distinct()
+                    .collect(Collectors.toList()));
+        }
+        if (authorities.isEmpty())
+            //
+        if (!authorities.contains(new SimpleGrantedAuthority(AuthoritiesConstants.USER))) {
+            authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+        }
+
+        try {
+            SimpleUtenteWebDto utenteWebDto = aceService.getUtente(principal);
+            if (Optional.ofNullable(utenteWebDto.getPersona()).isPresent()) {
+                List<SimpleEntitaOrganizzativaWebDto> entitaOrganizzativeStruttura =
+                    aceService.findEntitaOrganizzativeStruttura(principal, LocalDate.now(), TipoAppartenenza.SEDE);
+                //return new ACEAuthentication(utente, utenteWebDto, authentication, authorities,
+                //    Stream.concat(
+                //        entitaOrganizzativaAssegnata.map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct(),
+                //        entitaOrganizzativeStruttura.stream().map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct()
+                //    ).collect(Collectors.toList())
+                //);
+            }
+        } catch (FeignException e) {
+            log.warn("Person not found for principal {}", principal);
+        }
+
+
+        //---
 
         return list;
     }
@@ -230,18 +280,4 @@ public class UserService {
         return user;
     }
 
-    private static Set<Authority> extractAuthorities(List<String> values) {
-        return authoritiesFromStringStream(
-            values.stream().filter(role -> role.startsWith("ROLE_"))
-        );
-    }
-
-    private static Set<Authority> authoritiesFromStringStream(Stream<String> strings) {
-        return strings
-            .map(string -> {
-                Authority auth = new Authority();
-                auth.setName(string);
-                return auth;
-            }).collect(Collectors.toSet());
-    }
 }
