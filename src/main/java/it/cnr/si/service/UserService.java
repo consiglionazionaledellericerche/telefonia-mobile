@@ -213,7 +213,7 @@ public class UserService {
             auth.setName(authority.getAuthority());
             userAuthorities.add(auth);
         }
-        user.setAuthorities(userAuthorities);
+        user.getAuthorities().addAll(userAuthorities);
 
         UsernamePasswordAuthenticationToken token = getToken(details, user, grantedAuthorities);
         Object oauth2AuthenticationDetails = authentication.getDetails(); // should be an OAuth2AuthenticationDetails
