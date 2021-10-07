@@ -249,6 +249,10 @@ public class UserService {
 
         List list = new ArrayList();
         try {
+            if(details==null){
+                return list;
+            }
+
             if(details.get("contexts") != null) {
                 Map context = (Map) ((Map) details.get("contexts")).get("telefonia-app");
                 if(context != null) {
