@@ -38,7 +38,7 @@ import java.util.Collection;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
-@ComponentScan({"it.cnr.si", "it.cnr.ict"})
+@ComponentScan("it.cnr.ict")
 public class TelefoniaApp {
 
     private static final Logger log = LoggerFactory.getLogger(TelefoniaApp.class);

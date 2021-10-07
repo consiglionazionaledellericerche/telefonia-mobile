@@ -23,7 +23,6 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 @EnableOAuth2Sso
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
-@ComponentScan("it.cnr.si")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final CorsFilter corsFilter;
