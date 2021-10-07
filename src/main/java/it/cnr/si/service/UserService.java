@@ -203,8 +203,9 @@ public class UserService {
                     .distinct()
                     .collect(Collectors.toList()));
         }
-        if (authorities.isEmpty())
-            throw new InsufficientAuthenticationException("login.messages.error.insufficient-authentication");
+        if (authorities.isEmpty()) {
+            // nessuna authorities => utente non abilitato
+        }
         if (!authorities.contains(new SimpleGrantedAuthority(AuthoritiesConstants.USER))) {
             authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
         }
