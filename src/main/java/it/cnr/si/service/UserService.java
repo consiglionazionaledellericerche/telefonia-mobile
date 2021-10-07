@@ -154,6 +154,15 @@ public class UserService {
         user.setAuthorities(userAuthorities);
 
         UsernamePasswordAuthenticationToken token = getToken(details, user, grantedAuthorities);
+
+        // workaround... @marco.pasiano: fix please !
+        Authority auth = null;
+        for(GrantedAuthority ga : token.getAuthorities()){
+            auth = new Authority();
+            auth.setName(ga.getAuthority());
+            user.getAuthorities().add(auth);
+        }
+
         Object oauth2AuthenticationDetails = authentication.getDetails(); // should be an OAuth2AuthenticationDetails
         authentication = new OAuth2Authentication(authentication.getOAuth2Request(), token);
         authentication.setDetails(oauth2AuthenticationDetails); // must be present in a gateway for TokenRelayFilter to work
