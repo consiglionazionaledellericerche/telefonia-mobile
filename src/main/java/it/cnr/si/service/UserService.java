@@ -110,22 +110,35 @@ public class UserService {
      */
     @SuppressWarnings("unchecked")
     public UserDTO getUserFromAuthentication(OAuth2Authentication authentication) {
-        Object oauth2AuthenticationDetails = authentication.getDetails(); // should be an OAuth2AuthenticationDetails
         Map<String, Object> details = (Map<String, Object>) authentication.getUserAuthentication().getDetails();
-        User user = getUser(details);
-        Set<Authority> userAuthorities = extractAuthorities(authentication, details);
-        Authority roleUser = new Authority();
-        roleUser.setName(AuthoritiesConstants.USER);
-        userAuthorities.add(roleUser);
-        user.setAuthorities(userAuthorities);
 
         // convert Authorities to GrantedAuthorities
         Set<GrantedAuthority> grantedAuthorities = getRoles(details).stream()
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toSet());
-        grantedAuthorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+
+        User user = getUser(details);
+        user.setAuthorities(
+            grantedAuthorities
+                .stream()
+                .map(a -> {
+                    Authority auth = new Authority();
+                    auth.setName(a.getAuthority());
+                    return auth;
+                })
+                .collect(Collectors.toSet())
+        );
+
+        Set<Authority> userAuthorities = new HashSet<>();
+        for(GrantedAuthority authority: grantedAuthorities){
+            Authority auth = new Authority();
+            auth.setName(authority.getAuthority());
+            userAuthorities.add(auth);
+        }
+        user.setAuthorities(userAuthorities);
 
         UsernamePasswordAuthenticationToken token = getToken(details, user, grantedAuthorities);
+        Object oauth2AuthenticationDetails = authentication.getDetails(); // should be an OAuth2AuthenticationDetails
         authentication = new OAuth2Authentication(authentication.getOAuth2Request(), token);
         authentication.setDetails(oauth2AuthenticationDetails); // must be present in a gateway for TokenRelayFilter to work
         SecurityContextHolder.getContext().setAuthentication(authentication);
