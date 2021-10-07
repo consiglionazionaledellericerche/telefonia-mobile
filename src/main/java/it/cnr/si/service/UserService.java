@@ -271,35 +271,37 @@ public class UserService {
         User user = new User();
         user.setId(1L);
 
-        if (details.get("username_cnr") != null) {
-            user.setLogin(((String) details.get("username_cnr")).toLowerCase());
-        }
-        if (details.get("given_name") != null) {
-            user.setFirstName((String) details.get("given_name"));
-        }
-        if (details.get("family_name") != null) {
-            user.setLastName((String) details.get("family_name"));
-        }
-        if (details.get("email_verified") != null) {
-            user.setActivated((Boolean) details.get("email_verified"));
-        }
-        if (details.get("email") != null) {
-            user.setEmail(((String) details.get("email")).toLowerCase());
-        }
-        if (details.get("langKey") != null) {
-            user.setLangKey((String) details.get("langKey"));
-        } else if (details.get("locale") != null) {
-            String locale = (String) details.get("locale");
-            if (locale.contains("-")) {
-                String langKey = locale.substring(0, locale.indexOf("-"));
-                user.setLangKey(langKey);
-            } else if (locale.contains("_")) {
-                String langKey = locale.substring(0, locale.indexOf("_"));
-                user.setLangKey(langKey);
+        if(details != null) {
+            if (details.get("username_cnr") != null) {
+                user.setLogin(((String) details.get("username_cnr")).toLowerCase());
             }
-        }
-        if (details.get("picture") != null) {
-            user.setImageUrl((String) details.get("picture"));
+            if (details.get("given_name") != null) {
+                user.setFirstName((String) details.get("given_name"));
+            }
+            if (details.get("family_name") != null) {
+                user.setLastName((String) details.get("family_name"));
+            }
+            if (details.get("email_verified") != null) {
+                user.setActivated((Boolean) details.get("email_verified"));
+            }
+            if (details.get("email") != null) {
+                user.setEmail(((String) details.get("email")).toLowerCase());
+            }
+            if (details.get("langKey") != null) {
+                user.setLangKey((String) details.get("langKey"));
+            } else if (details.get("locale") != null) {
+                String locale = (String) details.get("locale");
+                if (locale.contains("-")) {
+                    String langKey = locale.substring(0, locale.indexOf("-"));
+                    user.setLangKey(langKey);
+                } else if (locale.contains("_")) {
+                    String langKey = locale.substring(0, locale.indexOf("_"));
+                    user.setLangKey(langKey);
+                }
+            }
+            if (details.get("picture") != null) {
+                user.setImageUrl((String) details.get("picture"));
+            }
         }
         user.setActivated(true);
         return user;
