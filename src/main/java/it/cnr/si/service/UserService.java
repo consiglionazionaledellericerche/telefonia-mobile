@@ -215,6 +215,9 @@ public class UserService {
         if (authorities.isEmpty()) {
             // nessuna authorities => utente non abilitato
         }
+        if (!authorities.contains(new SimpleGrantedAuthority(AuthoritiesConstants.USER))) {
+            authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+        }
 
         try {
             SimpleUtenteWebDto utenteWebDto = aceService.getUtente(principal);
