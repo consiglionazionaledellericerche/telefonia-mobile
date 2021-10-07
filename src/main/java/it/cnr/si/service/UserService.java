@@ -270,7 +270,10 @@ public class UserService {
     private static User getUser(Map<String, Object> details) {
         User user = new User();
         user.setId(1L);
-        user.setLogin(((String) details.get("username_cnr")).toLowerCase());
+
+        if (details.get("username_cnr") != null) {
+            user.setLogin(((String) details.get("username_cnr")).toLowerCase());
+        }
         if (details.get("given_name") != null) {
             user.setFirstName((String) details.get("given_name"));
         }
