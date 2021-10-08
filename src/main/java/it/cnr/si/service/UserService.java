@@ -155,6 +155,7 @@ public class UserService {
             bossDtos = aceService.ruoliUtenteAttivi(principal);
             srwDtos = aceService.ruoliAttivi(principal);
         } catch (Exception e) {
+            principalIsInAce = false;
             System.out.println (e.getMessage());
         }
         authorities.addAll(
