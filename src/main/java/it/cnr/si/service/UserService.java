@@ -15,6 +15,7 @@ import it.cnr.si.service.dto.anagrafica.enums.TipoAppartenenza;
 import it.cnr.si.service.dto.anagrafica.enums.TipoRuolo;
 import it.cnr.si.service.dto.anagrafica.scritture.BossDto;
 import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleEntitaOrganizzativaWebDto;
+import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleRuoloWebDto;
 import it.cnr.si.service.dto.anagrafica.simpleweb.SimpleUtenteWebDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,7 +148,15 @@ public class UserService {
         //---
         String principal = ((String) details.get("username_cnr")).toLowerCase();
         List<Authority> authorities = new ArrayList<>();
-        List<BossDto> bossDtos = aceService.ruoliUtenteAttivi(principal);
+        List<BossDto> bossDtos = new ArrayList<>();
+        List<SimpleRuoloWebDto> srwDtos = new ArrayList<>();
+        Boolean principalIsInAce = true;
+        try {
+            bossDtos = aceService.ruoliUtenteAttivi(principal);
+            srwDtos = aceService.ruoliAttivi(principal);
+        } catch (Exception e) {
+            System.out.println (e.getMessage());
+        }
         authorities.addAll(
             bossDtos.stream()
                 .filter(bossDto -> contestoACE.contains(bossDto.getRuolo().getContesto().getSigla()))
@@ -169,7 +178,7 @@ public class UserService {
 
         if (bossDtos.isEmpty()) {
             authorities.addAll(
-                aceService.ruoliAttivi(principal).stream()
+                srwDtos.stream()
                     .filter(ruoloWebDto -> contestoACE.contains(ruoloWebDto.getContesto().getSigla()))
                     .map(a -> {
                         Authority auth = new Authority();
@@ -183,9 +192,11 @@ public class UserService {
             //
         }
 
-        Authority authUser = new Authority();
-        authUser.setName(AuthoritiesConstants.USER);
-        authorities.add(authUser);
+        if(principalIsInAce) {
+            Authority authUser = new Authority();
+            authUser.setName(AuthoritiesConstants.USER);
+            authorities.add(authUser);
+        }
         user.getAuthorities().addAll(authorities);
 
         try {
