@@ -147,7 +147,7 @@ public class UserService {
 
         //---
         String principal = ((String) details.get("username_cnr")).toLowerCase();
-        List<Authority> authorities = new ArrayList<>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         List<BossDto> bossDtos = new ArrayList<>();
         List<SimpleRuoloWebDto> srwDtos = new ArrayList<>();
         Boolean principalIsInAce = true;
@@ -164,11 +164,7 @@ public class UserService {
                 .filter(bossDto -> {
                     return !(bossDto.getEntitaOrganizzativa() != null && bossDto.getRuolo().getTipoRuolo().equals(TipoRuolo.ROLE_ADMIN));
                 })
-                .map(a -> {
-                    Authority auth = new Authority();
-                    auth.setName(Optional.ofNullable(a.getRuolo().getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER));
-                    return auth;
-                })
+                .map(a -> new SimpleGrantedAuthority(Optional.ofNullable(a.getRuolo().getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER)))
                 .distinct()
                 .collect(Collectors.toList()));
 
@@ -181,11 +177,7 @@ public class UserService {
             authorities.addAll(
                 srwDtos.stream()
                     .filter(ruoloWebDto -> contestoACE.contains(ruoloWebDto.getContesto().getSigla()))
-                    .map(a -> {
-                        Authority auth = new Authority();
-                        auth.setName(Optional.ofNullable(a.getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER));
-                        return auth;
-                    })
+                    .map(a -> new SimpleGrantedAuthority(Optional.ofNullable(a.getTipoRuolo()).map(TipoRuolo::name).orElse(AuthoritiesConstants.USER)))
                     .distinct()
                     .collect(Collectors.toList()));
         }
@@ -197,11 +189,10 @@ public class UserService {
         if (!authorities.isEmpty()) {
 
             if (principalIsInAce) {
-                Authority authUser = new Authority();
-                authUser.setName(AuthoritiesConstants.USER);
+                GrantedAuthority authUser = new SimpleGrantedAuthority(AuthoritiesConstants.USER);
                 authorities.add(authUser);
             }
-            user.getAuthorities().addAll(authorities);
+           // user.getAuthorities().addAll(authorities);
 
 
             try {
@@ -222,14 +213,14 @@ public class UserService {
             //---
 
             Set<Authority> userAuthorities = new HashSet<>();
-            for (GrantedAuthority authority : grantedAuthorities) {
+            for (GrantedAuthority authority : authorities) {
                 Authority auth = new Authority();
                 auth.setName(authority.getAuthority());
                 userAuthorities.add(auth);
             }
             user.getAuthorities().addAll(userAuthorities);
         }
-        ACEAuthentication token = getToken(details, utenteWebDto, user, grantedAuthorities, sedi);
+        ACEAuthentication token = getToken(details, utenteWebDto, user, authorities, sedi);
         Object oauth2AuthenticationDetails = authentication.getDetails(); // should be an OAuth2AuthenticationDetails
         authentication = new OAuth2Authentication(authentication.getOAuth2Request(), token);
         authentication.setDetails(oauth2AuthenticationDetails); // must be present in a gateway for TokenRelayFilter to work
