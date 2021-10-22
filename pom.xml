@@ -27,14 +27,14 @@
 
     <groupId>it.cnr.si</groupId>
     <artifactId>telefonia-mobile</artifactId>
-    <version>2.0.4</version>
+    <version>2.0.5-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Telefonia</name>
 
     <scm>
         <connection>scm:git:ssh://git@git.si.cnr.it/dev/telefonia-mobile.git</connection>
         <developerConnection>scm:git:ssh://git@git.si.cnr.it/dev/telefonia-mobile.git</developerConnection>
-        <tag>2.0.4</tag>
+        <tag>HEAD</tag>
     </scm>
     <licenses>
         <license>
