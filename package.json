@@ -26,7 +26,7 @@
     "jsreport-client": "^1.1.1",
     "moment": "2.22.2",
     "ng-jhipster": "0.5.4",
-    "ngx-cnr-uict-sso": "^0.2.35",
+    "ngx-cnr-uict-sso": "^0.3.1",
     "ngx-cookie": "2.0.1",
     "ngx-infinite-scroll": "0.5.1",
     "ngx-webstorage": "^2.0.1",
