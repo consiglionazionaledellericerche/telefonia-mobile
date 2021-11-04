@@ -23,10 +23,8 @@ export const helpDeskRoute: Routes = [
             problem: HelpDeskResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
             pageTitle: 'parcoautoApp.helpdesk.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        }
     },
     {
         path: 'helpdesk/:id/edit',
@@ -35,9 +33,7 @@ export const helpDeskRoute: Routes = [
             problem: HelpDeskResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
             pageTitle: 'parcoautoApp.helpdesk.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        }
     }
 ];
