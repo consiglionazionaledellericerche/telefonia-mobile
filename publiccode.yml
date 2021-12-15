@@ -5,7 +5,6 @@
 publiccodeYmlVersion: '0.2'
 name: telefoniamobile
 releaseDate: '2021-12-09'
-landingURL: 'https://telefoniamobile.cnr.it'
 url: 'https://github.com/consiglionazionaledellericerche/telefonia-mobile'
 softwareVersion: 2.0.11
 developmentStatus: stable
