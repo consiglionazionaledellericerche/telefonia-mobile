@@ -1,0 +1,94 @@
+# This repository adheres to the publiccode.yml standard by including this
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: telefoniamobile
+releaseDate: '2021-12-09'
+landingURL: 'https://telefoniamobile.cnr.it'
+url: 'https://github.com/consiglionazionaledellericerche/telefonia-mobile'
+softwareVersion: 2.0.11
+developmentStatus: stable
+softwareType: standalone/web
+platforms:
+  - web
+  - linux
+usedBy:
+  - Consiglio Nazionale delle Ricerche
+categories:
+  - it-development
+  - application-development
+logo: docs/logo.png
+maintenance:
+  type: internal
+  contacts:
+    - name: Marco Spasiano
+      email: marco.spasiano@cnr.it
+      affiliation: Consiglio Nazionale delle Ricerche
+legal:
+  license: AGPL-3.0-or-later
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - it
+it:
+  riuso:
+    codiceIPA: cnr
+  conforme:
+    lineeGuidaDesign: yes
+    modelloInteroperabilita: yes
+    misureMinimeSicurezza: yes
+    gdpr: yes
+description:
+  it:
+    longDescription: >
+      Telefonia Mobile permette di gestire i Telefoni aziendali assegnati ai dipendenti, gestisce vari operatori di telefonia e varie tipologie di servizio.
+
+      ## **TELEFONO**
+
+        Premendo su “Telefoni” dal menù “Elenco funzionalità” si accede alla schermata “Lista Telefoni”
+        dalla quale si potrà visionare l’elenco di tutti i telefoi della Struttura se inseriti.
+
+      ## **TELEFONO OPERATORE**
+
+        Per la codifica di un operatore dal menù “Elenco funzionalità” occorre cliccare sull’apposito campo “Telefono Operatore”
+        e cliccare su “Aggiungi un nuovo Telefono Operatore”, da qui è possibile associare al Telefono precedentemente inserito
+        un operatore e le informazioni del contratto con una data di inizio e fine ed allegare il file del contratto stipulato.
+
+      ## **TELEFONO SERVIZI**
+
+        Da questa maschera, è possibile associare un servizio specifico al Telefono prescelto, i servizi possono essere
+        codificati dall'amministratore del sistema, quelli di base sono:
+
+        - Traffico telefonico Internazionale, Traffico telefonico Nazionale, Traffico dati, Apparecchio incluso
+        - Traffico telefonico Internazionale, Traffico telefonico Nazionale, Traffico dati
+        - Traffico telefonico Nazionale, Traffico dati, Apparecchio incluso
+        - Traffico telefonico Nazionale, Traffico dati
+
+    localisedName: Telefonia Mobile
+    genericName: Telefonia Mobile
+    shortDescription: >-
+        Telefonia Mobile permette di gestire il parco macchine di un ente
+    documentation: >-
+      https://consiglionazionaledellericerche.github.io/telefonia-mobile
+    apiDocumentation: 'https://github.com/consiglionazionaledellericerche/telefonia-mobile'
+    screenshots:
+      - docs/media/image1.png
+      - docs/media/image2.png
+      - docs/media/image3.png
+      - docs/media/image4.png
+      - docs/media/image5.png
+      - docs/media/image6.png
+      - docs/media/image7.png
+      - docs/media/image8.png
+      - docs/media/image9.png
+      - docs/media/image10.png
+      - docs/media/image11.png
+      - docs/media/image12.png
+      - docs/media/image13.png
+      - docs/media/image14.png
+    features:
+      - TELEFONI
+      - TELEFONO OPERATORE
+      - TELEFONO SERVIZI
+      - VALIDAZIONE TELEFONO
