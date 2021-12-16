@@ -67,7 +67,7 @@ description:
     localisedName: Telefonia Mobile
     genericName: Telefonia Mobile
     shortDescription: >-
-        Telefonia Mobile permette di gestire il parco macchine di un ente
+        Telefonia Mobile permette di gestire i Telefoni aziendali assegnati ai dipendenti
     documentation: >-
       https://consiglionazionaledellericerche.github.io/telefonia-mobile
     apiDocumentation: 'https://github.com/consiglionazionaledellericerche/telefonia-mobile'
