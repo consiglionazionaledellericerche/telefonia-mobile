@@ -22,10 +22,12 @@
             "intestatarioContratto": "Intestatario Contratto",
             "numeroContratto": "Numero Contratto",
             "cdsuo": "Cdsuo",
-            "deleted": "Deleted",
             "deletedNote": "Deleted Note",
             "utilizzatoreUtenza": "Utilizzatore Utenza",
-            "contratto": "Contratto"
+            "contratto": "Contratto",
+            "filtra": {
+                "utilizzatoreUtenza": "Filtra Utilizzatore Utenza"
+            }
         }
     }
 }

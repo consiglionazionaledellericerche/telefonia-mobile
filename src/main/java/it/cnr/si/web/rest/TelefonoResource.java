@@ -48,10 +48,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -154,14 +151,23 @@ public class TelefonoResource {
      */
     @GetMapping("/telefonos")
     @Timed
-    public ResponseEntity<List<Telefono>> getAllTelefonos(Pageable pageable) {
+    public ResponseEntity<List<Telefono>> getAllTelefonos(Pageable pageable, String user) {
         log.debug("REST request to get a page of Telefonos");
         List<String> cdSUO = SecurityUtils.getCdSUO();
         Page<Telefono> telefoni;
+        final Optional<String> s1 = Optional.ofNullable(user).filter(s -> !s.isEmpty());
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            telefoni = telefonoRepository.findByDeletedFalse(pageable);
+            if (s1.isPresent()) {
+                telefoni = telefonoRepository.findByUtilizzatoreUtenzaAndDeletedFalse(s1.get(),pageable);
+            } else {
+                telefoni = telefonoRepository.findByDeletedFalse(pageable);
+            }
         } else {
-            telefoni = telefonoRepository.findByIntestatarioContrattoInAndDeleted(cdSUO, false, pageable);
+            if (s1.isPresent()) {
+                telefoni = telefonoRepository.findByUtilizzatoreUtenzaAndIntestatarioContrattoInAndDeleted(s1.get(), cdSUO, false, pageable);
+            } else {
+                telefoni = telefonoRepository.findByIntestatarioContrattoInAndDeleted(cdSUO, false, pageable);
+            }
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(telefoni, "/api/telefonos");
         return new ResponseEntity<>(telefoni.getContent(), headers, HttpStatus.OK);
@@ -217,21 +223,25 @@ public class TelefonoResource {
     }
 
     //Per richiamare utenze ACE
-    @GetMapping("/telefonos/findUtenza/{term}")
+    @GetMapping(value = {"/telefonos/findUtenza/", "/telefonos/findUtenza/{term}"})
     @Timed
-    public ResponseEntity<List<String>> findPersona(@PathVariable String term) {
+    public ResponseEntity<List<String>> findPersona(@PathVariable(required = false) String term) {
         return ResponseEntity.ok(
-            ace.searchUtenti(
-                Stream.of(
-                    new AbstractMap.SimpleEntry<>("page", "0"),
-                    new AbstractMap.SimpleEntry<>("offset", "20"),
-                    new AbstractMap.SimpleEntry<>("username", term)
-                ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
-            )
-                .stream()
-                .filter(utenteDto -> Optional.ofNullable(utenteDto.getUsername()).isPresent())
-                .map(SimpleUtenteWebDto::getUsername)
-                .collect(Collectors.toList()));
+            Optional.ofNullable(term)
+                    .map(s -> {
+                        return ace.searchUtenti(
+                                Stream.of(
+                                    new AbstractMap.SimpleEntry<>("page", "0"),
+                                    new AbstractMap.SimpleEntry<>("offset", "20"),
+                                    new AbstractMap.SimpleEntry<>("username", term)
+                                ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+                            )
+                            .stream()
+                            .filter(utenteDto -> Optional.ofNullable(utenteDto.getUsername()).isPresent())
+                            .map(SimpleUtenteWebDto::getUsername)
+                            .collect(Collectors.toList());
+                    }).orElse(Collections.emptyList()));
+
     }
 
     //Per richiamare istituti ACE

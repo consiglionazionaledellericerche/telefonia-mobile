@@ -36,9 +36,13 @@ public interface TelefonoRepository extends JpaRepository<Telefono, Long> {
 
     Page<Telefono> findByIntestatarioContrattoInAndDeleted(List<String> intestatarioContratto, Boolean deleted, Pageable pageable);
 
+    Page<Telefono> findByUtilizzatoreUtenzaAndIntestatarioContrattoInAndDeleted(String user, List<String> intestatarioContratto, Boolean deleted, Pageable pageable);
+
     List<Telefono> findByIntestatarioContrattoInAndDeleted(List<String> intestatarioContratto, Boolean deleted);
 
     Page<Telefono> findByDeletedFalse(Pageable pageable);
+
+    Page<Telefono> findByUtilizzatoreUtenzaAndDeletedFalse(String user, Pageable pageable);
 
     List<Telefono> findByDeletedFalse();
 

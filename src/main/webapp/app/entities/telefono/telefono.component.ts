@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { ITelefono } from 'app/shared/model/telefono.model';
@@ -29,6 +30,9 @@ export class TelefonoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    utilizzatoreUtenza = '';
+    searching = false;
+    searchFailed = false;
 
     constructor(
         private telefonoService: TelefonoService,
@@ -54,7 +58,8 @@ export class TelefonoComponent implements OnInit, OnDestroy {
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage,
-                sort: this.sort()
+                sort: this.sort(),
+                user: this.utilizzatoreUtenza
             })
             .subscribe(
                 (res: HttpResponse<ITelefono[]>) => this.paginateTelefonos(res.body, res.headers),
@@ -138,4 +143,26 @@ export class TelefonoComponent implements OnInit, OnDestroy {
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
+    selectedUtenza($event) {
+        this.utilizzatoreUtenza = $event.item ? $event.item : '';
+        this.loadAll();
+    }
+
+    search = (text$: Observable<string>) =>
+        text$.pipe(
+            debounceTime(300),
+            distinctUntilChanged(),
+            tap(() => (this.searching = true)),
+            switchMap(term =>
+                this.telefonoService.findPersona(term).pipe(
+                    tap(() => (this.searchFailed = false)),
+                    catchError(() => {
+                        this.searchFailed = true;
+                        return of([]);
+                    })
+                )
+            ),
+            tap(() => (this.searching = false))
+        );
 }

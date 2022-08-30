@@ -44,7 +44,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -200,25 +203,21 @@ public class OperatoreResource {
 
         Page<Operatore> pageOperatore = operatoreRepository.findAllActive(false, pageable);
         List<Operatore> listOperatore = new ArrayList<>();
-        String annoInizio = null;
-        String annoFine = null;
+        Integer annoInizio = null;
+        Integer annoFine = null;
         for (Operatore operatore : pageOperatore.getContent()) {
-            annoInizio = operatore.getData().toString();
+            annoInizio = Optional.ofNullable(operatore.getData())
+                .map(instant -> ZonedDateTime.ofInstant(instant, ZoneId.systemDefault()))
+                .map(ZonedDateTime::getYear)
+                .orElse(Integer.MIN_VALUE);
+            annoFine = Optional.ofNullable(operatore.getDataFine())
+                .map(instant -> ZonedDateTime.ofInstant(instant, ZoneId.systemDefault()))
+                .map(ZonedDateTime::getYear)
+                .orElse(Integer.MAX_VALUE);
+
             log.debug("annoFine: {}", annoFine);
-            annoInizio = annoInizio.substring(0, 4);
-            int annoIni = parseInt(annoInizio);
-            if (operatore.getDataFine() == null) {
-                if (annoIni <= anno) {
-                    listOperatore.add(operatore);
-                }
-            } else {
-                annoFine = operatore.getDataFine().toString();
-                annoFine = annoFine.substring(0, 4);
-                int annoFin = parseInt(annoFine);
-                if (anno < annoIni || anno > annoFin) {
-                } else {
-                    listOperatore.add(operatore);
-                }
+            if (anno >= annoInizio && anno <= annoFine) {
+                listOperatore.add(operatore);
             }
         }
         final Page<Operatore> page = new PageImpl<>(listOperatore, pageable, listOperatore.size());

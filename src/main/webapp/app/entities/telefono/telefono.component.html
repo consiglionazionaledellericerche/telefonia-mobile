@@ -27,6 +27,14 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
+    <div class="form-group col-md-5">
+        <label class="form-control-label" jhiTranslate="telefoniaApp.telefono.filtra.utilizzatoreUtenza" for="field_utilizzatoreUtenza">Filtra Utilizzatore Utenza</label>
+        <input type="text" class="form-control" id="field_utilizzatoreUtenza" [ngbTypeahead]="search" [class.is-invalid]="searchFailed"
+               [(ngModel)]="utilizzatoreUtenza" (selectItem)="selectedUtenza($event)" (blur)="selectedUtenza($event)" placeholder="Cerca..." [editable]="false"/>
+        <span *ngIf="searching">searching...</span>
+        <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>    
+    </div>
+
     <div class="table-responsive" *ngIf="telefonos">
         <table class="table table-striped">
             <thead>
