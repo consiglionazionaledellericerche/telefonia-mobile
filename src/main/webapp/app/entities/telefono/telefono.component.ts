@@ -53,10 +53,10 @@ export class TelefonoComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadAll(page?: number) {
+    loadAll() {
         this.telefonoService
             .query({
-                page: page ? page : this.page - 1,
+                page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort(),
                 user: this.utilizzatoreUtenza
@@ -146,7 +146,8 @@ export class TelefonoComponent implements OnInit, OnDestroy {
 
     selectedUtenza($event) {
         this.utilizzatoreUtenza = $event.item ? $event.item : '';
-        this.loadAll(0);
+        this.page = 1;
+        this.loadAll();
     }
 
     search = (text$: Observable<string>) =>
