@@ -4,10 +4,11 @@ import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstr
 import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import { NgbDateCustomParserFormatter } from './util/datecustom-adapter';
 import { TelefoniaSharedLibsModule, TelefoniaSharedCommonModule, HasAnyAuthorityDirective } from './';
+import { NotHasAnyAuthorityDirective } from './auth/not-has-any-authority.directive';
 
 @NgModule({
     imports: [TelefoniaSharedLibsModule, TelefoniaSharedCommonModule],
-    declarations: [HasAnyAuthorityDirective],
+    declarations: [HasAnyAuthorityDirective, NotHasAnyAuthorityDirective],
     providers: [
         {
             provide: NgbDateAdapter,
@@ -20,7 +21,7 @@ import { TelefoniaSharedLibsModule, TelefoniaSharedCommonModule, HasAnyAuthority
     ],
 
     entryComponents: [],
-    exports: [TelefoniaSharedCommonModule, HasAnyAuthorityDirective],
+    exports: [TelefoniaSharedCommonModule, HasAnyAuthorityDirective, NotHasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TelefoniaSharedModule {}

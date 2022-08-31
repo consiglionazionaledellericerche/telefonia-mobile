@@ -148,18 +148,18 @@ public class UserService {
         //---
         String principal = ((String) details.get("username_cnr")).toLowerCase();
         Set<GrantedAuthority> authorities = new HashSet<>();
-        List<BossDto> bossDtos = new ArrayList<>();
+        List<BossDto> ruoliUtenteAttivi = new ArrayList<>();
         List<SimpleRuoloWebDto> srwDtos = new ArrayList<>();
         Boolean principalIsInAce = true;
         try {
-            bossDtos = aceService.ruoliUtenteAttivi(principal);
+            ruoliUtenteAttivi = aceService.ruoliUtenteAttivi(principal);
             srwDtos = aceService.ruoliAttivi(principal);
         } catch (Exception e) {
             principalIsInAce = false;
             System.out.println (e.getMessage());
         }
         authorities.addAll(
-            bossDtos.stream()
+            ruoliUtenteAttivi.stream()
                 .filter(bossDto -> contestoACE.contains(bossDto.getRuolo().getContesto().getSigla()))
                 .filter(bossDto -> {
                     return !(bossDto.getEntitaOrganizzativa() != null && bossDto.getRuolo().getTipoRuolo().equals(TipoRuolo.ROLE_ADMIN));
@@ -168,12 +168,13 @@ public class UserService {
                 .distinct()
                 .collect(Collectors.toList()));
 
-        Stream<SimpleEntitaOrganizzativaWebDto> entitaOrganizzativaAssegnata = bossDtos.stream()
+        List<SimpleEntitaOrganizzativaWebDto> entitaOrganizzativaAssegnata = ruoliUtenteAttivi.stream()
             .filter(bossDto -> contestoACE.contains(bossDto.getRuolo().getContesto().getSigla()))
             .filter(bossDto -> Optional.ofNullable(bossDto.getEntitaOrganizzativa()).isPresent())
-            .map(bossDto -> bossDto.getEntitaOrganizzativa());
+            .map(bossDto -> bossDto.getEntitaOrganizzativa())
+            .collect(Collectors.toList());
 
-        if (bossDtos.isEmpty()) {
+        if (ruoliUtenteAttivi.isEmpty()) {
             authorities.addAll(
                 srwDtos.stream()
                     .filter(ruoloWebDto -> contestoACE.contains(ruoloWebDto.getContesto().getSigla()))
@@ -200,11 +201,14 @@ public class UserService {
                 if (Optional.ofNullable(utenteWebDto.getPersona()).isPresent()) {
                     List<SimpleEntitaOrganizzativaWebDto> entitaOrganizzativeStruttura =
                         aceService.findEntitaOrganizzativeStruttura(principal, LocalDate.now(), TipoAppartenenza.SEDE);
-
-                    sedi = Stream.concat(
-                        entitaOrganizzativaAssegnata.map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct(),
-                        entitaOrganizzativeStruttura.stream().map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct()
-                    ).collect(Collectors.toList());
+                    if (!entitaOrganizzativaAssegnata.isEmpty()) {
+                        sedi = entitaOrganizzativaAssegnata.stream().map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct().collect(Collectors.toList());
+                    } else {
+                        sedi = Stream.concat(
+                            entitaOrganizzativaAssegnata.stream().map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct(),
+                            entitaOrganizzativeStruttura.stream().map(SimpleEntitaOrganizzativaWebDto::getCdsuo).distinct()
+                        ).collect(Collectors.toList());
+                    }
                 }
             } catch (FeignException e) {
                 log.warn("Person not found for principal {}", principal);
