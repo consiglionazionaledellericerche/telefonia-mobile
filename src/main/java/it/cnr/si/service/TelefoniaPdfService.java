@@ -20,6 +20,7 @@ package it.cnr.si.service;
 import it.cnr.si.domain.StoricoTelefono;
 import it.cnr.si.repository.StoricoTelefonoRepository;
 import it.cnr.si.web.rest.StoricoTelefonoResource;
+import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -74,9 +75,8 @@ public class TelefoniaPdfService {
         PDDocument doc = new PDDocument();
 
         PDPage page = new PDPage();
-        PDPage page2 = new PDPage();
 
-        PDImageXObject pdImage = PDImageXObject.createFromFileByContent(new File(this.getClass().getResource("/CNR_logo_pdf_p.png").getFile()), doc);
+        PDImageXObject pdImage = PDImageXObject.createFromByteArray(doc, IOUtils.toByteArray(this.getClass().getResourceAsStream("/CNR_logo_pdf_p.png")), "logo");
         //for(int p=0;p<i;p++) {
         doc.addPage(page);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
