@@ -97,11 +97,7 @@ export class StoricoTelefonoService {
         return res;
     }
 
-    pdf() {
-        const pluto = this.http.get('api/storico-telefonos/pdf');
-
-        pluto.subscribe((response: any) => {
-            this.dataUtils.openFile('application/pdf', response.b64);
-        });
+    pdf(): Observable<any> {
+        return this.http.get('api/storico-telefonos/pdf');
     }
 }

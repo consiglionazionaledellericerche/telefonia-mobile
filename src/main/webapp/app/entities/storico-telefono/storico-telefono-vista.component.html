@@ -21,7 +21,10 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <br><a (click)="openFile()" class="btn text-danger"><fa-icon [icon]="'file-pdf'"></fa-icon> Scarica pdf</a>
+    <br>
+        <a (click)="openFile()" class="btn text-danger">
+            <fa-icon *ngIf="!loadingPDF" [icon]="'file-pdf'"></fa-icon><fa-icon *ngIf="loadingPDF" [icon]="'spinner'" [spin]="true"></fa-icon> Scarica pdf
+        </a>
     <!--<a href="/storico-telefono/pdf">pdf</a><br><br>
     <a [href]="fileUrl" download="file.txt">DownloadFile</a>
 

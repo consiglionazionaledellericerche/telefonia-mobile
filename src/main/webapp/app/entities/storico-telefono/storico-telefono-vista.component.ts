@@ -34,6 +34,7 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
     reverse: any;
     name = 'Angular 5';
     fileUrl;
+    loadingPDF = false;
 
     constructor(
         private storicoTelefonoService: StoricoTelefonoService,
@@ -148,10 +149,10 @@ export class StoricoTelefonoVistaComponent implements OnInit, OnDestroy {
     }
 
     private pdf() {
-        this.storicoTelefonoService.pdf();
-        // const FileSaver = require('file-saver');
-        // FileSaver.saveAs(SERVER_API_URL + 'api/storico-telefonos', 'application/pdf');
-        // const blob = new Blob(['Hello, world!'], {type: 'text/plain;charset=utf-8'});
-        // FileSaver.saveAs(blob, 'hello world.txt');
+        this.loadingPDF = true;
+        this.storicoTelefonoService.pdf().subscribe((response: any) => {
+            this.loadingPDF = false;
+            this.dataUtils.openFile('application/pdf', response.b64);
+        });
     }
 }

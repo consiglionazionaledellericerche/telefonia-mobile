@@ -50,7 +50,8 @@ import {
     faMoneyCheckAlt,
     faHistory,
     faFilePdf,
-    faInfoCircle
+    faInfoCircle,
+    faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -99,4 +100,5 @@ library.add(faMoneyCheckAlt);
 library.add(faHistory);
 library.add(faFilePdf);
 library.add(faInfoCircle);
+library.add(faSpinner);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here
