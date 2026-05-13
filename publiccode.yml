@@ -1,11 +1,14 @@
 # This repository adheres to the publiccode.yml standard by including this
 # metadata file that makes public software easily discoverable.
-# More info at https://github.com/italia/publiccode.yml
+# More info at https://github.com/publiccodeyml/publiccode.yml
 
-publiccodeYmlVersion: '0.2'
+publiccodeYmlVersion: '0'
 name: telefoniamobile
 releaseDate: '2021-12-09'
 url: 'https://github.com/consiglionazionaledellericerche/telefonia-mobile'
+organisation:
+  name: Consiglio Nazionale delle Ricerche
+  uri: 'urn:x-italian-pa:cnr'
 softwareVersion: 2.0.11
 developmentStatus: stable
 softwareType: standalone/web
@@ -30,14 +33,6 @@ localisation:
   localisationReady: true
   availableLanguages:
     - it
-it:
-  riuso:
-    codiceIPA: cnr
-  conforme:
-    lineeGuidaDesign: yes
-    modelloInteroperabilita: yes
-    misureMinimeSicurezza: yes
-    gdpr: yes
 description:
   it:
     longDescription: >
@@ -45,13 +40,13 @@ description:
 
       ## **TELEFONO**
 
-        Premendo su “Telefoni” dal menù “Elenco funzionalità” si accede alla schermata “Lista Telefoni”
-        dalla quale si potrà visionare l’elenco di tutti i telefoi della Struttura se inseriti.
+        Premendo su "Telefoni" dal menù "Elenco funzionalità" si accede alla schermata "Lista Telefoni"
+        dalla quale si potrà visionare l'elenco di tutti i telefoi della Struttura se inseriti.
 
       ## **TELEFONO OPERATORE**
 
-        Per la codifica di un operatore dal menù “Elenco funzionalità” occorre cliccare sull’apposito campo “Telefono Operatore”
-        e cliccare su “Aggiungi un nuovo Telefono Operatore”, da qui è possibile associare al Telefono precedentemente inserito
+        Per la codifica di un operatore dal menù "Elenco funzionalità" occorre cliccare sull'apposito campo "Telefono Operatore"
+        e cliccare su "Aggiungi un nuovo Telefono Operatore", da qui è possibile associare al Telefono precedentemente inserito
         un operatore e le informazioni del contratto con una data di inizio e fine ed allegare il file del contratto stipulato.
 
       ## **TELEFONO SERVIZI**
@@ -65,7 +60,6 @@ description:
         - Traffico telefonico Nazionale, Traffico dati
 
     localisedName: Telefonia Mobile
-    genericName: Telefonia Mobile
     shortDescription: >-
         Telefonia Mobile permette di gestire i Telefoni aziendali assegnati ai dipendenti
     documentation: >-
